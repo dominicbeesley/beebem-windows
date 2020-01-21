@@ -102,7 +102,7 @@ BEGIN
     CONTROL         "[ {",IDK_OPEN_SQUARE,"Button",BS_OWNERDRAW | WS_TABSTOP,251,33,17,14
     CONTROL         "] }",IDK_CLOSE_SQUARE,"Button",BS_OWNERDRAW | WS_TABSTOP,256,48,17,14
     CONTROL         "\\ |",IDK_BACKSLASH,"Button",BS_OWNERDRAW | WS_TABSTOP,261,19,17,14
-    CONTROL         "_ £",IDK_UNDERSCORE,"Button",BS_OWNERDRAW | WS_TABSTOP,269,33,17,14
+    CONTROL         "_ Â£",IDK_UNDERSCORE,"Button",BS_OWNERDRAW | WS_TABSTOP,269,33,17,14
     CONTROL         "^ ~",IDK_CARET,"Button",BS_OWNERDRAW | WS_TABSTOP,243,19,17,14
     CONTROL         "SFT LK",IDK_SHIFT_LOCK,"Button",BS_OWNERDRAW | WS_TABSTOP,9,62,29,14
 END
@@ -212,7 +212,7 @@ BEGIN
             VALUE "FileDescription", "BeebEm"
             VALUE "FileVersion", "4.16 (Dossy Alpha)"
             VALUE "InternalName", "BeebEm"
-            VALUE "LegalCopyright", "Copyright © 2019"
+            VALUE "LegalCopyright", "Copyright Â© 2019"
             VALUE "OriginalFilename", "BeebEm.exe"
             VALUE "ProductName", "BeebEm"
             VALUE "ProductVersion", "4.16 (Dossy Alpha)"
@@ -704,14 +704,6 @@ BEGIN
         END
         MENUITEM "SW RAM Board On/Off",         IDM_SWRAMBOARD
         MENUITEM "Edit ROM Configuration",      IDM_ROMCONFIG
-        MENUITEM SEPARATOR
-        MENUITEM "&Ignore Illegal Instructions", IDM_IGNOREILLEGALOPS
-        POPUP "&Undocumented Instructions"
-        BEGIN
-            MENUITEM "&Documented Only",            ID_DOCONLY
-            MENUITEM "&Common Extras",              ID_EXTRAS
-            MENUITEM "&Full Set",                   ID_FULLSET
-        END
         MENUITEM SEPARATOR
         MENUITEM "Basic &Hardware Only",        ID_BHARDWARE
         MENUITEM "&Teletext Half Mode",         ID_TELETEXTHALFMODE

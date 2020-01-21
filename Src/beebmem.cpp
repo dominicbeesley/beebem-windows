@@ -345,8 +345,8 @@ int BeebReadMem(int Address) {
 	}
 	else if (MachineType == Model::BPlus) {
 		if (Address < 0x3000) return WholeRam[Address];
-		if (Address < 0x8000 && Sh_Display && PrePC >= 0xc000 && PrePC < 0xe000) return ShadowRAM[Address];
-		if (Address < 0x8000 && Sh_Display && MemSel && PrePC >= 0xa000 && PrePC < 0xb000) return ShadowRAM[Address];
+		if (Address < 0x8000 && Sh_Display && SysPrevSyncPC >= 0xc000 && SysPrevSyncPC < 0xe000) return ShadowRAM[Address];
+		if (Address < 0x8000 && Sh_Display && MemSel && SysPrevSyncPC >= 0xa000 && SysPrevSyncPC < 0xb000) return ShadowRAM[Address];
 		if (Address < 0x8000) return WholeRam[Address];
 		if (Address < 0xB000 && MemSel) return Private[Address-0x8000];
 		if (Address >= 0x8000 && Address < 0xc000) return Roms[ROMSEL][Address-0x8000];
@@ -368,7 +368,7 @@ int BeebReadMem(int Address) {
 			if (!Sh_CPUX && !Sh_CPUE) return WholeRam[Address];
 			if (Sh_CPUX) return ShadowRAM[Address];
 			if (Sh_CPUE && !Sh_CPUX) {
-				if (PrePC >= 0xc000 && PrePC < 0xe000) {
+				if (SysPrevSyncPC >= 0xc000 && SysPrevSyncPC < 0xe000) {
 					return ShadowRAM[Address];
 				}
 				else {
@@ -491,7 +491,7 @@ int BeebReadMem(int Address) {
 		if (!EconetNMIenabled) {  // was off
 			EconetNMIenabled = INTON;  // turn on
 			if (ADLC.status1 & 128) {			// irq pending?
-				NMIStatus |= 1 << nmi_econet;
+				SysNMIStatus |= 1 << SysNmi_econet;
 				if (DebugEnabled) DebugDisplayTrace(DebugType::Econet, true, "Econet: delayed NMI asserted");
 			}
 		}
@@ -621,12 +621,12 @@ void DebugMemoryState()
 			DebugDisplayInfoF("Hidden area address: 0x%01X", HidAdd);
 			break;
 		case Model::BPlus:
-			DebugDisplayInfoF("Shadow RAM: %s, %s", Sh_Display ? "enabled" : "disabled", Sh_Display && ((PrePC >= 0xC000 && PrePC < 0xE000) || (MemSel && PrePC >= 0xA000 && PrePC < 0xB000)) ? "selected" : "not selected");
+			DebugDisplayInfoF("Shadow RAM: %s, %s", Sh_Display ? "enabled" : "disabled", Sh_Display && ((SysPrevSyncPC >= 0xC000 && SysPrevSyncPC < 0xE000) || (MemSel && SysPrevSyncPC >= 0xA000 && SysPrevSyncPC < 0xB000)) ? "selected" : "not selected");
 			DebugDisplayInfoF("Private RAM: %s", MemSel ? "enabled" : "disabled");
 			break;
 		case Model::Master128:
 			DebugDisplayInfoF("ACCCON: IRR:%s TST:%s IFJ:%s ITU:%s Y:%s X:%s E:%s D:%s",
-				(intStatus & 0x80) != 0 ? "on" : "off",
+				(SysIntStatus & 0x80) != 0 ? "on" : "off",
 				(ACCCON & 0x40) != 0 ? "on" : "off",
 				(ACCCON & 0x20) != 0 ? "on" : "off",
 				(ACCCON & 0x10) != 0 ? "on" : "off",
@@ -662,7 +662,7 @@ static void FiddleACCCON(unsigned char newValue) {
 //	newValue&=143;
 //	if ((newValue & 128)==128) DoInterrupt();
 	ACCCON=newValue & 127; // mask out the IRR bit so that interrupts dont occur repeatedly
-	if (newValue & 128) intStatus|=128; else intStatus&=127;
+	if (newValue & 128) SysIntStatus|=128; else SysIntStatus&=127;
 	bool oldshd = Sh_Display;
 	Sh_Display = (ACCCON & 1) != 0;
 	if (Sh_Display != oldshd) RedoMPTR();
@@ -813,11 +813,11 @@ void BeebWriteMem(int Address, unsigned char Value) {
 		}
 
 		if (Address<0x8000) {
-			if (Sh_Display && PrePC >= 0xC000 && PrePC < 0xE000) {
+			if (Sh_Display && SysPrevSyncPC >= 0xC000 && SysPrevSyncPC < 0xE000) {
 				ShadowRAM[Address]=Value;
 				return;
 			}
-			else if (Sh_Display && MemSel && PrePC >= 0xA000 && PrePC < 0xB000) {
+			else if (Sh_Display && MemSel && SysPrevSyncPC >= 0xA000 && SysPrevSyncPC < 0xB000) {
 				ShadowRAM[Address]=Value;
 				return;
 			} else {
@@ -866,7 +866,7 @@ void BeebWriteMem(int Address, unsigned char Value) {
 				if (!Sh_CPUX && !Sh_CPUE) WholeRam[Address] = Value;
 				if (Sh_CPUX) ShadowRAM[Address] = Value;
 				if (Sh_CPUE && !Sh_CPUX) {
-					if ((PrePC>=0xc000) && (PrePC<0xe000)) ShadowRAM[Address]=Value; else WholeRam[Address]=Value;
+					if ((SysPrevSyncPC>=0xc000) && (SysPrevSyncPC<0xe000)) ShadowRAM[Address]=Value; else WholeRam[Address]=Value;
 				} 
 				break;
 			case 8:

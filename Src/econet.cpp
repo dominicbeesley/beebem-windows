@@ -1761,11 +1761,13 @@ bool EconetPoll_real(void) {		//return NMI status
 
 void debugADLCprint(void) {
 	char info[200];
+/*TODO: DB: put back
 	sprintf(info, "ADLC: Ctl:%02X %02X %02X %02X St:%02X %02X TXptr:%01x rx:%01x FF:%d IRQc:%02x SR2c:%02x PC:%04x 4W:%i ",
 			(int)ADLC.control1, (int)ADLC.control2, (int)ADLC.control3, (int)ADLC.control4,
 			(int)ADLC.status1, (int)ADLC.status2,
 			(int)ADLC.txfptr, (int)ADLC.rxfptr, FlagFillActive ? 1 : 0,
 			(int)irqcause, (int)sr1b2cause, (int)ProgramCounter, (int)fourwaystage);
+*/
 	DebugDisplayTrace(DebugType::Econet, true, info);
 }
 

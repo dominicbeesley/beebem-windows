@@ -86,7 +86,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE /* hPrevInstance */,
 		}
 
 		if (!mainWin->IsFrozen() && !mainWin->IsPaused()) {
-			Exec6502Instruction();
+			ExecSys2MCycle();
 		}
 	} while(1);
 

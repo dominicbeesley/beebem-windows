@@ -173,7 +173,6 @@ BeebWin::BeebWin()
 	m_SpVoice = NULL;
 	m_hTextView = NULL;
 	m_frozen = false;
-	IgnoreIllegalInstructions = true;
 	aviWriter = NULL;
 	m_WriteProtectDisc[0] = !IsDiscWritable(0);
 	m_WriteProtectDisc[1] = !IsDiscWritable(1);
@@ -493,8 +492,8 @@ void BeebWin::ResetBeebSystem(Model NewModelType, bool TubeStatus, bool LoadRoms
 	EnableTube=TubeStatus;
 	MachineType=NewModelType;
 	BeebMemInit(LoadRoms, m_ShiftBooted);
-	Init6502core();
-	if (EnableTube) Init65C02core();
+	InitSys();
+	if (EnableTube) InitTube65C02();
 #ifdef M512COPRO_ENABLED
 	if (Tube186Enabled) i86_main();
 #endif
@@ -963,7 +962,6 @@ void BeebWin::InitMenu(void)
 
 	SetRomMenu();
 	CheckMenuItem(IDM_SWRAMBOARD, SWRAMBoardEnabled);
-	CheckMenuItem(IDM_IGNOREILLEGALOPS, IgnoreIllegalInstructions);
 	UpdateOptiMenu();
 	UpdateEconetMenu();
 	CheckMenuItem(ID_TELETEXT, TeletextAdapterEnabled);
@@ -1430,8 +1428,8 @@ LRESULT CALLBACK WndProc(HWND hWnd,     // window handle
 					{
 						if(row==-2)
 						{ // Must do a reset!
-							Init6502core();
-							if (EnableTube) Init65C02core();
+							InitSys();
+							if (EnableTube) InitTube65C02();
 #ifdef M512COPRO_ENABLED
 							if (Tube186Enabled) i86_main();
 #endif
@@ -2468,9 +2466,6 @@ void BeebWin::UpdateLEDMenu() {
 }
 
 void BeebWin::UpdateOptiMenu() {
-	CheckMenuItem(ID_DOCONLY, OpCodes == 1);
-	CheckMenuItem(ID_EXTRAS, OpCodes == 2);
-	CheckMenuItem(ID_FULLSET, OpCodes == 3);
 	CheckMenuItem(ID_BHARDWARE, BHardware);
 	CheckMenuItem(ID_TELETEXTHALFMODE, TeletextHalfMode);
 	CheckMenuItem(ID_PSAMPLES, PartSamples);
@@ -3265,10 +3260,6 @@ void BeebWin::HandleCommand(int MenuId)
 		CheckMenuItem(IDM_HIDECURSOR, m_HideCursor);
 		break;
 
-	case IDM_IGNOREILLEGALOPS:
-		IgnoreIllegalInstructions = !IgnoreIllegalInstructions;
-		CheckMenuItem(IDM_IGNOREILLEGALOPS, IgnoreIllegalInstructions);
-		break;
 
 	case IDM_DEFINEKEYMAP:
 		UserKeyboardDialog( m_hWnd );
@@ -3662,21 +3653,6 @@ void BeebWin::HandleCommand(int MenuId)
 
 	case ID_TELETEXTHALFMODE:
 		TeletextHalfMode = !TeletextHalfMode;
-		UpdateOptiMenu();
-		break;
-
-	case ID_DOCONLY:
-		OpCodes=1;
-		UpdateOptiMenu();
-		break;
-
-	case ID_EXTRAS:
-		OpCodes=2;
-		UpdateOptiMenu();
-		break;
-
-	case ID_FULLSET:
-		OpCodes=3;
 		UpdateOptiMenu();
 		break;
 

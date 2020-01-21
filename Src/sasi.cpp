@@ -396,9 +396,11 @@ void SASIExecute(void)
 			SASIControllerDiagnostics();
 			return;
 	}
-	
+
+/*TODO: DB: put back
 	fprintf(stderr, "Unknown Command 0x%02x, Param 1=0x%02x, Param 2=0x%02x, Param 3=0x%02x, Param 4=0x%02x, Param 5=0x%02x, Phase = %d, PC = 0x%04x\n", 
 			sasi.cmd[0], sasi.cmd[1], sasi.cmd[2], sasi.cmd[3], sasi.cmd[4], sasi.cmd[5], sasi.phase, ProgramCounter);
+*/
 
 	sasi.status = (sasi.lun << 5) | 0x02;
 	sasi.message = 0x00;

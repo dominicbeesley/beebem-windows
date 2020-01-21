@@ -238,7 +238,9 @@ void TeletextWrite(int Address, int Value)
     if (!TeletextAdapterEnabled)
         return;
 
+	/*TODO: DB: put back
     TeletextLog("TeletextWrite Address = 0x%02x, Value = 0x%02x, PC = 0x%04x\n", Address, Value, ProgramCounter);
+	*/
 
     switch (Address)
     {
@@ -249,9 +251,9 @@ void TeletextWrite(int Address, int Value)
 
             TeletextInts = (Value & 0x08) == 0x08;
             if (TeletextInts && (TeletextStatus & 0x80))
-                intStatus |= (1 << teletext); // Interrupt if INT and interrupts enabled
+                SysIntStatus |= (1 << SysIrq_Teletext); // Interrupt if INT and interrupts enabled
             else
-                intStatus &= ~(1 << teletext); // Clear interrupt
+                SysIntStatus &= ~(1 << SysIrq_Teletext); // Clear interrupt
 
             TeletextEnable = (Value & 0x04) == 0x04;
 
@@ -272,7 +274,7 @@ void TeletextWrite(int Address, int Value)
 
         case 0x03:
             TeletextStatus &= ~0xD0; // Clear INT, DOR, and FSYN latches
-            intStatus &= ~(1 << teletext); // Clear interrupt
+            SysIntStatus &= ~(1 << SysIrq_Teletext); // Clear interrupt
             break;
     }
 }
@@ -292,20 +294,23 @@ int TeletextRead(int Address)
     case 0x01:          // Row Register
         break;
     case 0x02:          // Data Register
-        if (colPtr == 0x00)
+	/*TODO: DB: put back
+		if (colPtr == 0x00)
             TeletextLog("TeletextRead Reading Row %d, PC = 0x%04x\n", rowPtr, ProgramCounter);
         // TeletextLog("TeletextRead Returning Row %d, Col %d, Data %d, PC = 0x%04x\n", rowPtr, colPtr, row[rowPtr][colPtr], ProgramCounter);
-
+		*/
         data = row[rowPtr][colPtr++];
         break;
 
     case 0x03:
         TeletextStatus &= ~0xD0;       // Clear INT, DOR, and FSYN latches
-        intStatus &= ~(1 << teletext);
+        SysIntStatus &= ~(1 << SysIrq_Teletext);
         break;
     }
 
+	/*TODO: DB: put back
     TeletextLog("TeletextRead Address = 0x%02x, Value = 0x%02x, PC = 0x%04x\n", Address, data, ProgramCounter);
+	*/
 
     return data;
 }
@@ -403,5 +408,5 @@ void TeletextPoll(void)
     colPtr = 0x00;
 
     if (TeletextInts)
-        intStatus |= 1 << teletext;
+        SysIntStatus |= 1 << SysIrq_Teletext;
 }

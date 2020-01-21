@@ -872,12 +872,13 @@ bool DebugDisassembler(int addr, int prevAddr, int Accumulator, int XReg, int YR
 	// Don't process further if we're not debugging the parasite either
 	if (!host && !DebugParasite)
 		return(TRUE);
-
+/*TODO: DB: put back
 	if (BRKOn && DebugReadMem(addr, host) == 0)
 	{
 		DebugBreakExecution(DebugType::BRK);
 		ProgramCounter++;
 	}
+*/
 
 	// Check breakpoints
 	if (BPSOn)
@@ -972,13 +973,13 @@ bool DebugDisassembler(int addr, int prevAddr, int Accumulator, int XReg, int YR
 
 		sprintf(str + strlen(str), "A=%02X X=%02X Y=%02X S=%02X ", Accumulator, XReg, YReg, StackReg);
 
-		sprintf(str + strlen(str), (PSR & FlagC) ? "C" : ".");
-		sprintf(str + strlen(str), (PSR & FlagZ) ? "Z" : ".");
-		sprintf(str + strlen(str), (PSR & FlagI) ? "I" : ".");
-		sprintf(str + strlen(str), (PSR & FlagD) ? "D" : ".");
-		sprintf(str + strlen(str), (PSR & FlagB) ? "B" : ".");
-		sprintf(str + strlen(str), (PSR & FlagV) ? "V" : ".");
-		sprintf(str + strlen(str), (PSR & FlagN) ? "N" : ".");
+		sprintf(str + strlen(str), (PSR & Flag65C) ? "C" : ".");
+		sprintf(str + strlen(str), (PSR & Flag65Z) ? "Z" : ".");
+		sprintf(str + strlen(str), (PSR & Flag65I) ? "I" : ".");
+		sprintf(str + strlen(str), (PSR & Flag65D) ? "D" : ".");
+		sprintf(str + strlen(str), (PSR & Flag65B) ? "B" : ".");
+		sprintf(str + strlen(str), (PSR & Flag65V) ? "V" : ".");
+		sprintf(str + strlen(str), (PSR & Flag65N) ? "N" : ".");
 
 		if (!host)
 			sprintf(str + strlen(str), "  Parasite");
@@ -1058,7 +1059,7 @@ bool DebugLookupAddress(int addr, AddrInfo* addrInfo)
 				sprintf(addrInfo->desc,"Shadow RAM (ACCCON bit 2 set)");
 				return true;
 			}
-			if((ACCCON & 0x02) && PrePC >= 0xC000 && PrePC <= 0xDFFF && addr >= 0x3000 && addr <= 0x7FFF)
+			if((ACCCON & 0x02) && SysPrevSyncPC >= 0xC000 && SysPrevSyncPC <= 0xDFFF && addr >= 0x3000 && addr <= 0x7FFF)
 			{
 				addrInfo->start = 0x3000;
 				addrInfo->end = 0x7FFF;
@@ -1072,12 +1073,12 @@ bool DebugLookupAddress(int addr, AddrInfo* addrInfo)
 			{
 				addrInfo->start = 0x3000;
 				addrInfo->end = 0x7FFF;
-				if (Sh_Display && PrePC>=0xC000 && PrePC<=0xDFFF)
+				if (Sh_Display && SysPrevSyncPC>=0xC000 && SysPrevSyncPC<=0xDFFF)
 				{
 					sprintf(addrInfo->desc,"Shadow RAM (PC in VDU driver)");
 					return true;
 				}
-				else if(Sh_Display && MemSel && PrePC>=0xA000 && PrePC <=0xAFFF)
+				else if(Sh_Display && MemSel && SysPrevSyncPC>=0xA000 && SysPrevSyncPC <=0xAFFF)
 				{
 					addrInfo->start = 0x3000;
 					addrInfo->end = 0x7FFF;
@@ -1454,6 +1455,7 @@ bool DebugCmdGoto(char* args)
 		args++;
 	}
 
+/*TODO: DB: put back
 	if(sscanf(args, "%x", &addr) == 1)
 	{
 		addr = addr & 0xffff;
@@ -1465,6 +1467,7 @@ bool DebugCmdGoto(char* args)
 		DebugDisplayInfoF("Next %s instruction address 0x%04X", host ? "host" : "parasite", addr);
 		return true;
 	}
+*/
 	return false;
 }
 

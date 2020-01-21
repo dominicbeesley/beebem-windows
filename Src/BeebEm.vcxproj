@@ -92,7 +92,7 @@
       <PreprocessorDefinitions>MODET;MODE32;BEEBEM;WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>/source-charset:windows-1252 /execution-charset:windows-1252 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>Hardware\reSID;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Hardware\reSID;..\cpu65x\m6502;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -129,7 +129,7 @@
       <PreprocessorDefinitions>MODET;MODE32;BEEBEM;WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>/source-charset:windows-1252 /execution-charset:windows-1252 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>Hardware\reSID;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Hardware\reSID;..\cpu65x\m6502;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -380,6 +380,10 @@
     <Text Include="..\README.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\cpu65x\m6502\m6502.vcxproj">
+      <Project>{e45d81f7-6b4c-46a3-a3c3-8ac06e81abd1}</Project>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
     <ProjectReference Include="Hardware\reSID\reSID.vcxproj">
       <Project>{5dea03a2-e54c-41d7-93ee-b37a9db7441a}</Project>
     </ProjectReference>

@@ -165,10 +165,10 @@ typedef void (*CommandFunc)(void);
 
 #define UPDATENMISTATUS                           \
   if (StatusReg & STATUS_REG_INTERRUPT_REQUEST) { \
-    NMIStatus |= 1 << nmi_floppy;                 \
+    SysNMIStatus |= 1 << SysNmi_floppy;                 \
   }                                               \
   else {                                          \
-    NMIStatus &= ~(1 << nmi_floppy);              \
+    SysNMIStatus &= ~(1 << SysNmi_floppy);              \
   }
 
 /*--------------------------------------------------------------------------*/

@@ -36,7 +36,6 @@ extern bool EnableTube, TubeEnabled, AcornZ80;
 extern bool Tube186Enabled;
 #endif
 extern bool TorchTubeActive;
-extern int TubeProgramCounter;
 const int TubeBufferLength = 24;
 extern unsigned char TubeintStatus; /* bit set (nums in IRQ_Nums) if interrupt being caused */
 extern unsigned char TubeNMIStatus; /* bit set (nums in NMI_Nums) if NMI being caused */
@@ -56,15 +55,13 @@ typedef enum TubeNMI {
 
 /*-------------------------------------------------------------------------*/
 /* Initialise 6502core                                                     */
-void Init65C02core(void);
+void InitTube65C02(void);
 
 /*-------------------------------------------------------------------------*/
 /* Execute one 6502 instruction, move program counter on                   */
-void Exec65C02Instruction(void);
+void ExecTube65C02Cycle(void);
+void ResetTube65C02();
 
-void DoTubeNMI(void);
-void DoTubeInterrupt(void);
-void WrapTubeCycles(void);
 void SyncTubeProcessor(void);
 unsigned char ReadTubeFromHostSide(unsigned char IOAddr);
 unsigned char ReadTubeFromParasiteSide(unsigned char IOAddr);

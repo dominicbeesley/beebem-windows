@@ -31,62 +31,54 @@ Boston, MA  02110-1301, USA.
 void DumpRegs(void);
 
 typedef enum IRQ_Nums {
-  sysVia,
-  userVia,
-  serial,
-  tube,
-  teletext,
-  hdc,
-} IRQ_Nums;
+	SysIrq_SysVia,
+	SysIrq_UserVia,
+	SysIrq_Serial,
+	SysIrq_Tube,
+	SysIrq_Teletext,
+	SysIrq_Hdc,
+} SysIrq_Nums;
 
-typedef enum NMI_Nums{
-	nmi_floppy,
-	nmi_econet,
-} NMI_Nums;
+typedef enum NMI_Nums {
+	SysNmi_floppy,
+	SysNmi_econet,
+} SysNmi_Nums;
 
 typedef enum PSR_Flags
 {
-  FlagC=1,
-  FlagZ=2,
-  FlagI=4,
-  FlagD=8,
-  FlagB=16,
-  FlagV=64,
-  FlagN=128
-} PSR_Flags;
+	Flag65C = 1,
+	Flag65Z = 2,
+	Flag65I = 4,
+	Flag65D = 8,
+	Flag65B = 16,
+	Flag65V = 64,
+	Flag65N = 128
+} PSR6502_Flags;
 
-extern bool IgnoreIllegalInstructions;
 
-extern unsigned char intStatus;
-extern unsigned char NMIStatus;
-extern unsigned int Cycles;
-extern int ProgramCounter;
-extern int PrePC;
+extern unsigned char SysIntStatus;
+extern unsigned char SysNMIStatus;
+extern unsigned int SysCycles;
+extern int SysPrevSyncPC;
 extern CycleCountT TotalCycles;
-extern bool NMILock;
 extern int DisplayCycles;
-
 extern int CyclesToInt;
 #define NO_TIMER_INT_DUE -1000000
 
 #define SetTrigger(after, var) var = TotalCycles + (after)
 #define IncTrigger(after, var) var += (after)
-
 #define ClearTrigger(var) var=CycleCountTMax;
-
 #define AdjustTrigger(var) if (var!=CycleCountTMax) var-=CycleCountWrap;
 
 /*-------------------------------------------------------------------------*/
 /* Initialise 6502core                                                     */
-void Init6502core(void);
+void InitSys(void);
 
 /*-------------------------------------------------------------------------*/
 /* Execute one 6502 instruction, move program counter on                   */
-void Exec6502Instruction(void);
+void ExecSys2MCycle(void);
 
-void DoNMI(void);
 void core_dumpstate(void);
-void DoInterrupt(void);
 void Save6502UEF(FILE *SUEF);
 void Load6502UEF(FILE *SUEF);
 void SyncIO(void);
@@ -97,6 +89,5 @@ void AdjustForIOWrite(void);
 int i186_execute(int num_cycles);
 #endif
 
-extern int OpCodes;
 extern bool BHardware;
 #endif

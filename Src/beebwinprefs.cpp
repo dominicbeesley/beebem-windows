@@ -419,8 +419,6 @@ void BeebWin::LoadPreferences()
 		Tube186Enabled = false;
 #endif
     
-	if (!m_Preferences.GetBinaryValue("OpCodes", &OpCodes, 1))
-		OpCodes=2;
 	if (!m_Preferences.GetBoolValue("Basic Hardware", BHardware))
 		BHardware = false;
 	if (!m_Preferences.GetBoolValue("Teletext Half Mode", TeletextHalfMode))
@@ -676,7 +674,6 @@ void BeebWin::SavePreferences(bool saveAll)
 		m_Preferences.SetBoolValue("Tube186Enabled", Tube186Enabled);
 #endif
 
-		m_Preferences.SetBinaryValue("OpCodes", &OpCodes, 1);
 		m_Preferences.SetBoolValue("Basic Hardware", BHardware);
 		m_Preferences.SetBoolValue("Teletext Half Mode", TeletextHalfMode);
 		m_Preferences.SetBoolValue("TeletextAdapterEnabled", TeletextAdapterEnabled);

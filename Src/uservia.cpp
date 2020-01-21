@@ -92,8 +92,8 @@ static void UpdateIFRTopBit(void) {
     UserVIAState.ifr|=0x80;
   else
     UserVIAState.ifr&=0x7f;
-  intStatus&=~(1<<userVia);
-  intStatus|=((UserVIAState.ifr & 128)?(1<<userVia):0);
+  SysIntStatus&=~(1<<SysIrq_UserVia);
+  SysIntStatus|=((UserVIAState.ifr & 128)?(1<<SysIrq_UserVia):0);
 }
 
 /*--------------------------------------------------------------------------*/

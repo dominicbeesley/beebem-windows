@@ -23,6 +23,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Installer", "InnoSetup\Inst
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "reSID", "Hardware\reSID\reSID.vcxproj", "{5DEA03A2-E54C-41D7-93EE-B37A9DB7441A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cpu65x", "cpu65x", "{A91BF51F-E82F-4947-81A4-EE9CE881A8E8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "m6502", "..\cpu65x\m6502\m6502.vcxproj", "{E45D81F7-6B4C-46A3-A3C3-8AC06E81ABD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -79,9 +83,20 @@ Global
 		{5DEA03A2-E54C-41D7-93EE-B37A9DB7441A}.Release|x64.Build.0 = Release|x64
 		{5DEA03A2-E54C-41D7-93EE-B37A9DB7441A}.Release|x86.ActiveCfg = Release|Win32
 		{5DEA03A2-E54C-41D7-93EE-B37A9DB7441A}.Release|x86.Build.0 = Release|Win32
+		{E45D81F7-6B4C-46A3-A3C3-8AC06E81ABD1}.Debug|x64.ActiveCfg = Debug|x64
+		{E45D81F7-6B4C-46A3-A3C3-8AC06E81ABD1}.Debug|x64.Build.0 = Debug|x64
+		{E45D81F7-6B4C-46A3-A3C3-8AC06E81ABD1}.Debug|x86.ActiveCfg = Debug|Win32
+		{E45D81F7-6B4C-46A3-A3C3-8AC06E81ABD1}.Debug|x86.Build.0 = Debug|Win32
+		{E45D81F7-6B4C-46A3-A3C3-8AC06E81ABD1}.Release|x64.ActiveCfg = Release|x64
+		{E45D81F7-6B4C-46A3-A3C3-8AC06E81ABD1}.Release|x64.Build.0 = Release|x64
+		{E45D81F7-6B4C-46A3-A3C3-8AC06E81ABD1}.Release|x86.ActiveCfg = Release|Win32
+		{E45D81F7-6B4C-46A3-A3C3-8AC06E81ABD1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E45D81F7-6B4C-46A3-A3C3-8AC06E81ABD1} = {A91BF51F-E82F-4947-81A4-EE9CE881A8E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F58C295E-BB0A-4433-AD3A-CF45570A7DBF}
