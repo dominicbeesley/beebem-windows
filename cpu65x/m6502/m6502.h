@@ -24,7 +24,7 @@ public:
 		V_LINE = INPUT_LINE_IRQ0 + 16
 	};
 
-	m6502_device();
+	m6502_device(void);
 	   
 	friend std::ostream& operator<<(std::ostream& o, m6502_device &dev);
 

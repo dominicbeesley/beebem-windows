@@ -40,7 +40,7 @@ void SysVIAReset(void);
 
 void SysVIA_poll_real(void);
 
-void SysVIA_poll(unsigned int ncycles);
+void SysVIA_poll();
 
 void BeebKeyUp(int row, int col);
 void BeebKeyDown(int row, int col);

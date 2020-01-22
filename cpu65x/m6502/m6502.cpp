@@ -62,7 +62,7 @@ std::ostream& operator<<(std::ostream& o, m6502_device &dev)
 
 
 
-m6502_device::m6502_device() :
+m6502_device::m6502_device(void) :
 	cpu_device(),
 	//sync_w(*this),
 	PPC(0), NPC(0), PC(0), SP(0), TMP(0), TMP2(0), A(0), X(0), Y(0), P(0), IR(0), DAT(0),

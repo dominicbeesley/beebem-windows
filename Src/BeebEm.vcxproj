@@ -130,6 +130,8 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>/source-charset:windows-1252 /execution-charset:windows-1252 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>Hardware\reSID;..\cpu65x\m6502;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

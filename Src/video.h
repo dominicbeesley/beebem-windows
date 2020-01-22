@@ -65,7 +65,7 @@ void VideoGetText(char *text, int line);
 
 extern bool TeletextEnabled;
 
-#define VideoPoll(ncycles) if ((VideoTriggerCount)<=TotalCycles) VideoDoScanLine();
+#define VideoPoll() if ((VideoTriggerCount)<=TotalCycles) VideoDoScanLine();
 
 // Allow enough lines for all modes.
 // i.e. max(vertical total * scan lines per char) = 39 * 8  (mode 7 excluded)

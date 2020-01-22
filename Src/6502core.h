@@ -76,7 +76,8 @@ void InitSys(void);
 
 /*-------------------------------------------------------------------------*/
 /* Execute one 6502 instruction, move program counter on                   */
-void ExecSys2MCycle(void);
+void ExecSys2MCycles(void);
+void ExecSys2MCycles(int n);
 
 void core_dumpstate(void);
 void Save6502UEF(FILE *SUEF);

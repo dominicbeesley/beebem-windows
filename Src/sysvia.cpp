@@ -593,17 +593,20 @@ void SysVIA_poll_real(void) {
   }
 } /* SysVIA_poll */
 
-void SysVIA_poll(unsigned int ncycles) {
+void SysVIA_poll() {
 	// Converted to a proc to allow shift register functions
 //	ChipClock(ncycles);
 
-  SysVIAState.timer1c-=ncycles;
+  SysVIAState.timer1c--;
   if (!(SysVIAState.acr & 0x20))
-    SysVIAState.timer2c-=ncycles;
+    SysVIAState.timer2c--;
   if ((SysVIAState.timer1c<0) || (SysVIAState.timer2c<0)) SysVIA_poll_real();
 
   // Ensure that CA2 keyboard interrupt is asserted when key pressed
-  DoKbdIntCheck(); 
+  //TODO: DB: this is a speed hack - is it sensible
+  if ((TotalCycles & 7) == 0) {
+	  DoKbdIntCheck();
+  }
 
   // Do Shift register stuff
 //  if (SRMode==2) {

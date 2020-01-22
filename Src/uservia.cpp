@@ -433,12 +433,12 @@ void UserVIA_poll_real(void) {
   }
 }
 
-void UserVIA_poll(unsigned int ncycles) {
+void UserVIA_poll() {
   // Converted to a proc to allow shift register functions
 
-  UserVIAState.timer1c-=ncycles;
+  UserVIAState.timer1c--;
   if (!(UserVIAState.acr & 0x20))
-    UserVIAState.timer2c-=ncycles;
+    UserVIAState.timer2c--;
   if ((UserVIAState.timer1c<0) || (UserVIAState.timer2c<0)) UserVIA_poll_real();
 
   if (AMXMouseEnabled && AMXTrigger<=TotalCycles) AMXMouseMovement();

@@ -72,8 +72,8 @@ unsigned char SysIntStatus;
 unsigned char SysNMIStatus;
 bool BHardware;
 
-void PollVIAs(unsigned int nCycles);
-void PollHardware(unsigned int nCycles);
+void PollVIAs();
+void PollHardware(int nCycles);
 
 extern CArm *arm;
 extern CSprowCoPro *sprow;
@@ -101,7 +101,12 @@ void SyncIO() {
 
 }
 
-void ExecSys2MCycle() {
+void ExecSys2MCycles(int n) {
+	for (int i = 0; i < n; i++)
+		ExecSys2MCycles();
+}
+
+void ExecSys2MCycles() {
 
 	/* TODO: DB: put back debugger stuff*/
 
@@ -143,11 +148,16 @@ void ExecSys2MCycle() {
 		mainWin->SpeakChar(Accumulator);
 	*/
 
-	PollVIAs(1);
-	PollHardware(1);
+	TotalCycles ++;
 
+	PollVIAs();
+	PollHardware(1);
+	
+	/*TODO: DB: Put back
+	/*
 	if (EnableTube)
 		SyncTubeProcessor();
+	*/
 
 }
 
@@ -156,25 +166,18 @@ void InitSys() {
 	m6502.reset();
 }
 
-void PollVIAs(unsigned int nCycles)
+void PollVIAs()
 {
-	if (nCycles != 0)
-	{
-		if (CyclesToInt != NO_TIMER_INT_DUE)
-			CyclesToInt -= nCycles;
+	if (CyclesToInt != NO_TIMER_INT_DUE)
+		CyclesToInt --;
 
-		SysVIA_poll(nCycles);
-		UserVIA_poll(nCycles);
+	SysVIA_poll();
+	UserVIA_poll();
 
-		/*TODO: DB: remove?
-		ViaCycles += nCycles;
-		*/
-	}
 }
 
-void PollHardware(unsigned int nCycles)
+void PollHardware(int nCycles)
 {
-	TotalCycles += nCycles;
 
 	if (TotalCycles > CycleCountWrap)
 	{
@@ -200,13 +203,13 @@ void PollHardware(unsigned int nCycles)
 		AtoD_poll(nCycles);
 		Serial_Poll();
 	}
-	Disc8271Poll();
+	Disc8271Poll(nCycles);
 	Music5000Poll(nCycles);
 	Hog1MPaulaPoll(nCycles);
 	SIDPoll(nCycles);
 	Sound_Trigger(nCycles);
-	if (DisplayCycles > 0) DisplayCycles -= nCycles; // Countdown time till end of display of info.
-	if (MachineType == Model::Master128 || !NativeFDC) Poll1770(nCycles); // Do 1770 Background stuff
+	if (DisplayCycles > 0) DisplayCycles-=nCycles; // Countdown time till end of display of info.
+	if (MachineType == Model::Master128 || !NativeFDC) Poll1770(1); // Do 1770 Background stuff
 
 	if (EconetEnabled && EconetPoll()) {
 		if (EconetNMIenabled) {

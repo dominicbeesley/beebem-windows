@@ -1822,7 +1822,8 @@ bool BeebWin::UpdateTiming()
 			}
 
 			DWORD SpareTicks = (DWORD)(nCycles / 2000) - Ticks;
-			Sleep(SpareTicks);
+			if (SpareTicks > 2)
+				Sleep(SpareTicks-1);
 			m_MinFrameCount = 0;
 		}
 		else

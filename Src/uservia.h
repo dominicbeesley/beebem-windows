@@ -37,7 +37,7 @@ extern bool SWRAMBoardEnabled;
 void UserVIAWrite(int Address, int Value);
 int UserVIARead(int Address);
 void UserVIAReset(void);
-void UserVIA_poll(unsigned int ncycles);
+void UserVIA_poll();
 
 void uservia_dumpstate(void);
 
