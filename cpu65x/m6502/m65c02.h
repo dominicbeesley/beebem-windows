@@ -21,8 +21,10 @@ public:
 
 protected:
 
+	void postfetch() override;
 	void prefetch() override;
 	void fetch() override;
+	void fetch_noirq() override;
 
 	#include "m65c02.hxx"
 

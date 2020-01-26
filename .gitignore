@@ -30,6 +30,7 @@ cpu65x/dorman_irq/Debug/*
 cpu65x/dorman_irq/Release/*
 cpu65x/m6502/Debug/*
 cpu65x/m6502/Release/*
+cpu65x/m6502/x64/*
 cpu65x/test1/Debug/*
 cpu65x/test1/Release/*
 cpu65x/test2/Debug/*
@@ -40,4 +41,5 @@ cpu65x/testasm/*.mos
 cpu65x/testasm/*.sy2
 cpu65x/testasm/*.noi
 *.bak
+
 

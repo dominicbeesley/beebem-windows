@@ -58,6 +58,7 @@ Boston, MA  02110-1301, USA.
 #include "Arm.h"
 #include "sprowcopro.h"
 #include "m6502.h"
+#include "m65c02.h"
 
 #ifdef WIN32
 #define INLINE inline
@@ -84,7 +85,7 @@ int DisplayCycles=0;
 int SysPrevSyncPC;
 
 
-m6502_device m6502;
+m6502_device *m6502;
 
 
 
@@ -127,20 +128,24 @@ void ExecSys2MCycles() {
 		i186_execute(12 * 4);
 #endif
 
-	static bool prevNMI = false;
-	bool nowNMI = (SysNMIStatus != 0) ? true : false;
+	if (m6502 != NULL) {
+		static bool prevNMI = false;
+		bool nowNMI = (SysNMIStatus != 0) ? true : false;
 
-	m6502.execute_set_input(M6502_IRQ_LINE, (SysIntStatus) ? ASSERT_LINE : CLEAR_LINE);
-	if (prevNMI == false && nowNMI == true)
-		m6502.execute_set_input(M6502_NMI_LINE, ASSERT_LINE);
-	prevNMI = nowNMI;
+		m6502->execute_set_input(M6502_IRQ_LINE, (SysIntStatus) ? ASSERT_LINE : CLEAR_LINE);
+		if (prevNMI == false && nowNMI == true)
+			m6502->execute_set_input(M6502_NMI_LINE, ASSERT_LINE);
+		prevNMI = nowNMI;
 
-	m6502.tick();
-	if (m6502.getRNW())
-		m6502.setDATA(BeebReadMem(m6502.getADDR()));
-	else
-		BeebWriteMem(m6502.getADDR(), m6502.getDATA());
-
+		m6502->tick();
+		uint16_t a = m6502->getADDR();
+		if (m6502->get_sync())
+			SysPrevSyncPC = a;
+		if (m6502->getRNW())
+			m6502->setDATA(BeebReadMem(a));
+		else
+			BeebWriteMem(a, m6502->getDATA());
+	}
 	/*TODO: DB: Put back
 	// Check for WRCHV, send char to speech output
 	if (mainWin->m_TextToSpeechEnabled &&
@@ -162,8 +167,14 @@ void ExecSys2MCycles() {
 }
 
 void InitSys() {
-	m6502.start();
-	m6502.reset();
+	if (m6502)
+		delete m6502;
+	if (MachineType == Model::Master128)
+		m6502 = new m65c02_device();
+	else
+		m6502 = new m6502_device();
+	m6502->start();
+	m6502->reset();
 }
 
 void PollVIAs()
@@ -228,9 +239,11 @@ void PollHardware(int nCycles)
 
 /*-------------------------------------------------------------------------*/
 void Save6502UEF(FILE *SUEF) {
+	/*TODO: DB: put back*/
 }
 
 void Load6502UEF(FILE *SUEF) {
+	/*TODO: DB: put back*/
 }
 
 /*-------------------------------------------------------------------------*/

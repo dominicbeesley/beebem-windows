@@ -62,13 +62,14 @@ std::ostream& operator<<(std::ostream& o, m6502_device &dev)
 
 
 
-m6502_device::m6502_device(void) :
+/*m6502_device::m6502_device() :
 	cpu_device(),
 	//sync_w(*this),
 	PPC(0), NPC(0), PC(0), SP(0), TMP(0), TMP2(0), A(0), X(0), Y(0), P(0), IR(0), DAT(0),
 	NextFn(&m6502_device::reset_0), nmi_state(false), irq_state(false), v_state(false), irq_taken(false), sync(false), inhibit_interrupts(false)
 {
 }
+*/
 
 void m6502_device::device_start()
 {

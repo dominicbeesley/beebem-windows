@@ -24,7 +24,7 @@ public:
 		V_LINE = INPUT_LINE_IRQ0 + 16
 	};
 
-	m6502_device(void);
+	/*m6502_device();*/
 	   
 	friend std::ostream& operator<<(std::ostream& o, m6502_device &dev);
 
@@ -82,7 +82,7 @@ protected:
 	bool nmi_state, irq_state, v_state;
 	bool irq_taken, sync, inhibit_interrupts;
 
-	void postfetch();
+	virtual void postfetch();
 	virtual void prefetch();
 	virtual void fetch();
 	virtual void fetch_noirq();
