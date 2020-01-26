@@ -14,6 +14,10 @@
 
 #include "m65c02.h"
 
+class m65ce02_device;
+
+#include "m65ce02.top.hxx"
+
 class m65ce02_device : public m65c02_device {
 public:
 	m65ce02_device();
@@ -30,15 +34,9 @@ protected:
 	inline void dec_SP_ce() { if(P & F_E) SP = set_l(SP, SP-1); else SP--; }
 	inline void inc_SP_ce() { if(P & F_E) SP = set_l(SP, SP+1); else SP++; }
 
-	void prefetch() override;
-	void fetch() override;
-
 	#include "m65ce02.hxx"
 
 private:
-	typedef void (m65ce02_device::*StatFn)();
-	StatFn	  NextFn;
-	StatFn	  PrefetchNextFn;
 
 };
 

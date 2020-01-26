@@ -93,6 +93,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -109,11 +110,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -152,15 +157,22 @@
     <ClInclude Include="emu.h" />
     <ClInclude Include="m6502.h" />
     <ClInclude Include="m6502.hxx" />
+    <ClInclude Include="m6502.top.hxx" />
     <ClInclude Include="m65c02.h" />
     <ClInclude Include="m65c02.hxx" />
+    <ClInclude Include="m65c02.top.hxx" />
     <ClInclude Include="m65ce02.h" />
     <ClInclude Include="m65ce02.hxx" />
+    <ClInclude Include="m65ce02.top.hxx" />
     <ClInclude Include="m65sc02.h" />
+    <ClInclude Include="mametypes.h" />
     <ClInclude Include="r65c02.h" />
     <ClInclude Include="r65c02.hxx" />
+    <ClInclude Include="r65c02.top.hxx" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClCompile Include="m65x_device.cpp" />
+    <ClCompile Include="m65x_device.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="devcpu.cpp" />
@@ -188,10 +200,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">perl makehxx.pl r65c02 - %(Fullpath) r65c02.hxx r65c02.cxx</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">perl makehxx.pl  r65c02 - %(Fullpath) r65c02.hxx r65c02.cxx </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">perl makehxx.pl r65c02 - %(Fullpath) r65c02.hxx r65c02.top.hxx r65c02.cxx</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">perl makehxx.pl  r65c02 - %(Fullpath) r65c02.hxx r65c02.top.hxx r65c02.cxx </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">m6502.hxx</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">m6502.hxx</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">m6502.top.hxx</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">m6502.top.hxx</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">m6502.cxx</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">m6502.cxx</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">dm6502.lst</AdditionalInputs>
@@ -203,14 +217,16 @@
     <CustomBuild Include="om6502.lst">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">perl makehxx.pl m6502 %(Fullpath)  dm6502.lst m6502.hxx m6502.cxx</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">perl makehxx.pl m6502 %(Fullpath)  dm6502.lst m6502.hxx m6502.top.hxx m6502.cxx</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">m6502.hxx</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">m6502.top.hxx</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">m6502.cxx</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">dm6502.lst</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">makehxx.pl</AdditionalInputs>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">perl makehxx.pl m6502 %(Fullpath)  dm6502.lst m6502.hxx m6502.cxx</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">perl makehxx.pl m6502 %(Fullpath)  dm6502.lst m6502.hxx m6502.top.hxx m6502.cxx</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">m6502.hxx</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">m6502.top.hxx</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">m6502.cxx</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">dm6502.lst</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">makehxx.pl</AdditionalInputs>
@@ -218,14 +234,15 @@
     <CustomBuild Include="om65c02.lst">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">perl makehxx.pl m65c02 %(Fullpath)  dm65c02.lst m65c02.hxx m65c02.cxx</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">perl makehxx.pl m65c02 %(Fullpath)  dm65c02.lst m65c02.hxx m65c02.top.hxx m65c02.cxx</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">m65c02.hxx</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">m65c02.cxx</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">dm65c02.lst</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">makehxx.pl</AdditionalInputs>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">perl makehxx.pl m65c02 %(Fullpath)  dm65c02.lst m65c02.hxx m65c02.cxx</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">perl makehxx.pl m65c02 %(Fullpath)  dm65c02.lst m65c02.hxx m65c02.top.hxx m65c02.cxx</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">m65c02.hxx</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">m65c02.top.hxx</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">m65c02.cxx</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">dm65c02.lst</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">makehxx.pl</AdditionalInputs>
@@ -233,14 +250,15 @@
     <CustomBuild Include="om65ce02.lst">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">perl makehxx.pl m65ce02 %(Fullpath)  dm65ce02.lst m65ce02.hxx m65ce02.cxx</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">perl makehxx.pl m65ce02 %(Fullpath)  dm65ce02.lst m65ce02.hxx m65ce02.top.hxx m65ce02.cxx</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">m65ce02.hxx</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">m65ce02.cxx</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">dm65ce02.lst</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">makehxx.pl</AdditionalInputs>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">perl makehxx.pl m65ce02 %(Fullpath)  dm65ce02.lst m65ce02.hxx m65ce02.cxx</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">perl makehxx.pl m65ce02 %(Fullpath)  dm65ce02.lst m65ce02.hxx m65ce02.top.hxx m65ce02.cxx</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">m65ce02.hxx</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">m65ce02.top.hxx</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">m65ce02.cxx</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">dm65ce02.lst</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">makehxx.pl</AdditionalInputs>

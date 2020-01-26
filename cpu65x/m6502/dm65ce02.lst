@@ -1,20 +1,20 @@
 # license:BSD-3-Clause
 # copyright-holders:Olivier Galibert
 # m65ce02 - Adds the B and Z registers to the r65c02, a bunch of instructions, and changes most of the timings
-brk_ce_imp  ora_ce_idx  cle_imp     see_imp     tsb_ce_zpg  ora_ce_zpg  asl_ce_zpg  rmb_ce_bzp  php_ce_imp  ora_imm     asl_ce_acc  tsy_imp     tsb_ce_aba  ora_aba     asl_ce_aba  bbr_ce_zpb
-bpl_ce_rel  ora_ce_idy  ora_idz     bpl_rw2     trb_ce_zpg  ora_ce_zpx  asl_ce_zpx  rmb_ce_bzp  clc_ce_imp  ora_ce_aby  inc_ce_acc  inz_imp     trb_ce_aba  ora_ce_abx  asl_ce_abx  bbr_ce_zpb
-jsr_ce_adr  and_ce_idx  jsr_ind     jsr_iax     bit_ce_zpg  and_ce_zpg  rol_ce_zpg  rmb_ce_bzp  plp_ce_imp  and_imm     rol_ce_acc  tys_imp     bit_aba     and_aba     rol_ce_aba  bbr_ce_zpb
-bmi_ce_rel  and_ce_idy  and_idz     bmi_rw2     bit_ce_zpx  and_ce_zpx  rol_ce_zpx  rmb_ce_bzp  sec_ce_imp  and_ce_aby  dec_ce_acc  dez_imp     bit_ce_abx  and_ce_abx  rol_ce_abx  bbr_ce_zpb
-rti_ce_imp  eor_ce_idx  neg_acc     asr_acc     asr_zpg     eor_ce_zpg  lsr_ce_zpg  rmb_ce_bzp  pha_ce_imp  eor_imm     lsr_ce_acc  taz_imp     jmp_adr     eor_aba     lsr_ce_aba  bbr_ce_zpb
-bvc_ce_rel  eor_ce_idy  eor_idz     bvc_rw2     asr_zpx     eor_ce_zpx  lsr_ce_zpx  rmb_ce_bzp  cli_ce_imp  eor_ce_aby  phy_ce_imp  tab_imp     aug_iw3     eor_ce_abx  lsr_ce_abx  bbr_ce_zpb
-rts_ce_imp  adc_ce_idx  rtn_imm     bsr_rw2     stz_ce_zpg  adc_ce_zpg  ror_ce_zpg  rmb_ce_bzp  pla_ce_imp  adc_ce_imm  ror_ce_acc  tza_imp     jmp_ce_ind  adc_ce_aba  ror_ce_aba  bbr_ce_zpb
-bvs_ce_rel  adc_ce_idy  adc_idz     bvs_rw2     stz_ce_zpx  adc_ce_zpx  ror_ce_zpx  rmb_ce_bzp  sei_ce_imp  adc_ce_aby  ply_ce_imp  tba_imp     jmp_ce_iax  adc_ce_abx  ror_ce_abx  bbr_ce_zpb
-bra_ce_rel  sta_ce_idx  sta_isy     bra_rw2     sty_ce_zpg  sta_ce_zpg  stx_ce_zpg  smb_ce_bzp  dey_ce_imp  bit_ce_imm  txa_ce_imp  sty_abx     sty_aba     sta_aba     stx_aba     bbs_ce_zpb
-bcc_ce_rel  sta_ce_idy  sta_idz     bcc_rw2     sty_ce_zpx  sta_ce_zpx  stx_ce_zpy  smb_ce_bzp  tya_ce_imp  sta_ce_aby  txs_ce_imp  stx_aby     stz_ce_aba  sta_ce_abx  stz_ce_abx  bbs_ce_zpb
-ldy_imm     lda_ce_idx  ldx_imm     ldz_imm     ldy_ce_zpg  lda_ce_zpg  ldx_ce_zpg  smb_ce_bzp  tay_ce_imp  lda_imm     tax_ce_imp  ldz_aba     ldy_aba     lda_aba     ldx_aba     bbs_ce_zpb
-bcs_ce_rel  lda_ce_idy  lda_idz     bcs_rw2     ldy_ce_zpx  lda_ce_zpx  ldx_ce_zpy  smb_ce_bzp  clv_ce_imp  lda_ce_aby  tsx_ce_imp  ldz_abx     ldy_ce_abx  lda_ce_abx  ldx_ce_aby  bbs_ce_zpb
-cpy_imm     cmp_ce_idx  cpz_imm     dew_zpg     cpy_ce_zpg  cmp_ce_zpg  dec_ce_zpg  smb_ce_bzp  iny_ce_imp  cmp_imm     dex_ce_imp  asw_aba     cpy_aba     cmp_aba     dec_ce_aba  bbs_ce_zpb
-bne_ce_rel  cmp_ce_idy  cmp_idz     bne_rw2     cpz_zpg     cmp_ce_zpx  dec_ce_zpx  smb_ce_bzp  cld_ce_imp  cmp_ce_aby  phx_ce_imp  phz_imp     cpz_aba     cmp_ce_abx  dec_ce_abx  bbs_ce_zpb
-cpx_imm     sbc_ce_idx  lda_isy     inw_zpg     cpx_ce_zpg  sbc_ce_zpg  inc_ce_zpg  smb_ce_bzp  inx_ce_imp  sbc_ce_imm  nop_c_imp   row_aba     cpx_aba     sbc_ce_aba  inc_ce_aba  bbs_ce_zpb
-beq_ce_rel  sbc_ce_idy  sbc_idz     beq_rw2     phw_iw2     sbc_ce_zpx  inc_ce_zpx  smb_ce_bzp  sed_ce_imp  sbc_ce_aby  plx_ce_imp  plz_imp     phw_aba     sbc_ce_abx  inc_ce_abx  bbs_ce_zpb
-reset_c
+ce:brk_imp  ce:ora_idx  ce:cle_imp  ce:see_imp  ce:tsb_zpg  ce:ora_zpg  ce:asl_zpg  ce:rmb_bzp  ce:php_imp  ora_imm     ce:asl_acc  ce:tsy_imp     ce:tsb_aba  ora_aba     ce:asl_aba  ce:bbr_zpb
+ce:bpl_rel  ce:ora_idy  ce:ora_idz  ce:bpl_rw2  ce:trb_zpg  ce:ora_zpx  ce:asl_zpx  ce:rmb_bzp  ce:clc_imp  ce:ora_aby  ce:inc_acc  ce:inz_imp     ce:trb_aba  ce:ora_abx  ce:asl_abx  ce:bbr_zpb
+ce:jsr_adr  ce:and_idx  ce:jsr_ind  ce:jsr_iax  ce:bit_zpg  ce:and_zpg  ce:rol_zpg  ce:rmb_bzp  ce:plp_imp  and_imm     ce:rol_acc  ce:tys_imp     bit_aba     and_aba     ce:rol_aba  ce:bbr_zpb
+ce:bmi_rel  ce:and_idy  ce:and_idz  ce:bmi_rw2  ce:bit_zpx  ce:and_zpx  ce:rol_zpx  ce:rmb_bzp  ce:sec_imp  ce:and_aby  ce:dec_acc  ce:dez_imp     ce:bit_abx  ce:and_abx  ce:rol_abx  ce:bbr_zpb
+ce:rti_imp  ce:eor_idx  ce:neg_acc  ce:asr_acc  ce:asr_zpg  ce:eor_zpg  ce:lsr_zpg  ce:rmb_bzp  ce:pha_imp  eor_imm     ce:lsr_acc  ce:taz_imp     jmp_adr     eor_aba     ce:lsr_aba  ce:bbr_zpb
+ce:bvc_rel  ce:eor_idy  ce:eor_idz  ce:bvc_rw2  ce:asr_zpx  ce:eor_zpx  ce:lsr_zpx  ce:rmb_bzp  ce:cli_imp  ce:eor_aby  ce:phy_imp  ce:tab_imp     ce:aug_iw3  ce:eor_abx  ce:lsr_abx  ce:bbr_zpb
+ce:rts_imp  ce:adc_idx  ce:rtn_imm  ce:bsr_rw2  ce:stz_zpg  ce:adc_zpg  ce:ror_zpg  ce:rmb_bzp  ce:pla_imp  ce:adc_imm  ce:ror_acc  ce:tza_imp     ce:jmp_ind  ce:adc_aba  ce:ror_aba  ce:bbr_zpb
+ce:bvs_rel  ce:adc_idy  ce:adc_idz  ce:bvs_rw2  ce:stz_zpx  ce:adc_zpx  ce:ror_zpx  ce:rmb_bzp  ce:sei_imp  ce:adc_aby  ce:ply_imp  ce:tba_imp     ce:jmp_iax  ce:adc_abx  ce:ror_abx  ce:bbr_zpb
+ce:bra_rel  ce:sta_idx  ce:sta_isy  ce:bra_rw2  ce:sty_zpg  ce:sta_zpg  ce:stx_zpg  ce:smb_bzp  ce:dey_imp  ce:bit_imm  ce:txa_imp  ce:sty_abx     sty_aba     sta_aba     stx_aba     ce:bbs_zpb
+ce:bcc_rel  ce:sta_idy  ce:sta_idz  ce:bcc_rw2  ce:sty_zpx  ce:sta_zpx  ce:stx_zpy  ce:smb_bzp  ce:tya_imp  ce:sta_aby  ce:txs_imp  ce:stx_aby     ce:stz_aba  ce:sta_abx  ce:stz_abx  ce:bbs_zpb
+ldy_imm     ce:lda_idx  ldx_imm     ce:ldz_imm  ce:ldy_zpg  ce:lda_zpg  ce:ldx_zpg  ce:smb_bzp  ce:tay_imp  lda_imm     ce:tax_imp  ce:ldz_aba     ldy_aba     lda_aba     ldx_aba     ce:bbs_zpb
+ce:bcs_rel  ce:lda_idy  ce:lda_idz  ce:bcs_rw2  ce:ldy_zpx  ce:lda_zpx  ce:ldx_zpy  ce:smb_bzp  ce:clv_imp  ce:lda_aby  ce:tsx_imp  ce:ldz_abx     ce:ldy_abx  ce:lda_abx  ce:ldx_aby  ce:bbs_zpb
+cpy_imm     ce:cmp_idx  ce:cpz_imm  ce:dew_zpg  ce:cpy_zpg  ce:cmp_zpg  ce:dec_zpg  ce:smb_bzp  ce:iny_imp  cmp_imm     ce:dex_imp  ce:asw_aba     cpy_aba     cmp_aba     ce:dec_aba  ce:bbs_zpb
+ce:bne_rel  ce:cmp_idy  ce:cmp_idz  ce:bne_rw2  ce:cpz_zpg  ce:cmp_zpx  ce:dec_zpx  ce:smb_bzp  ce:cld_imp  ce:cmp_aby  ce:phx_imp  ce:phz_imp     ce:cpz_aba  ce:cmp_abx  ce:dec_abx  ce:bbs_zpb
+cpx_imm     ce:sbc_idx  ce:lda_isy  ce:inw_zpg  ce:cpx_zpg  ce:sbc_zpg  ce:inc_zpg  ce:smb_bzp  ce:inx_imp  ce:sbc_imm  c:nop_imp   ce:row_aba     cpx_aba     ce:sbc_aba  ce:inc_aba  ce:bbs_zpb
+ce:beq_rel  ce:sbc_idy  ce:sbc_idz  ce:beq_rw2  ce:phw_iw2  ce:sbc_zpx  ce:inc_zpx  ce:smb_bzp  ce:sed_imp  ce:sbc_aby  ce:plx_imp  ce:plz_imp     ce:phw_aba  ce:sbc_abx  ce:inc_abx  ce:bbs_zpb
+c:reset

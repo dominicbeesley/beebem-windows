@@ -54,6 +54,21 @@
     <ClInclude Include="emu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="m65c02.top.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="m65ce02.top.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="m6502.top.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mametypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="r65c02.top.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -87,6 +102,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="devcpu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="m65x_device.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="m65x_device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -18,8 +18,6 @@ public:
 	m65sc02_device();
 
 protected:
-	void prefetch() override;
-	void fetch() override;
 
 private:
 	typedef void (m65sc02_device::*StatFn)();

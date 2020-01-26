@@ -2,5326 +2,5326 @@
 // do not edit it.
 // from file(s) dm65ce02.lst D:\Users\Dominic\Documents\GitHub\beebem-windows\cpu65x\m6502\om65ce02.lst
 #include "m65ce02.h"
-// --- op adc_ce_aba --- 
-void m65ce02_device::adc_ce_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_aba_1;return; // READ
+// --- op adc_aba --- 
+void m65ce02_device_adc_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_aba_1;return; // READ
 }
 
-void m65ce02_device::adc_ce_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_aba_2;return; // READ
+void m65ce02_device_adc_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_aba_2;return; // READ
 }
 
-void m65ce02_device::adc_ce_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_aba_3;return; // READ
+void m65ce02_device_adc_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_aba_3;return; // READ
 }
 
-void m65ce02_device::adc_ce_aba_3() {
-  TMP = DAT;
-  do_adc(TMP);
-  if (P & F_D) {
-    set_nz(A);
+void m65ce02_device_adc_aba_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_adc(cpu.TMP);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op adc_ce_abx --- 
-void m65ce02_device::adc_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_abx_1;return; // READ
+// --- op adc_abx --- 
+void m65ce02_device_adc_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_abx_1;return; // READ
 }
 
-void m65ce02_device::adc_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_abx_2;return; // READ
+void m65ce02_device_adc_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_abx_2;return; // READ
 }
 
-void m65ce02_device::adc_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += X;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_abx_3;return; // READ
+void m65ce02_device_adc_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.X;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_abx_3;return; // READ
 }
 
-void m65ce02_device::adc_ce_abx_3() {
-  TMP = DAT;
-  do_adc(TMP);
-  if (P & F_D) {
-    set_nz(A);
+void m65ce02_device_adc_abx_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_adc(cpu.TMP);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op adc_ce_aby --- 
-void m65ce02_device::adc_ce_aby_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_aby_1;return; // READ
+// --- op adc_aby --- 
+void m65ce02_device_adc_aby_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_aby_1;return; // READ
 }
 
-void m65ce02_device::adc_ce_aby_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_aby_2;return; // READ
+void m65ce02_device_adc_aby_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_aby_2;return; // READ
 }
 
-void m65ce02_device::adc_ce_aby_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += Y;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_aby_3;return; // READ
+void m65ce02_device_adc_aby_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.Y;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_aby_3;return; // READ
 }
 
-void m65ce02_device::adc_ce_aby_3() {
-  TMP = DAT;
-  do_adc(TMP);
-  if (P & F_D) {
-    set_nz(A);
+void m65ce02_device_adc_aby_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_adc(cpu.TMP);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op adc_ce_idx --- 
-void m65ce02_device::adc_ce_idx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_idx_1;return; // READ
+// --- op adc_idx --- 
+void m65ce02_device_adc_idx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_idx_1;return; // READ
 }
 
-void m65ce02_device::adc_ce_idx_1() {
-  TMP2 = DAT;
-  TMP2 += X;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_idx_2;return; // READ
+void m65ce02_device_adc_idx_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 += cpu.X;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_idx_2;return; // READ
 }
 
-void m65ce02_device::adc_ce_idx_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_idx_3;return; // READ
+void m65ce02_device_adc_idx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_idx_3;return; // READ
 }
 
-void m65ce02_device::adc_ce_idx_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_idx_4;return; // READ
+void m65ce02_device_adc_idx_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_idx_4;return; // READ
 }
 
-void m65ce02_device::adc_ce_idx_4() {
-  do_adc(DAT);
-  if (P & F_D) {
-    set_nz(A);
+void m65ce02_device_adc_idx_4(m65ce02_device &cpu) {
+  cpu.do_adc(cpu.DAT);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op adc_ce_idy --- 
-void m65ce02_device::adc_ce_idy_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_idy_1;return; // READ
+// --- op adc_idy --- 
+void m65ce02_device_adc_idy_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_idy_1;return; // READ
 }
 
-void m65ce02_device::adc_ce_idy_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_idy_2;return; // READ
+void m65ce02_device_adc_idy_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_idy_2;return; // READ
 }
 
-void m65ce02_device::adc_ce_idy_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_idy_3;return; // READ
+void m65ce02_device_adc_idy_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_idy_3;return; // READ
 }
 
-void m65ce02_device::adc_ce_idy_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Y;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_idy_4;return; // READ
+void m65ce02_device_adc_idy_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Y;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_idy_4;return; // READ
 }
 
-void m65ce02_device::adc_ce_idy_4() {
-  do_adc(DAT);
-  if (P & F_D) {
-    set_nz(A);
+void m65ce02_device_adc_idy_4(m65ce02_device &cpu) {
+  cpu.do_adc(cpu.DAT);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
   }
-  fetch();return; // fetch
-}
-
-// --- op adc_ce_imm --- 
-void m65ce02_device::adc_ce_imm_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_imm_1;return; // READ
-}
-
-void m65ce02_device::adc_ce_imm_1() {
-  TMP = DAT;
-  do_adc(TMP);
-  if (P & F_D) {
-    set_nz(A);
-  }
-  fetch();return; // fetch
-}
-
-// --- op adc_ce_zpg --- 
-void m65ce02_device::adc_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_zpg_1;return; // READ
-}
-
-void m65ce02_device::adc_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_zpg_2;return; // READ
-}
-
-void m65ce02_device::adc_ce_zpg_2() {
-  TMP = DAT;
-  do_adc(TMP);
-  if (P & F_D) {
-    set_nz(A);
-  }
-  fetch();return; // fetch
-}
-
-// --- op adc_ce_zpx --- 
-void m65ce02_device::adc_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_zpx_1;return; // READ
-}
-
-void m65ce02_device::adc_ce_zpx_1() {
-  TMP = DAT;
-  ADDR = B|uint8_t(TMP+X);
-  RNW = true;
-  NextFn = &m65ce02_device::adc_ce_zpx_2;return; // READ
-}
-
-void m65ce02_device::adc_ce_zpx_2() {
-  TMP = DAT;
-  do_adc(TMP);
-  if (P & F_D) {
-    set_nz(A);
-  }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_idz --- 
-void m65ce02_device::adc_idz_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_idz_1;return; // READ
+void m65ce02_device_adc_idz_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_idz_1;return; // READ
 }
 
-void m65ce02_device::adc_idz_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_idz_2;return; // READ
+void m65ce02_device_adc_idz_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_idz_2;return; // READ
 }
 
-void m65ce02_device::adc_idz_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_idz_3;return; // READ
+void m65ce02_device_adc_idz_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_idz_3;return; // READ
 }
 
-void m65ce02_device::adc_idz_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Z;
-  RNW = true;
-  NextFn = &m65ce02_device::adc_idz_4;return; // READ
+void m65ce02_device_adc_idz_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Z;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_idz_4;return; // READ
 }
 
-void m65ce02_device::adc_idz_4() {
-  do_adc(DAT);
-  if (P & F_D) {
-    set_nz(A);
+void m65ce02_device_adc_idz_4(m65ce02_device &cpu) {
+  cpu.do_adc(cpu.DAT);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op and_ce_abx --- 
-void m65ce02_device::and_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_abx_1;return; // READ
+// --- op adc_imm --- 
+void m65ce02_device_adc_imm_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_imm_1;return; // READ
 }
 
-void m65ce02_device::and_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_abx_2;return; // READ
+void m65ce02_device_adc_imm_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_adc(cpu.TMP);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
+  }
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::and_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += X;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_abx_3;return; // READ
+// --- op adc_zpg --- 
+void m65ce02_device_adc_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_zpg_1;return; // READ
 }
 
-void m65ce02_device::and_ce_abx_3() {
-  A &= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_adc_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_zpg_2;return; // READ
 }
 
-// --- op and_ce_aby --- 
-void m65ce02_device::and_ce_aby_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_aby_1;return; // READ
+void m65ce02_device_adc_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_adc(cpu.TMP);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
+  }
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::and_ce_aby_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_aby_2;return; // READ
+// --- op adc_zpx --- 
+void m65ce02_device_adc_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_zpx_1;return; // READ
 }
 
-void m65ce02_device::and_ce_aby_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += Y;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_aby_3;return; // READ
+void m65ce02_device_adc_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_adc_zpx_2;return; // READ
 }
 
-void m65ce02_device::and_ce_aby_3() {
-  A &= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_adc_zpx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_adc(cpu.TMP);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
+  }
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op and_ce_idx --- 
-void m65ce02_device::and_ce_idx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_idx_1;return; // READ
+// --- op and_abx --- 
+void m65ce02_device_and_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_abx_1;return; // READ
 }
 
-void m65ce02_device::and_ce_idx_1() {
-  TMP2 = DAT;
-  TMP2 += X;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_idx_2;return; // READ
+void m65ce02_device_and_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_abx_2;return; // READ
 }
 
-void m65ce02_device::and_ce_idx_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_idx_3;return; // READ
+void m65ce02_device_and_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.X;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_abx_3;return; // READ
 }
 
-void m65ce02_device::and_ce_idx_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_idx_4;return; // READ
+void m65ce02_device_and_abx_3(m65ce02_device &cpu) {
+  cpu.A &= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::and_ce_idx_4() {
-  A &= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+// --- op and_aby --- 
+void m65ce02_device_and_aby_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_aby_1;return; // READ
 }
 
-// --- op and_ce_idy --- 
-void m65ce02_device::and_ce_idy_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_idy_1;return; // READ
+void m65ce02_device_and_aby_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_aby_2;return; // READ
 }
 
-void m65ce02_device::and_ce_idy_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_idy_2;return; // READ
+void m65ce02_device_and_aby_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.Y;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_aby_3;return; // READ
 }
 
-void m65ce02_device::and_ce_idy_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_idy_3;return; // READ
+void m65ce02_device_and_aby_3(m65ce02_device &cpu) {
+  cpu.A &= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::and_ce_idy_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Y;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_idy_4;return; // READ
+// --- op and_idx --- 
+void m65ce02_device_and_idx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_idx_1;return; // READ
 }
 
-void m65ce02_device::and_ce_idy_4() {
-  A &= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_and_idx_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 += cpu.X;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_idx_2;return; // READ
 }
 
-// --- op and_ce_zpg --- 
-void m65ce02_device::and_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_zpg_1;return; // READ
+void m65ce02_device_and_idx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_idx_3;return; // READ
 }
 
-void m65ce02_device::and_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_zpg_2;return; // READ
+void m65ce02_device_and_idx_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_idx_4;return; // READ
 }
 
-void m65ce02_device::and_ce_zpg_2() {
-  A &= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_and_idx_4(m65ce02_device &cpu) {
+  cpu.A &= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op and_ce_zpx --- 
-void m65ce02_device::and_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_zpx_1;return; // READ
+// --- op and_idy --- 
+void m65ce02_device_and_idy_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_idy_1;return; // READ
 }
 
-void m65ce02_device::and_ce_zpx_1() {
-  TMP = DAT;
-  ADDR = B|uint8_t(TMP+X);
-  RNW = true;
-  NextFn = &m65ce02_device::and_ce_zpx_2;return; // READ
+void m65ce02_device_and_idy_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_idy_2;return; // READ
 }
 
-void m65ce02_device::and_ce_zpx_2() {
-  A &= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_and_idy_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_idy_3;return; // READ
+}
+
+void m65ce02_device_and_idy_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Y;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_idy_4;return; // READ
+}
+
+void m65ce02_device_and_idy_4(m65ce02_device &cpu) {
+  cpu.A &= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op and_idz --- 
-void m65ce02_device::and_idz_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::and_idz_1;return; // READ
+void m65ce02_device_and_idz_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_idz_1;return; // READ
 }
 
-void m65ce02_device::and_idz_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::and_idz_2;return; // READ
+void m65ce02_device_and_idz_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_idz_2;return; // READ
 }
 
-void m65ce02_device::and_idz_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::and_idz_3;return; // READ
+void m65ce02_device_and_idz_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_idz_3;return; // READ
 }
 
-void m65ce02_device::and_idz_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Z;
-  RNW = true;
-  NextFn = &m65ce02_device::and_idz_4;return; // READ
+void m65ce02_device_and_idz_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Z;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_idz_4;return; // READ
 }
 
-void m65ce02_device::and_idz_4() {
-  A &= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_and_idz_4(m65ce02_device &cpu) {
+  cpu.A &= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op asl_ce_aba --- 
-void m65ce02_device::asl_ce_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::asl_ce_aba_1;return; // READ
+// --- op and_zpg --- 
+void m65ce02_device_and_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_zpg_1;return; // READ
 }
 
-void m65ce02_device::asl_ce_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::asl_ce_aba_2;return; // READ
+void m65ce02_device_and_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_zpg_2;return; // READ
 }
 
-void m65ce02_device::asl_ce_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::asl_ce_aba_3;return; // READ
+void m65ce02_device_and_zpg_2(m65ce02_device &cpu) {
+  cpu.A &= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::asl_ce_aba_3() {
-  TMP2 = DAT;
-  TMP2 = do_asl(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::asl_ce_aba_4;return; // WRITE
+// --- op and_zpx --- 
+void m65ce02_device_and_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_zpx_1;return; // READ
 }
 
-void m65ce02_device::asl_ce_aba_4() {
-  fetch();return; // fetch
+void m65ce02_device_and_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_and_zpx_2;return; // READ
 }
 
-// --- op asl_ce_abx --- 
-void m65ce02_device::asl_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::asl_ce_abx_1;return; // READ
+void m65ce02_device_and_zpx_2(m65ce02_device &cpu) {
+  cpu.A &= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::asl_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::asl_ce_abx_2;return; // READ
+// --- op asl_aba --- 
+void m65ce02_device_asl_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asl_aba_1;return; // READ
 }
 
-void m65ce02_device::asl_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += X;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::asl_ce_abx_3;return; // READ
+void m65ce02_device_asl_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asl_aba_2;return; // READ
 }
 
-void m65ce02_device::asl_ce_abx_3() {
-  TMP2 = DAT;
-  TMP2 = do_asl(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::asl_ce_abx_4;return; // WRITE
+void m65ce02_device_asl_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asl_aba_3;return; // READ
 }
 
-void m65ce02_device::asl_ce_abx_4() {
-  fetch();return; // fetch
+void m65ce02_device_asl_aba_3(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_asl(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_asl_aba_4;return; // WRITE
 }
 
-// --- op asl_ce_acc --- 
-void m65ce02_device::asl_ce_acc_0() {
-  A = do_asl(A);
-  fetch();return; // fetch
+void m65ce02_device_asl_aba_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op asl_ce_zpg --- 
-void m65ce02_device::asl_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::asl_ce_zpg_1;return; // READ
+// --- op asl_abx --- 
+void m65ce02_device_asl_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asl_abx_1;return; // READ
 }
 
-void m65ce02_device::asl_ce_zpg_1() {
-  TMP = B|DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::asl_ce_zpg_2;return; // READ
+void m65ce02_device_asl_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asl_abx_2;return; // READ
 }
 
-void m65ce02_device::asl_ce_zpg_2() {
-  TMP2 = DAT;
-  TMP2 = do_asl(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::asl_ce_zpg_3;return; // WRITE
+void m65ce02_device_asl_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.X;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asl_abx_3;return; // READ
 }
 
-void m65ce02_device::asl_ce_zpg_3() {
-  fetch();return; // fetch
+void m65ce02_device_asl_abx_3(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_asl(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_asl_abx_4;return; // WRITE
 }
 
-// --- op asl_ce_zpx --- 
-void m65ce02_device::asl_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::asl_ce_zpx_1;return; // READ
+void m65ce02_device_asl_abx_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::asl_ce_zpx_1() {
-  TMP = DAT;
-  TMP = B|uint8_t(TMP+X);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::asl_ce_zpx_2;return; // READ
+// --- op asl_acc --- 
+void m65ce02_device_asl_acc_0(m65ce02_device &cpu) {
+  cpu.A = cpu.do_asl(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::asl_ce_zpx_2() {
-  TMP2 = DAT;
-  TMP2 = do_asl(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::asl_ce_zpx_3;return; // WRITE
+// --- op asl_zpg --- 
+void m65ce02_device_asl_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asl_zpg_1;return; // READ
 }
 
-void m65ce02_device::asl_ce_zpx_3() {
-  fetch();return; // fetch
+void m65ce02_device_asl_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.B|cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asl_zpg_2;return; // READ
+}
+
+void m65ce02_device_asl_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_asl(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_asl_zpg_3;return; // WRITE
+}
+
+void m65ce02_device_asl_zpg_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
+}
+
+// --- op asl_zpx --- 
+void m65ce02_device_asl_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asl_zpx_1;return; // READ
+}
+
+void m65ce02_device_asl_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asl_zpx_2;return; // READ
+}
+
+void m65ce02_device_asl_zpx_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_asl(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_asl_zpx_3;return; // WRITE
+}
+
+void m65ce02_device_asl_zpx_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op asr_acc --- 
-void m65ce02_device::asr_acc_0() {
-  A = do_asr(A);
-  fetch();return; // fetch
+void m65ce02_device_asr_acc_0(m65ce02_device &cpu) {
+  cpu.A = cpu.do_asr(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op asr_zpg --- 
-void m65ce02_device::asr_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::asr_zpg_1;return; // READ
+void m65ce02_device_asr_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asr_zpg_1;return; // READ
 }
 
-void m65ce02_device::asr_zpg_1() {
-  TMP = B|DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::asr_zpg_2;return; // READ
+void m65ce02_device_asr_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.B|cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asr_zpg_2;return; // READ
 }
 
-void m65ce02_device::asr_zpg_2() {
-  TMP2 = DAT;
-  TMP2 = do_asr(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::asr_zpg_3;return; // WRITE
+void m65ce02_device_asr_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_asr(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_asr_zpg_3;return; // WRITE
 }
 
-void m65ce02_device::asr_zpg_3() {
-  fetch();return; // fetch
+void m65ce02_device_asr_zpg_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op asr_zpx --- 
-void m65ce02_device::asr_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::asr_zpx_1;return; // READ
+void m65ce02_device_asr_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asr_zpx_1;return; // READ
 }
 
-void m65ce02_device::asr_zpx_1() {
-  TMP = DAT;
-  TMP = B|uint8_t(TMP+X);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::asr_zpx_2;return; // READ
+void m65ce02_device_asr_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asr_zpx_2;return; // READ
 }
 
-void m65ce02_device::asr_zpx_2() {
-  TMP2 = DAT;
-  TMP2 = do_asr(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::asr_zpx_3;return; // WRITE
+void m65ce02_device_asr_zpx_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_asr(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_asr_zpx_3;return; // WRITE
 }
 
-void m65ce02_device::asr_zpx_3() {
-  fetch();return; // fetch
+void m65ce02_device_asr_zpx_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op asw_aba --- 
-void m65ce02_device::asw_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::asw_aba_1;return; // READ
+void m65ce02_device_asw_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asw_aba_1;return; // READ
 }
 
-void m65ce02_device::asw_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::asw_aba_2;return; // READ
+void m65ce02_device_asw_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asw_aba_2;return; // READ
 }
 
-void m65ce02_device::asw_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::asw_aba_3;return; // READ
+void m65ce02_device_asw_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asw_aba_3;return; // READ
 }
 
-void m65ce02_device::asw_aba_3() {
-  TMP3 = DAT;
-  ADDR = TMP+1;
-  RNW = true;
-  NextFn = &m65ce02_device::asw_aba_4;return; // READ
+void m65ce02_device_asw_aba_3(m65ce02_device &cpu) {
+  cpu.TMP3 = cpu.DAT;
+  cpu.ADDR = cpu.TMP+1;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_asw_aba_4;return; // READ
 }
 
-void m65ce02_device::asw_aba_4() {
-  TMP3 = set_h(TMP3, DAT);
-  P &= ~(F_C|F_N|F_Z);
-  if (TMP3 & 0x8000) {
-    P |= F_C;
+void m65ce02_device_asw_aba_4(m65ce02_device &cpu) {
+  cpu.TMP3 = cpu.set_h(cpu.TMP3, cpu.DAT);
+  cpu.P &= ~(cpu.F_C|cpu.F_N|cpu.F_Z);
+  if (cpu.TMP3 & 0x8000) {
+    cpu.P |= cpu.F_C;
   }
-  TMP3 <<= 1;
-  if (!TMP3) {
-    P |= F_Z;
+  cpu.TMP3 <<= 1;
+  if (!cpu.TMP3) {
+    cpu.P |= cpu.F_Z;
   } else {
-    if (TMP3 & 0x8000) {
-      P |= F_N;
+    if (cpu.TMP3 & 0x8000) {
+      cpu.P |= cpu.F_N;
     }
   }
-  ADDR = TMP;
-  DAT =  TMP3;
-  RNW = false;
-  NextFn = &m65ce02_device::asw_aba_5;return; // WRITE
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP3;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_asw_aba_5;return; // WRITE
 }
 
-void m65ce02_device::asw_aba_5() {
-  ADDR = TMP;
-  DAT =  TMP3 >> 8;
-  RNW = false;
-  NextFn = &m65ce02_device::asw_aba_6;return; // WRITE
+void m65ce02_device_asw_aba_5(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP3 >> 8;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_asw_aba_6;return; // WRITE
 }
 
-void m65ce02_device::asw_aba_6() {
-  fetch();return; // fetch
+void m65ce02_device_asw_aba_6(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op aug_iw3 --- 
-void m65ce02_device::aug_iw3_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::aug_iw3_1;return; // READ
+void m65ce02_device_aug_iw3_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_aug_iw3_1;return; // READ
 }
 
-void m65ce02_device::aug_iw3_1() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::aug_iw3_2;return; // READ
+void m65ce02_device_aug_iw3_1(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_aug_iw3_2;return; // READ
 }
 
-void m65ce02_device::aug_iw3_2() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::aug_iw3_3;return; // READ
+void m65ce02_device_aug_iw3_2(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_aug_iw3_3;return; // READ
 }
 
-void m65ce02_device::aug_iw3_3() {
-  fetch();return; // fetch
+void m65ce02_device_aug_iw3_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op bbr_ce_zpb --- 
-void m65ce02_device::bbr_ce_zpb_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bbr_ce_zpb_1;return; // READ
+// --- op bbr_zpb --- 
+void m65ce02_device_bbr_zpb_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bbr_zpb_1;return; // READ
 }
 
-void m65ce02_device::bbr_ce_zpb_1() {
-  TMP = DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::bbr_ce_zpb_2;return; // READ
+void m65ce02_device_bbr_zpb_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bbr_zpb_2;return; // READ
 }
 
-void m65ce02_device::bbr_ce_zpb_2() {
-  TMP2 = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bbr_ce_zpb_3;return; // READ
+void m65ce02_device_bbr_zpb_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bbr_zpb_3;return; // READ
 }
 
-void m65ce02_device::bbr_ce_zpb_3() {
-  TMP = DAT;
-  if (!(TMP2 & (1 << ((IR >> 4) & 7)))) {
-    PC += int8_t(TMP);
+void m65ce02_device_bbr_zpb_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  if (!(cpu.TMP2 & (1 << ((cpu.IR >> 4) & 7)))) {
+    cpu.PC += int8_t(cpu.TMP);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op bbs_ce_zpb --- 
-void m65ce02_device::bbs_ce_zpb_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bbs_ce_zpb_1;return; // READ
+// --- op bbs_zpb --- 
+void m65ce02_device_bbs_zpb_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bbs_zpb_1;return; // READ
 }
 
-void m65ce02_device::bbs_ce_zpb_1() {
-  TMP = DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::bbs_ce_zpb_2;return; // READ
+void m65ce02_device_bbs_zpb_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bbs_zpb_2;return; // READ
 }
 
-void m65ce02_device::bbs_ce_zpb_2() {
-  TMP2 = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bbs_ce_zpb_3;return; // READ
+void m65ce02_device_bbs_zpb_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bbs_zpb_3;return; // READ
 }
 
-void m65ce02_device::bbs_ce_zpb_3() {
-  TMP = DAT;
-  if (TMP2 & (1 << ((IR >> 4) & 7))) {
-    PC += int8_t(TMP);
+void m65ce02_device_bbs_zpb_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  if (cpu.TMP2 & (1 << ((cpu.IR >> 4) & 7))) {
+    cpu.PC += int8_t(cpu.TMP);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op bcc_ce_rel --- 
-void m65ce02_device::bcc_ce_rel_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bcc_ce_rel_1;return; // READ
+// --- op bcc_rel --- 
+void m65ce02_device_bcc_rel_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bcc_rel_1;return; // READ
 }
 
-void m65ce02_device::bcc_ce_rel_1() {
-  TMP = DAT;
-  if (!(P & F_C)) {
-    PC += int8_t(TMP);
+void m65ce02_device_bcc_rel_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  if (!(cpu.P & cpu.F_C)) {
+    cpu.PC += int8_t(cpu.TMP);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op bcc_rw2 --- 
-void m65ce02_device::bcc_rw2_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bcc_rw2_1;return; // READ
+void m65ce02_device_bcc_rw2_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bcc_rw2_1;return; // READ
 }
 
-void m65ce02_device::bcc_rw2_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bcc_rw2_2;return; // READ
+void m65ce02_device_bcc_rw2_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bcc_rw2_2;return; // READ
 }
 
-void m65ce02_device::bcc_rw2_2() {
-  TMP = set_h(TMP, DAT);
-  if (!(P & F_C)) {
-    PC += TMP-1;
+void m65ce02_device_bcc_rw2_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  if (!(cpu.P & cpu.F_C)) {
+    cpu.PC += cpu.TMP-1;
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op bcs_ce_rel --- 
-void m65ce02_device::bcs_ce_rel_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bcs_ce_rel_1;return; // READ
+// --- op bcs_rel --- 
+void m65ce02_device_bcs_rel_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bcs_rel_1;return; // READ
 }
 
-void m65ce02_device::bcs_ce_rel_1() {
-  TMP = DAT;
-  if (P & F_C) {
-    PC += int8_t(TMP);
+void m65ce02_device_bcs_rel_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  if (cpu.P & cpu.F_C) {
+    cpu.PC += int8_t(cpu.TMP);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op bcs_rw2 --- 
-void m65ce02_device::bcs_rw2_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bcs_rw2_1;return; // READ
+void m65ce02_device_bcs_rw2_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bcs_rw2_1;return; // READ
 }
 
-void m65ce02_device::bcs_rw2_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bcs_rw2_2;return; // READ
+void m65ce02_device_bcs_rw2_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bcs_rw2_2;return; // READ
 }
 
-void m65ce02_device::bcs_rw2_2() {
-  TMP = set_h(TMP, DAT);
-  if (P & F_C) {
-    PC += TMP-1;
+void m65ce02_device_bcs_rw2_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  if (cpu.P & cpu.F_C) {
+    cpu.PC += cpu.TMP-1;
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op beq_ce_rel --- 
-void m65ce02_device::beq_ce_rel_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::beq_ce_rel_1;return; // READ
+// --- op beq_rel --- 
+void m65ce02_device_beq_rel_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_beq_rel_1;return; // READ
 }
 
-void m65ce02_device::beq_ce_rel_1() {
-  TMP = DAT;
-  if (P & F_Z) {
-    PC += int8_t(TMP);
+void m65ce02_device_beq_rel_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  if (cpu.P & cpu.F_Z) {
+    cpu.PC += int8_t(cpu.TMP);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op beq_rw2 --- 
-void m65ce02_device::beq_rw2_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::beq_rw2_1;return; // READ
+void m65ce02_device_beq_rw2_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_beq_rw2_1;return; // READ
 }
 
-void m65ce02_device::beq_rw2_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::beq_rw2_2;return; // READ
+void m65ce02_device_beq_rw2_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_beq_rw2_2;return; // READ
 }
 
-void m65ce02_device::beq_rw2_2() {
-  TMP = set_h(TMP, DAT);
-  if (P & F_Z) {
-    PC += TMP-1;
+void m65ce02_device_beq_rw2_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  if (cpu.P & cpu.F_Z) {
+    cpu.PC += cpu.TMP-1;
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op bit_ce_abx --- 
-void m65ce02_device::bit_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bit_ce_abx_1;return; // READ
+// --- op bit_abx --- 
+void m65ce02_device_bit_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bit_abx_1;return; // READ
 }
 
-void m65ce02_device::bit_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bit_ce_abx_2;return; // READ
+void m65ce02_device_bit_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bit_abx_2;return; // READ
 }
 
-void m65ce02_device::bit_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += X;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::bit_ce_abx_3;return; // READ
+void m65ce02_device_bit_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.X;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bit_abx_3;return; // READ
 }
 
-void m65ce02_device::bit_ce_abx_3() {
-  do_bit(DAT);
-  fetch();return; // fetch
+void m65ce02_device_bit_abx_3(m65ce02_device &cpu) {
+  cpu.do_bit(cpu.DAT);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op bit_ce_imm --- 
-void m65ce02_device::bit_ce_imm_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bit_ce_imm_1;return; // READ
+// --- op bit_imm --- 
+void m65ce02_device_bit_imm_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bit_imm_1;return; // READ
 }
 
-void m65ce02_device::bit_ce_imm_1() {
-  TMP = DAT;
-  do_bit(TMP);
-  fetch();return; // fetch
+void m65ce02_device_bit_imm_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_bit(cpu.TMP);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op bit_ce_zpg --- 
-void m65ce02_device::bit_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bit_ce_zpg_1;return; // READ
+// --- op bit_zpg --- 
+void m65ce02_device_bit_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bit_zpg_1;return; // READ
 }
 
-void m65ce02_device::bit_ce_zpg_1() {
-  TMP = B|DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::bit_ce_zpg_2;return; // READ
+void m65ce02_device_bit_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.B|cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bit_zpg_2;return; // READ
 }
 
-void m65ce02_device::bit_ce_zpg_2() {
-  do_bit(DAT);
-  fetch();return; // fetch
+void m65ce02_device_bit_zpg_2(m65ce02_device &cpu) {
+  cpu.do_bit(cpu.DAT);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op bit_ce_zpx --- 
-void m65ce02_device::bit_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bit_ce_zpx_1;return; // READ
+// --- op bit_zpx --- 
+void m65ce02_device_bit_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bit_zpx_1;return; // READ
 }
 
-void m65ce02_device::bit_ce_zpx_1() {
-  TMP = DAT;
-  ADDR = B|uint8_t(TMP+X);
-  RNW = true;
-  NextFn = &m65ce02_device::bit_ce_zpx_2;return; // READ
+void m65ce02_device_bit_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bit_zpx_2;return; // READ
 }
 
-void m65ce02_device::bit_ce_zpx_2() {
-  TMP = DAT;
-  do_bit(TMP);
-  fetch();return; // fetch
+void m65ce02_device_bit_zpx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_bit(cpu.TMP);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op bmi_ce_rel --- 
-void m65ce02_device::bmi_ce_rel_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bmi_ce_rel_1;return; // READ
+// --- op bmi_rel --- 
+void m65ce02_device_bmi_rel_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bmi_rel_1;return; // READ
 }
 
-void m65ce02_device::bmi_ce_rel_1() {
-  TMP = DAT;
-  if (P & F_N) {
-    PC += int8_t(TMP);
+void m65ce02_device_bmi_rel_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  if (cpu.P & cpu.F_N) {
+    cpu.PC += int8_t(cpu.TMP);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op bmi_rw2 --- 
-void m65ce02_device::bmi_rw2_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bmi_rw2_1;return; // READ
+void m65ce02_device_bmi_rw2_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bmi_rw2_1;return; // READ
 }
 
-void m65ce02_device::bmi_rw2_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bmi_rw2_2;return; // READ
+void m65ce02_device_bmi_rw2_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bmi_rw2_2;return; // READ
 }
 
-void m65ce02_device::bmi_rw2_2() {
-  TMP = set_h(TMP, DAT);
-  if (P & F_N) {
-    PC += TMP-1;
+void m65ce02_device_bmi_rw2_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  if (cpu.P & cpu.F_N) {
+    cpu.PC += cpu.TMP-1;
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op bne_ce_rel --- 
-void m65ce02_device::bne_ce_rel_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bne_ce_rel_1;return; // READ
+// --- op bne_rel --- 
+void m65ce02_device_bne_rel_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bne_rel_1;return; // READ
 }
 
-void m65ce02_device::bne_ce_rel_1() {
-  TMP = DAT;
-  if (!(P & F_Z)) {
-    PC += int8_t(TMP);
+void m65ce02_device_bne_rel_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  if (!(cpu.P & cpu.F_Z)) {
+    cpu.PC += int8_t(cpu.TMP);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op bne_rw2 --- 
-void m65ce02_device::bne_rw2_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bne_rw2_1;return; // READ
+void m65ce02_device_bne_rw2_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bne_rw2_1;return; // READ
 }
 
-void m65ce02_device::bne_rw2_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bne_rw2_2;return; // READ
+void m65ce02_device_bne_rw2_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bne_rw2_2;return; // READ
 }
 
-void m65ce02_device::bne_rw2_2() {
-  TMP = set_h(TMP, DAT);
-  if (!(P & F_Z)) {
-    PC += TMP-1;
+void m65ce02_device_bne_rw2_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  if (!(cpu.P & cpu.F_Z)) {
+    cpu.PC += cpu.TMP-1;
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op bpl_ce_rel --- 
-void m65ce02_device::bpl_ce_rel_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bpl_ce_rel_1;return; // READ
+// --- op bpl_rel --- 
+void m65ce02_device_bpl_rel_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bpl_rel_1;return; // READ
 }
 
-void m65ce02_device::bpl_ce_rel_1() {
-  TMP = DAT;
-  if (!(P & F_N)) {
-    PC += int8_t(TMP);
+void m65ce02_device_bpl_rel_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  if (!(cpu.P & cpu.F_N)) {
+    cpu.PC += int8_t(cpu.TMP);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op bpl_rw2 --- 
-void m65ce02_device::bpl_rw2_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bpl_rw2_1;return; // READ
+void m65ce02_device_bpl_rw2_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bpl_rw2_1;return; // READ
 }
 
-void m65ce02_device::bpl_rw2_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bpl_rw2_2;return; // READ
+void m65ce02_device_bpl_rw2_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bpl_rw2_2;return; // READ
 }
 
-void m65ce02_device::bpl_rw2_2() {
-  TMP = set_h(TMP, DAT);
-  if (!(P & F_N)) {
-    PC += TMP-1;
+void m65ce02_device_bpl_rw2_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  if (!(cpu.P & cpu.F_N)) {
+    cpu.PC += cpu.TMP-1;
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op bra_ce_rel --- 
-void m65ce02_device::bra_ce_rel_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bra_ce_rel_1;return; // READ
+// --- op bra_rel --- 
+void m65ce02_device_bra_rel_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bra_rel_1;return; // READ
 }
 
-void m65ce02_device::bra_ce_rel_1() {
-  TMP = DAT;
-  PC += int8_t(TMP);
-  fetch();return; // fetch
+void m65ce02_device_bra_rel_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.PC += int8_t(cpu.TMP);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op bra_rw2 --- 
-void m65ce02_device::bra_rw2_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bra_rw2_1;return; // READ
+void m65ce02_device_bra_rw2_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bra_rw2_1;return; // READ
 }
 
-void m65ce02_device::bra_rw2_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bra_rw2_2;return; // READ
+void m65ce02_device_bra_rw2_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bra_rw2_2;return; // READ
 }
 
-void m65ce02_device::bra_rw2_2() {
-  TMP = set_h(TMP, DAT);
-  PC += TMP - 1;
-  fetch();return; // fetch
+void m65ce02_device_bra_rw2_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.PC += cpu.TMP - 1;
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op brk_ce_imp --- 
-void m65ce02_device::brk_ce_imp_0() {
-  if (irq_taken) {
-    ADDR = PC;
-    RNW = true;
-    NextFn = &m65ce02_device::brk_ce_imp_1;return; // READ
+// --- op brk_imp --- 
+void m65ce02_device_brk_imp_0(m65ce02_device &cpu) {
+  if (cpu.irq_taken) {
+    cpu.ADDR = cpu.PC;
+    cpu.RNW = true;
+    cpu.NextFn = (void *)&m65ce02_device_brk_imp_1;return; // READ
   } else {
-    ADDR = PC++;
-    RNW = true;
-    NextFn = &m65ce02_device::brk_ce_imp_2;return; // READ
+    cpu.ADDR = cpu.PC++;
+    cpu.RNW = true;
+    cpu.NextFn = (void *)&m65ce02_device_brk_imp_2;return; // READ
   }
-  ADDR = SP;
-  DAT =  PC >> 8;
-  RNW = false;
-  NextFn = &m65ce02_device::brk_ce_imp_3;return; // WRITE
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.PC >> 8;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_brk_imp_3;return; // WRITE
 }
 
-void m65ce02_device::brk_ce_imp_1() {
-    ADDR = SP;
-    DAT =  PC >> 8;
-    RNW = false;
-    NextFn = &m65ce02_device::brk_ce_imp_3;return; // WRITE
+void m65ce02_device_brk_imp_1(m65ce02_device &cpu) {
+    cpu.ADDR = cpu.SP;
+    cpu.DAT =  cpu.PC >> 8;
+    cpu.RNW = false;
+    cpu.NextFn = (void *)&m65ce02_device_brk_imp_3;return; // WRITE
 }
 
-void m65ce02_device::brk_ce_imp_2() {
-    ADDR = SP;
-    DAT =  PC >> 8;
-    RNW = false;
-    NextFn = &m65ce02_device::brk_ce_imp_3;return; // WRITE
+void m65ce02_device_brk_imp_2(m65ce02_device &cpu) {
+    cpu.ADDR = cpu.SP;
+    cpu.DAT =  cpu.PC >> 8;
+    cpu.RNW = false;
+    cpu.NextFn = (void *)&m65ce02_device_brk_imp_3;return; // WRITE
 }
 
-void m65ce02_device::brk_ce_imp_3() {
-  dec_SP_ce();
-  ADDR = SP;
-  DAT =  PC;
-  RNW = false;
-  NextFn = &m65ce02_device::brk_ce_imp_4;return; // WRITE
+void m65ce02_device_brk_imp_3(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.PC;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_brk_imp_4;return; // WRITE
 }
 
-void m65ce02_device::brk_ce_imp_4() {
-  dec_SP_ce();
-  ADDR = SP;
-  DAT =  irq_taken || nmi_state ? P & ~F_B : P;
-  RNW = false;
-  NextFn = &m65ce02_device::brk_ce_imp_5;return; // WRITE
+void m65ce02_device_brk_imp_4(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.irq_taken || cpu.nmi_state ? cpu.P & ~cpu.F_B : cpu.P;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_brk_imp_5;return; // WRITE
 }
 
-void m65ce02_device::brk_ce_imp_5() {
-  dec_SP_ce();
-  if (nmi_state) {
-    ADDR = 0xfffa;
-    RNW = true;
-    NextFn = &m65ce02_device::brk_ce_imp_6;return; // READ
+void m65ce02_device_brk_imp_5(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  if (cpu.nmi_state) {
+    cpu.ADDR = 0xfffa;
+    cpu.RNW = true;
+    cpu.NextFn = (void *)&m65ce02_device_brk_imp_6;return; // READ
   } else {
-    ADDR = 0xfffe;
-    RNW = true;
-    NextFn = &m65ce02_device::brk_ce_imp_8;return; // READ
+    cpu.ADDR = 0xfffe;
+    cpu.RNW = true;
+    cpu.NextFn = (void *)&m65ce02_device_brk_imp_8;return; // READ
   }
-  irq_taken = false;
-  P = (P | F_I) & ~F_D;
-  fetch();return; // fetch
+  cpu.irq_taken = false;
+  cpu.P = (cpu.P | cpu.F_I) & ~cpu.F_D;
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::brk_ce_imp_6() {
-    PC = DAT;
-    ADDR = 0xfffb;
-    RNW = true;
-    NextFn = &m65ce02_device::brk_ce_imp_7;return; // READ
+void m65ce02_device_brk_imp_6(m65ce02_device &cpu) {
+    cpu.PC = cpu.DAT;
+    cpu.ADDR = 0xfffb;
+    cpu.RNW = true;
+    cpu.NextFn = (void *)&m65ce02_device_brk_imp_7;return; // READ
 }
 
-void m65ce02_device::brk_ce_imp_8() {
-    PC = DAT;
-    ADDR = 0xffff;
-    RNW = true;
-    NextFn = &m65ce02_device::brk_ce_imp_9;return; // READ
+void m65ce02_device_brk_imp_8(m65ce02_device &cpu) {
+    cpu.PC = cpu.DAT;
+    cpu.ADDR = 0xffff;
+    cpu.RNW = true;
+    cpu.NextFn = (void *)&m65ce02_device_brk_imp_9;return; // READ
 }
 
-void m65ce02_device::brk_ce_imp_7() {
-    PC = set_h(PC, DAT);
-    nmi_state = false;
-    irq_taken = false;
-    P = (P | F_I) & ~F_D;
-    fetch();return; // fetch
+void m65ce02_device_brk_imp_7(m65ce02_device &cpu) {
+    cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
+    cpu.nmi_state = false;
+    cpu.irq_taken = false;
+    cpu.P = (cpu.P | cpu.F_I) & ~cpu.F_D;
+    m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::brk_ce_imp_9() {
-    PC = set_h(PC, DAT);
-    irq_taken = false;
-    P = (P | F_I) & ~F_D;
-    fetch();return; // fetch
+void m65ce02_device_brk_imp_9(m65ce02_device &cpu) {
+    cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
+    cpu.irq_taken = false;
+    cpu.P = (cpu.P | cpu.F_I) & ~cpu.F_D;
+    m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op bsr_rw2 --- 
-void m65ce02_device::bsr_rw2_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bsr_rw2_1;return; // READ
+void m65ce02_device_bsr_rw2_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bsr_rw2_1;return; // READ
 }
 
-void m65ce02_device::bsr_rw2_1() {
-  TMP = DAT;
-  ADDR = SP;
-  DAT =  PC>>8;
-  RNW = false;
-  NextFn = &m65ce02_device::bsr_rw2_2;return; // WRITE
+void m65ce02_device_bsr_rw2_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.PC>>8;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_bsr_rw2_2;return; // WRITE
 }
 
-void m65ce02_device::bsr_rw2_2() {
-  dec_SP_ce();
-  ADDR = SP;
-  DAT =  PC;
-  RNW = false;
-  NextFn = &m65ce02_device::bsr_rw2_3;return; // WRITE
+void m65ce02_device_bsr_rw2_2(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.PC;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_bsr_rw2_3;return; // WRITE
 }
 
-void m65ce02_device::bsr_rw2_3() {
-  dec_SP_ce();
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bsr_rw2_4;return; // READ
+void m65ce02_device_bsr_rw2_3(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bsr_rw2_4;return; // READ
 }
 
-void m65ce02_device::bsr_rw2_4() {
-  TMP = set_h(TMP, DAT);
-  PC += TMP-1;
-  fetch();return; // fetch
+void m65ce02_device_bsr_rw2_4(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.PC += cpu.TMP-1;
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op bvc_ce_rel --- 
-void m65ce02_device::bvc_ce_rel_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bvc_ce_rel_1;return; // READ
+// --- op bvc_rel --- 
+void m65ce02_device_bvc_rel_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bvc_rel_1;return; // READ
 }
 
-void m65ce02_device::bvc_ce_rel_1() {
-  TMP = DAT;
-  if (!(P & F_V)) {
-    PC += int8_t(TMP);
+void m65ce02_device_bvc_rel_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  if (!(cpu.P & cpu.F_V)) {
+    cpu.PC += int8_t(cpu.TMP);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op bvc_rw2 --- 
-void m65ce02_device::bvc_rw2_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bvc_rw2_1;return; // READ
+void m65ce02_device_bvc_rw2_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bvc_rw2_1;return; // READ
 }
 
-void m65ce02_device::bvc_rw2_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bvc_rw2_2;return; // READ
+void m65ce02_device_bvc_rw2_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bvc_rw2_2;return; // READ
 }
 
-void m65ce02_device::bvc_rw2_2() {
-  TMP = set_h(TMP, DAT);
-  if (!(P & F_V)) {
-    PC += TMP-1;
+void m65ce02_device_bvc_rw2_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  if (!(cpu.P & cpu.F_V)) {
+    cpu.PC += cpu.TMP-1;
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op bvs_ce_rel --- 
-void m65ce02_device::bvs_ce_rel_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bvs_ce_rel_1;return; // READ
+// --- op bvs_rel --- 
+void m65ce02_device_bvs_rel_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bvs_rel_1;return; // READ
 }
 
-void m65ce02_device::bvs_ce_rel_1() {
-  TMP = DAT;
-  if (P & F_V) {
-    PC += int8_t(TMP);
+void m65ce02_device_bvs_rel_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  if (cpu.P & cpu.F_V) {
+    cpu.PC += int8_t(cpu.TMP);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op bvs_rw2 --- 
-void m65ce02_device::bvs_rw2_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bvs_rw2_1;return; // READ
+void m65ce02_device_bvs_rw2_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bvs_rw2_1;return; // READ
 }
 
-void m65ce02_device::bvs_rw2_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::bvs_rw2_2;return; // READ
+void m65ce02_device_bvs_rw2_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_bvs_rw2_2;return; // READ
 }
 
-void m65ce02_device::bvs_rw2_2() {
-  TMP = set_h(TMP, DAT);
-  if (P & F_V) {
-    PC += TMP-1;
+void m65ce02_device_bvs_rw2_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  if (cpu.P & cpu.F_V) {
+    cpu.PC += cpu.TMP-1;
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op clc_ce_imp --- 
-void m65ce02_device::clc_ce_imp_0() {
-  P &= ~F_C;
-  fetch();return; // fetch
+// --- op clc_imp --- 
+void m65ce02_device_clc_imp_0(m65ce02_device &cpu) {
+  cpu.P &= ~cpu.F_C;
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op cld_ce_imp --- 
-void m65ce02_device::cld_ce_imp_0() {
-  P &= ~F_D;
-  fetch();return; // fetch
+// --- op cld_imp --- 
+void m65ce02_device_cld_imp_0(m65ce02_device &cpu) {
+  cpu.P &= ~cpu.F_D;
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op cle_imp --- 
-void m65ce02_device::cle_imp_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::cle_imp_1;return; // READ
+void m65ce02_device_cle_imp_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cle_imp_1;return; // READ
 }
 
-void m65ce02_device::cle_imp_1() {
-  P &= ~F_E;
-  logerror("CLE\n");
-  fetch();return; // fetch
+void m65ce02_device_cle_imp_1(m65ce02_device &cpu) {
+  cpu.P &= ~cpu.F_E;
+  cpu.logerror("cpu.CLE\cpu.n");
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op cli_ce_imp --- 
-void m65ce02_device::cli_ce_imp_0() {
-  PrefetchNextFn = &m65ce02_device::cli_ce_imp_1;
-  prefetch();return; // prefetch
+// --- op cli_imp --- 
+void m65ce02_device_cli_imp_0(m65ce02_device &cpu) {
+  cpu.PrefetchNextFn = (void *)&m65ce02_device_cli_imp_1;
+  m65x_device_prefetch(cpu);return; // prefetch
 }
 
-void m65ce02_device::cli_ce_imp_1() {
-  P &= ~F_I;
-  postfetch();return; // postfetch
+void m65ce02_device_cli_imp_1(m65ce02_device &cpu) {
+  cpu.P &= ~cpu.F_I;
+  m65x_device_postfetch(cpu);return; // postfetch
 }
 
-// --- op clv_ce_imp --- 
-void m65ce02_device::clv_ce_imp_0() {
-  P &= ~F_V;
-  fetch();return; // fetch
+// --- op clv_imp --- 
+void m65ce02_device_clv_imp_0(m65ce02_device &cpu) {
+  cpu.P &= ~cpu.F_V;
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op cmp_ce_abx --- 
-void m65ce02_device::cmp_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_abx_1;return; // READ
+// --- op cmp_abx --- 
+void m65ce02_device_cmp_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_abx_1;return; // READ
 }
 
-void m65ce02_device::cmp_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_abx_2;return; // READ
+void m65ce02_device_cmp_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_abx_2;return; // READ
 }
 
-void m65ce02_device::cmp_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += X;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_abx_3;return; // READ
+void m65ce02_device_cmp_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.X;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_abx_3;return; // READ
 }
 
-void m65ce02_device::cmp_ce_abx_3() {
-  TMP = DAT;
-  do_cmp(A, TMP);
-  fetch();return; // fetch
+void m65ce02_device_cmp_abx_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_cmp(cpu.A, cpu.TMP);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op cmp_ce_aby --- 
-void m65ce02_device::cmp_ce_aby_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_aby_1;return; // READ
+// --- op cmp_aby --- 
+void m65ce02_device_cmp_aby_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_aby_1;return; // READ
 }
 
-void m65ce02_device::cmp_ce_aby_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_aby_2;return; // READ
+void m65ce02_device_cmp_aby_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_aby_2;return; // READ
 }
 
-void m65ce02_device::cmp_ce_aby_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += Y;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_aby_3;return; // READ
+void m65ce02_device_cmp_aby_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.Y;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_aby_3;return; // READ
 }
 
-void m65ce02_device::cmp_ce_aby_3() {
-  TMP = DAT;
-  do_cmp(A, TMP);
-  fetch();return; // fetch
+void m65ce02_device_cmp_aby_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_cmp(cpu.A, cpu.TMP);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op cmp_ce_idx --- 
-void m65ce02_device::cmp_ce_idx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_idx_1;return; // READ
+// --- op cmp_idx --- 
+void m65ce02_device_cmp_idx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_idx_1;return; // READ
 }
 
-void m65ce02_device::cmp_ce_idx_1() {
-  TMP2 = DAT;
-  TMP2 += X;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_idx_2;return; // READ
+void m65ce02_device_cmp_idx_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 += cpu.X;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_idx_2;return; // READ
 }
 
-void m65ce02_device::cmp_ce_idx_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_idx_3;return; // READ
+void m65ce02_device_cmp_idx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_idx_3;return; // READ
 }
 
-void m65ce02_device::cmp_ce_idx_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_idx_4;return; // READ
+void m65ce02_device_cmp_idx_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_idx_4;return; // READ
 }
 
-void m65ce02_device::cmp_ce_idx_4() {
-  do_cmp(A, DAT);
-  fetch();return; // fetch
+void m65ce02_device_cmp_idx_4(m65ce02_device &cpu) {
+  cpu.do_cmp(cpu.A, cpu.DAT);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op cmp_ce_idy --- 
-void m65ce02_device::cmp_ce_idy_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_idy_1;return; // READ
+// --- op cmp_idy --- 
+void m65ce02_device_cmp_idy_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_idy_1;return; // READ
 }
 
-void m65ce02_device::cmp_ce_idy_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_idy_2;return; // READ
+void m65ce02_device_cmp_idy_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_idy_2;return; // READ
 }
 
-void m65ce02_device::cmp_ce_idy_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_idy_3;return; // READ
+void m65ce02_device_cmp_idy_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_idy_3;return; // READ
 }
 
-void m65ce02_device::cmp_ce_idy_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Y;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_idy_4;return; // READ
+void m65ce02_device_cmp_idy_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Y;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_idy_4;return; // READ
 }
 
-void m65ce02_device::cmp_ce_idy_4() {
-  do_cmp(A, DAT);
-  fetch();return; // fetch
-}
-
-// --- op cmp_ce_zpg --- 
-void m65ce02_device::cmp_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_zpg_1;return; // READ
-}
-
-void m65ce02_device::cmp_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_zpg_2;return; // READ
-}
-
-void m65ce02_device::cmp_ce_zpg_2() {
-  TMP = DAT;
-  do_cmp(A, TMP);
-  fetch();return; // fetch
-}
-
-// --- op cmp_ce_zpx --- 
-void m65ce02_device::cmp_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_zpx_1;return; // READ
-}
-
-void m65ce02_device::cmp_ce_zpx_1() {
-  TMP = DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_zpx_2;return; // READ
-}
-
-void m65ce02_device::cmp_ce_zpx_2() {
-  ADDR = B|uint8_t(TMP+X);
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_ce_zpx_3;return; // READ
-}
-
-void m65ce02_device::cmp_ce_zpx_3() {
-  TMP = DAT;
-  do_cmp(A, TMP);
-  fetch();return; // fetch
+void m65ce02_device_cmp_idy_4(m65ce02_device &cpu) {
+  cpu.do_cmp(cpu.A, cpu.DAT);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op cmp_idz --- 
-void m65ce02_device::cmp_idz_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_idz_1;return; // READ
+void m65ce02_device_cmp_idz_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_idz_1;return; // READ
 }
 
-void m65ce02_device::cmp_idz_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_idz_2;return; // READ
+void m65ce02_device_cmp_idz_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_idz_2;return; // READ
 }
 
-void m65ce02_device::cmp_idz_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_idz_3;return; // READ
+void m65ce02_device_cmp_idz_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_idz_3;return; // READ
 }
 
-void m65ce02_device::cmp_idz_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Z;
-  RNW = true;
-  NextFn = &m65ce02_device::cmp_idz_4;return; // READ
+void m65ce02_device_cmp_idz_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Z;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_idz_4;return; // READ
 }
 
-void m65ce02_device::cmp_idz_4() {
-  do_cmp(A, DAT);
-  fetch();return; // fetch
+void m65ce02_device_cmp_idz_4(m65ce02_device &cpu) {
+  cpu.do_cmp(cpu.A, cpu.DAT);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op cpx_ce_zpg --- 
-void m65ce02_device::cpx_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::cpx_ce_zpg_1;return; // READ
+// --- op cmp_zpg --- 
+void m65ce02_device_cmp_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_zpg_1;return; // READ
 }
 
-void m65ce02_device::cpx_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::cpx_ce_zpg_2;return; // READ
+void m65ce02_device_cmp_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_zpg_2;return; // READ
 }
 
-void m65ce02_device::cpx_ce_zpg_2() {
-  TMP = DAT;
-  do_cmp(X, TMP);
-  fetch();return; // fetch
+void m65ce02_device_cmp_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_cmp(cpu.A, cpu.TMP);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op cpy_ce_zpg --- 
-void m65ce02_device::cpy_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::cpy_ce_zpg_1;return; // READ
+// --- op cmp_zpx --- 
+void m65ce02_device_cmp_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_zpx_1;return; // READ
 }
 
-void m65ce02_device::cpy_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::cpy_ce_zpg_2;return; // READ
+void m65ce02_device_cmp_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_zpx_2;return; // READ
 }
 
-void m65ce02_device::cpy_ce_zpg_2() {
-  TMP = DAT;
-  do_cmp(Y, TMP);
-  fetch();return; // fetch
+void m65ce02_device_cmp_zpx_2(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cmp_zpx_3;return; // READ
+}
+
+void m65ce02_device_cmp_zpx_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_cmp(cpu.A, cpu.TMP);
+  m65x_device_fetch(cpu);return; // fetch
+}
+
+// --- op cpx_zpg --- 
+void m65ce02_device_cpx_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cpx_zpg_1;return; // READ
+}
+
+void m65ce02_device_cpx_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cpx_zpg_2;return; // READ
+}
+
+void m65ce02_device_cpx_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_cmp(cpu.X, cpu.TMP);
+  m65x_device_fetch(cpu);return; // fetch
+}
+
+// --- op cpy_zpg --- 
+void m65ce02_device_cpy_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cpy_zpg_1;return; // READ
+}
+
+void m65ce02_device_cpy_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cpy_zpg_2;return; // READ
+}
+
+void m65ce02_device_cpy_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_cmp(cpu.Y, cpu.TMP);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op cpz_aba --- 
-void m65ce02_device::cpz_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::cpz_aba_1;return; // READ
+void m65ce02_device_cpz_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cpz_aba_1;return; // READ
 }
 
-void m65ce02_device::cpz_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::cpz_aba_2;return; // READ
+void m65ce02_device_cpz_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cpz_aba_2;return; // READ
 }
 
-void m65ce02_device::cpz_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::cpz_aba_3;return; // READ
+void m65ce02_device_cpz_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cpz_aba_3;return; // READ
 }
 
-void m65ce02_device::cpz_aba_3() {
-  TMP = DAT;
-  do_cmp(Z, TMP);
-  fetch();return; // fetch
+void m65ce02_device_cpz_aba_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_cmp(cpu.Z, cpu.TMP);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op cpz_imm --- 
-void m65ce02_device::cpz_imm_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::cpz_imm_1;return; // READ
+void m65ce02_device_cpz_imm_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cpz_imm_1;return; // READ
 }
 
-void m65ce02_device::cpz_imm_1() {
-  TMP = DAT;
-  do_cmp(Z, TMP);
-  fetch();return; // fetch
+void m65ce02_device_cpz_imm_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_cmp(cpu.Z, cpu.TMP);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op cpz_zpg --- 
-void m65ce02_device::cpz_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::cpz_zpg_1;return; // READ
+void m65ce02_device_cpz_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cpz_zpg_1;return; // READ
 }
 
-void m65ce02_device::cpz_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::cpz_zpg_2;return; // READ
+void m65ce02_device_cpz_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_cpz_zpg_2;return; // READ
 }
 
-void m65ce02_device::cpz_zpg_2() {
-  TMP = DAT;
-  do_cmp(Z, TMP);
-  fetch();return; // fetch
+void m65ce02_device_cpz_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_cmp(cpu.Z, cpu.TMP);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op dec_ce_aba --- 
-void m65ce02_device::dec_ce_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::dec_ce_aba_1;return; // READ
+// --- op dec_aba --- 
+void m65ce02_device_dec_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_dec_aba_1;return; // READ
 }
 
-void m65ce02_device::dec_ce_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::dec_ce_aba_2;return; // READ
+void m65ce02_device_dec_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_dec_aba_2;return; // READ
 }
 
-void m65ce02_device::dec_ce_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::dec_ce_aba_3;return; // READ
+void m65ce02_device_dec_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_dec_aba_3;return; // READ
 }
 
-void m65ce02_device::dec_ce_aba_3() {
-  TMP2 = DAT;
-  TMP2--;
-  set_nz(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::dec_ce_aba_4;return; // WRITE
+void m65ce02_device_dec_aba_3(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2--;
+  cpu.set_nz(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_dec_aba_4;return; // WRITE
 }
 
-void m65ce02_device::dec_ce_aba_4() {
-  fetch();return; // fetch
+void m65ce02_device_dec_aba_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op dec_ce_abx --- 
-void m65ce02_device::dec_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::dec_ce_abx_1;return; // READ
+// --- op dec_abx --- 
+void m65ce02_device_dec_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_dec_abx_1;return; // READ
 }
 
-void m65ce02_device::dec_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::dec_ce_abx_2;return; // READ
+void m65ce02_device_dec_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_dec_abx_2;return; // READ
 }
 
-void m65ce02_device::dec_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += X;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::dec_ce_abx_3;return; // READ
+void m65ce02_device_dec_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.X;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_dec_abx_3;return; // READ
 }
 
-void m65ce02_device::dec_ce_abx_3() {
-  TMP2 = DAT;
-  TMP2--;
-  set_nz(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::dec_ce_abx_4;return; // WRITE
+void m65ce02_device_dec_abx_3(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2--;
+  cpu.set_nz(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_dec_abx_4;return; // WRITE
 }
 
-void m65ce02_device::dec_ce_abx_4() {
-  fetch();return; // fetch
+void m65ce02_device_dec_abx_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op dec_ce_acc --- 
-void m65ce02_device::dec_ce_acc_0() {
-  A--;
-  set_nz(A);
-  fetch();return; // fetch
+// --- op dec_acc --- 
+void m65ce02_device_dec_acc_0(m65ce02_device &cpu) {
+  cpu.A--;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op dec_ce_zpg --- 
-void m65ce02_device::dec_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::dec_ce_zpg_1;return; // READ
+// --- op dec_zpg --- 
+void m65ce02_device_dec_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_dec_zpg_1;return; // READ
 }
 
-void m65ce02_device::dec_ce_zpg_1() {
-  TMP = B|DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::dec_ce_zpg_2;return; // READ
+void m65ce02_device_dec_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.B|cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_dec_zpg_2;return; // READ
 }
 
-void m65ce02_device::dec_ce_zpg_2() {
-  TMP2 = DAT;
-  TMP2--;
-  set_nz(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::dec_ce_zpg_3;return; // WRITE
+void m65ce02_device_dec_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2--;
+  cpu.set_nz(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_dec_zpg_3;return; // WRITE
 }
 
-void m65ce02_device::dec_ce_zpg_3() {
-  fetch();return; // fetch
+void m65ce02_device_dec_zpg_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op dec_ce_zpx --- 
-void m65ce02_device::dec_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::dec_ce_zpx_1;return; // READ
+// --- op dec_zpx --- 
+void m65ce02_device_dec_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_dec_zpx_1;return; // READ
 }
 
-void m65ce02_device::dec_ce_zpx_1() {
-  TMP = DAT;
-  TMP = B|uint8_t(TMP+X);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::dec_ce_zpx_2;return; // READ
+void m65ce02_device_dec_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_dec_zpx_2;return; // READ
 }
 
-void m65ce02_device::dec_ce_zpx_2() {
-  TMP2 = DAT;
-  TMP2--;
-  set_nz(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::dec_ce_zpx_3;return; // WRITE
+void m65ce02_device_dec_zpx_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2--;
+  cpu.set_nz(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_dec_zpx_3;return; // WRITE
 }
 
-void m65ce02_device::dec_ce_zpx_3() {
-  fetch();return; // fetch
+void m65ce02_device_dec_zpx_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op dew_zpg --- 
-void m65ce02_device::dew_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::dew_zpg_1;return; // READ
+void m65ce02_device_dew_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_dew_zpg_1;return; // READ
 }
 
-void m65ce02_device::dew_zpg_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::dew_zpg_2;return; // READ
+void m65ce02_device_dew_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_dew_zpg_2;return; // READ
 }
 
-void m65ce02_device::dew_zpg_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::dew_zpg_3;return; // READ
+void m65ce02_device_dew_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_dew_zpg_3;return; // READ
 }
 
-void m65ce02_device::dew_zpg_3() {
-  TMP = set_h(TMP, DAT);
-  P &= ~(F_N|F_Z);
-  TMP++;
-  if (!TMP) {
-    P |= F_Z;
+void m65ce02_device_dew_zpg_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.P &= ~(cpu.F_N|cpu.F_Z);
+  cpu.TMP++;
+  if (!cpu.TMP) {
+    cpu.P |= cpu.F_Z;
   } else {
-    if (TMP & 0x8000) {
-      P |= F_N;
+    if (cpu.TMP & 0x8000) {
+      cpu.P |= cpu.F_N;
     }
   }
-  TMP2++;
-  ADDR = B|TMP2;
-  DAT =  TMP;
-  RNW = false;
-  NextFn = &m65ce02_device::dew_zpg_4;return; // WRITE
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.DAT =  cpu.TMP;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_dew_zpg_4;return; // WRITE
 }
 
-void m65ce02_device::dew_zpg_4() {
-  TMP2++;
-  ADDR = B|TMP2;
-  DAT =  TMP >> 8;
-  RNW = false;
-  NextFn = &m65ce02_device::dew_zpg_5;return; // WRITE
+void m65ce02_device_dew_zpg_4(m65ce02_device &cpu) {
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.DAT =  cpu.TMP >> 8;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_dew_zpg_5;return; // WRITE
 }
 
-void m65ce02_device::dew_zpg_5() {
-  fetch();return; // fetch
+void m65ce02_device_dew_zpg_5(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op dex_ce_imp --- 
-void m65ce02_device::dex_ce_imp_0() {
-  X--;
-  set_nz(X);
-  fetch();return; // fetch
+// --- op dex_imp --- 
+void m65ce02_device_dex_imp_0(m65ce02_device &cpu) {
+  cpu.X--;
+  cpu.set_nz(cpu.X);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op dey_ce_imp --- 
-void m65ce02_device::dey_ce_imp_0() {
-  Y--;
-  set_nz(Y);
-  fetch();return; // fetch
+// --- op dey_imp --- 
+void m65ce02_device_dey_imp_0(m65ce02_device &cpu) {
+  cpu.Y--;
+  cpu.set_nz(cpu.Y);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op dez_imp --- 
-void m65ce02_device::dez_imp_0() {
-  Z--;
-  set_nz(Z);
-  fetch();return; // fetch
+void m65ce02_device_dez_imp_0(m65ce02_device &cpu) {
+  cpu.Z--;
+  cpu.set_nz(cpu.Z);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op eor_ce_abx --- 
-void m65ce02_device::eor_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_abx_1;return; // READ
+// --- op eor_abx --- 
+void m65ce02_device_eor_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_abx_1;return; // READ
 }
 
-void m65ce02_device::eor_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_abx_2;return; // READ
+void m65ce02_device_eor_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_abx_2;return; // READ
 }
 
-void m65ce02_device::eor_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += X;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_abx_3;return; // READ
+void m65ce02_device_eor_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.X;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_abx_3;return; // READ
 }
 
-void m65ce02_device::eor_ce_abx_3() {
-  A ^= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_eor_abx_3(m65ce02_device &cpu) {
+  cpu.A ^= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op eor_ce_aby --- 
-void m65ce02_device::eor_ce_aby_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_aby_1;return; // READ
+// --- op eor_aby --- 
+void m65ce02_device_eor_aby_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_aby_1;return; // READ
 }
 
-void m65ce02_device::eor_ce_aby_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_aby_2;return; // READ
+void m65ce02_device_eor_aby_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_aby_2;return; // READ
 }
 
-void m65ce02_device::eor_ce_aby_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += Y;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_aby_3;return; // READ
+void m65ce02_device_eor_aby_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.Y;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_aby_3;return; // READ
 }
 
-void m65ce02_device::eor_ce_aby_3() {
-  A ^= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_eor_aby_3(m65ce02_device &cpu) {
+  cpu.A ^= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op eor_ce_idx --- 
-void m65ce02_device::eor_ce_idx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_idx_1;return; // READ
+// --- op eor_idx --- 
+void m65ce02_device_eor_idx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_idx_1;return; // READ
 }
 
-void m65ce02_device::eor_ce_idx_1() {
-  TMP2 = DAT;
-  TMP2 += X;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_idx_2;return; // READ
+void m65ce02_device_eor_idx_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 += cpu.X;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_idx_2;return; // READ
 }
 
-void m65ce02_device::eor_ce_idx_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_idx_3;return; // READ
+void m65ce02_device_eor_idx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_idx_3;return; // READ
 }
 
-void m65ce02_device::eor_ce_idx_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_idx_4;return; // READ
+void m65ce02_device_eor_idx_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_idx_4;return; // READ
 }
 
-void m65ce02_device::eor_ce_idx_4() {
-  A ^= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_eor_idx_4(m65ce02_device &cpu) {
+  cpu.A ^= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op eor_ce_idy --- 
-void m65ce02_device::eor_ce_idy_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_idy_1;return; // READ
+// --- op eor_idy --- 
+void m65ce02_device_eor_idy_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_idy_1;return; // READ
 }
 
-void m65ce02_device::eor_ce_idy_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_idy_2;return; // READ
+void m65ce02_device_eor_idy_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_idy_2;return; // READ
 }
 
-void m65ce02_device::eor_ce_idy_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_idy_3;return; // READ
+void m65ce02_device_eor_idy_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_idy_3;return; // READ
 }
 
-void m65ce02_device::eor_ce_idy_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Y;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_idy_4;return; // READ
+void m65ce02_device_eor_idy_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Y;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_idy_4;return; // READ
 }
 
-void m65ce02_device::eor_ce_idy_4() {
-  A ^= DAT;
-  set_nz(A);
-  fetch();return; // fetch
-}
-
-// --- op eor_ce_zpg --- 
-void m65ce02_device::eor_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_zpg_1;return; // READ
-}
-
-void m65ce02_device::eor_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_zpg_2;return; // READ
-}
-
-void m65ce02_device::eor_ce_zpg_2() {
-  A ^= DAT;
-  set_nz(A);
-  fetch();return; // fetch
-}
-
-// --- op eor_ce_zpx --- 
-void m65ce02_device::eor_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_zpx_1;return; // READ
-}
-
-void m65ce02_device::eor_ce_zpx_1() {
-  TMP = DAT;
-  ADDR = B|uint8_t(TMP+X);
-  RNW = true;
-  NextFn = &m65ce02_device::eor_ce_zpx_2;return; // READ
-}
-
-void m65ce02_device::eor_ce_zpx_2() {
-  A ^= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_eor_idy_4(m65ce02_device &cpu) {
+  cpu.A ^= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op eor_idz --- 
-void m65ce02_device::eor_idz_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_idz_1;return; // READ
+void m65ce02_device_eor_idz_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_idz_1;return; // READ
 }
 
-void m65ce02_device::eor_idz_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_idz_2;return; // READ
+void m65ce02_device_eor_idz_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_idz_2;return; // READ
 }
 
-void m65ce02_device::eor_idz_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_idz_3;return; // READ
+void m65ce02_device_eor_idz_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_idz_3;return; // READ
 }
 
-void m65ce02_device::eor_idz_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Z;
-  RNW = true;
-  NextFn = &m65ce02_device::eor_idz_4;return; // READ
+void m65ce02_device_eor_idz_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Z;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_idz_4;return; // READ
 }
 
-void m65ce02_device::eor_idz_4() {
-  A ^= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_eor_idz_4(m65ce02_device &cpu) {
+  cpu.A ^= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op inc_ce_aba --- 
-void m65ce02_device::inc_ce_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::inc_ce_aba_1;return; // READ
+// --- op eor_zpg --- 
+void m65ce02_device_eor_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_zpg_1;return; // READ
 }
 
-void m65ce02_device::inc_ce_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::inc_ce_aba_2;return; // READ
+void m65ce02_device_eor_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_zpg_2;return; // READ
 }
 
-void m65ce02_device::inc_ce_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::inc_ce_aba_3;return; // READ
+void m65ce02_device_eor_zpg_2(m65ce02_device &cpu) {
+  cpu.A ^= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::inc_ce_aba_3() {
-  TMP2 = DAT;
-  TMP2++;
-  set_nz(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::inc_ce_aba_4;return; // WRITE
+// --- op eor_zpx --- 
+void m65ce02_device_eor_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_zpx_1;return; // READ
 }
 
-void m65ce02_device::inc_ce_aba_4() {
-  fetch();return; // fetch
+void m65ce02_device_eor_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_eor_zpx_2;return; // READ
 }
 
-// --- op inc_ce_abx --- 
-void m65ce02_device::inc_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::inc_ce_abx_1;return; // READ
+void m65ce02_device_eor_zpx_2(m65ce02_device &cpu) {
+  cpu.A ^= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::inc_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::inc_ce_abx_2;return; // READ
+// --- op inc_aba --- 
+void m65ce02_device_inc_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_inc_aba_1;return; // READ
 }
 
-void m65ce02_device::inc_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += X;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::inc_ce_abx_3;return; // READ
+void m65ce02_device_inc_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_inc_aba_2;return; // READ
 }
 
-void m65ce02_device::inc_ce_abx_3() {
-  TMP2 = DAT;
-  TMP2++;
-  set_nz(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::inc_ce_abx_4;return; // WRITE
+void m65ce02_device_inc_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_inc_aba_3;return; // READ
 }
 
-void m65ce02_device::inc_ce_abx_4() {
-  fetch();return; // fetch
+void m65ce02_device_inc_aba_3(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2++;
+  cpu.set_nz(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_inc_aba_4;return; // WRITE
 }
 
-// --- op inc_ce_acc --- 
-void m65ce02_device::inc_ce_acc_0() {
-  A++;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_inc_aba_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op inc_ce_zpg --- 
-void m65ce02_device::inc_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::inc_ce_zpg_1;return; // READ
+// --- op inc_abx --- 
+void m65ce02_device_inc_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_inc_abx_1;return; // READ
 }
 
-void m65ce02_device::inc_ce_zpg_1() {
-  TMP = B|DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::inc_ce_zpg_2;return; // READ
+void m65ce02_device_inc_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_inc_abx_2;return; // READ
 }
 
-void m65ce02_device::inc_ce_zpg_2() {
-  TMP2 = DAT;
-  TMP2++;
-  set_nz(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::inc_ce_zpg_3;return; // WRITE
+void m65ce02_device_inc_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.X;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_inc_abx_3;return; // READ
 }
 
-void m65ce02_device::inc_ce_zpg_3() {
-  fetch();return; // fetch
+void m65ce02_device_inc_abx_3(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2++;
+  cpu.set_nz(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_inc_abx_4;return; // WRITE
 }
 
-// --- op inc_ce_zpx --- 
-void m65ce02_device::inc_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::inc_ce_zpx_1;return; // READ
+void m65ce02_device_inc_abx_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::inc_ce_zpx_1() {
-  TMP = DAT;
-  TMP = B|uint8_t(TMP+X);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::inc_ce_zpx_2;return; // READ
+// --- op inc_acc --- 
+void m65ce02_device_inc_acc_0(m65ce02_device &cpu) {
+  cpu.A++;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::inc_ce_zpx_2() {
-  TMP2 = DAT;
-  TMP2++;
-  set_nz(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::inc_ce_zpx_3;return; // WRITE
+// --- op inc_zpg --- 
+void m65ce02_device_inc_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_inc_zpg_1;return; // READ
 }
 
-void m65ce02_device::inc_ce_zpx_3() {
-  fetch();return; // fetch
+void m65ce02_device_inc_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.B|cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_inc_zpg_2;return; // READ
+}
+
+void m65ce02_device_inc_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2++;
+  cpu.set_nz(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_inc_zpg_3;return; // WRITE
+}
+
+void m65ce02_device_inc_zpg_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
+}
+
+// --- op inc_zpx --- 
+void m65ce02_device_inc_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_inc_zpx_1;return; // READ
+}
+
+void m65ce02_device_inc_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_inc_zpx_2;return; // READ
+}
+
+void m65ce02_device_inc_zpx_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2++;
+  cpu.set_nz(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_inc_zpx_3;return; // WRITE
+}
+
+void m65ce02_device_inc_zpx_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op inw_zpg --- 
-void m65ce02_device::inw_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::inw_zpg_1;return; // READ
+void m65ce02_device_inw_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_inw_zpg_1;return; // READ
 }
 
-void m65ce02_device::inw_zpg_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::inw_zpg_2;return; // READ
+void m65ce02_device_inw_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_inw_zpg_2;return; // READ
 }
 
-void m65ce02_device::inw_zpg_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::inw_zpg_3;return; // READ
+void m65ce02_device_inw_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_inw_zpg_3;return; // READ
 }
 
-void m65ce02_device::inw_zpg_3() {
-  TMP = set_h(TMP, DAT);
-  P &= ~(F_N|F_Z);
-  TMP++;
-  if (!TMP) {
-    P |= F_Z;
+void m65ce02_device_inw_zpg_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.P &= ~(cpu.F_N|cpu.F_Z);
+  cpu.TMP++;
+  if (!cpu.TMP) {
+    cpu.P |= cpu.F_Z;
   } else {
-    if (TMP & 0x8000) {
-      P |= F_N;
+    if (cpu.TMP & 0x8000) {
+      cpu.P |= cpu.F_N;
     }
   }
-  TMP2--;
-  ADDR = B|TMP2;
-  DAT =  TMP;
-  RNW = false;
-  NextFn = &m65ce02_device::inw_zpg_4;return; // WRITE
+  cpu.TMP2--;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.DAT =  cpu.TMP;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_inw_zpg_4;return; // WRITE
 }
 
-void m65ce02_device::inw_zpg_4() {
-  TMP2++;
-  ADDR = B|TMP2;
-  DAT =  TMP >> 8;
-  RNW = false;
-  NextFn = &m65ce02_device::inw_zpg_5;return; // WRITE
+void m65ce02_device_inw_zpg_4(m65ce02_device &cpu) {
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.DAT =  cpu.TMP >> 8;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_inw_zpg_5;return; // WRITE
 }
 
-void m65ce02_device::inw_zpg_5() {
-  fetch();return; // fetch
+void m65ce02_device_inw_zpg_5(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op inx_ce_imp --- 
-void m65ce02_device::inx_ce_imp_0() {
-  X++;
-  set_nz(X);
-  fetch();return; // fetch
+// --- op inx_imp --- 
+void m65ce02_device_inx_imp_0(m65ce02_device &cpu) {
+  cpu.X++;
+  cpu.set_nz(cpu.X);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op iny_ce_imp --- 
-void m65ce02_device::iny_ce_imp_0() {
-  Y++;
-  set_nz(Y);
-  fetch();return; // fetch
+// --- op iny_imp --- 
+void m65ce02_device_iny_imp_0(m65ce02_device &cpu) {
+  cpu.Y++;
+  cpu.set_nz(cpu.Y);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op inz_imp --- 
-void m65ce02_device::inz_imp_0() {
-  Z++;
-  set_nz(Z);
-  fetch();return; // fetch
+void m65ce02_device_inz_imp_0(m65ce02_device &cpu) {
+  cpu.Z++;
+  cpu.set_nz(cpu.Z);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op jmp_ce_iax --- 
-void m65ce02_device::jmp_ce_iax_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::jmp_ce_iax_1;return; // READ
+// --- op jmp_iax --- 
+void m65ce02_device_jmp_iax_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jmp_iax_1;return; // READ
 }
 
-void m65ce02_device::jmp_ce_iax_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::jmp_ce_iax_2;return; // READ
+void m65ce02_device_jmp_iax_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jmp_iax_2;return; // READ
 }
 
-void m65ce02_device::jmp_ce_iax_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += X;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::jmp_ce_iax_3;return; // READ
+void m65ce02_device_jmp_iax_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.X;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jmp_iax_3;return; // READ
 }
 
-void m65ce02_device::jmp_ce_iax_3() {
-  PC = DAT;
-  ADDR = TMP+1;
-  RNW = true;
-  NextFn = &m65ce02_device::jmp_ce_iax_4;return; // READ
+void m65ce02_device_jmp_iax_3(m65ce02_device &cpu) {
+  cpu.PC = cpu.DAT;
+  cpu.ADDR = cpu.TMP+1;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jmp_iax_4;return; // READ
 }
 
-void m65ce02_device::jmp_ce_iax_4() {
-  PC = set_h(PC, DAT);
-  fetch();return; // fetch
+void m65ce02_device_jmp_iax_4(m65ce02_device &cpu) {
+  cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op jmp_ce_ind --- 
-void m65ce02_device::jmp_ce_ind_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::jmp_ce_ind_1;return; // READ
+// --- op jmp_ind --- 
+void m65ce02_device_jmp_ind_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jmp_ind_1;return; // READ
 }
 
-void m65ce02_device::jmp_ce_ind_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::jmp_ce_ind_2;return; // READ
+void m65ce02_device_jmp_ind_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jmp_ind_2;return; // READ
 }
 
-void m65ce02_device::jmp_ce_ind_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::jmp_ce_ind_3;return; // READ
+void m65ce02_device_jmp_ind_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jmp_ind_3;return; // READ
 }
 
-void m65ce02_device::jmp_ce_ind_3() {
-  PC = DAT;
-  ADDR = TMP+1;
-  RNW = true;
-  NextFn = &m65ce02_device::jmp_ce_ind_4;return; // READ
+void m65ce02_device_jmp_ind_3(m65ce02_device &cpu) {
+  cpu.PC = cpu.DAT;
+  cpu.ADDR = cpu.TMP+1;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jmp_ind_4;return; // READ
 }
 
-void m65ce02_device::jmp_ce_ind_4() {
-  PC = set_h(PC, DAT);
-  fetch();return; // fetch
+void m65ce02_device_jmp_ind_4(m65ce02_device &cpu) {
+  cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op jsr_ce_adr --- 
-void m65ce02_device::jsr_ce_adr_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::jsr_ce_adr_1;return; // READ
+// --- op jsr_adr --- 
+void m65ce02_device_jsr_adr_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_adr_1;return; // READ
 }
 
-void m65ce02_device::jsr_ce_adr_1() {
-  TMP = DAT;
-  ADDR = SP;
-  DAT =  PC>>8;
-  RNW = false;
-  NextFn = &m65ce02_device::jsr_ce_adr_2;return; // WRITE
+void m65ce02_device_jsr_adr_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.PC>>8;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_adr_2;return; // WRITE
 }
 
-void m65ce02_device::jsr_ce_adr_2() {
-  dec_SP_ce();
-  ADDR = SP;
-  DAT =  PC;
-  RNW = false;
-  NextFn = &m65ce02_device::jsr_ce_adr_3;return; // WRITE
+void m65ce02_device_jsr_adr_2(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.PC;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_adr_3;return; // WRITE
 }
 
-void m65ce02_device::jsr_ce_adr_3() {
-  dec_SP_ce();
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::jsr_ce_adr_4;return; // READ
+void m65ce02_device_jsr_adr_3(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_adr_4;return; // READ
 }
 
-void m65ce02_device::jsr_ce_adr_4() {
-  TMP = set_h(TMP, DAT);
-  PC = TMP;
-  fetch();return; // fetch
+void m65ce02_device_jsr_adr_4(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.PC = cpu.TMP;
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op jsr_iax --- 
-void m65ce02_device::jsr_iax_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::jsr_iax_1;return; // READ
+void m65ce02_device_jsr_iax_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_iax_1;return; // READ
 }
 
-void m65ce02_device::jsr_iax_1() {
-  TMP = DAT;
-  ADDR = SP;
-  DAT =  PC>>8;
-  RNW = false;
-  NextFn = &m65ce02_device::jsr_iax_2;return; // WRITE
+void m65ce02_device_jsr_iax_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.PC>>8;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_iax_2;return; // WRITE
 }
 
-void m65ce02_device::jsr_iax_2() {
-  dec_SP_ce();
-  ADDR = SP;
-  DAT =  PC;
-  RNW = false;
-  NextFn = &m65ce02_device::jsr_iax_3;return; // WRITE
+void m65ce02_device_jsr_iax_2(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.PC;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_iax_3;return; // WRITE
 }
 
-void m65ce02_device::jsr_iax_3() {
-  dec_SP_ce();
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::jsr_iax_4;return; // READ
+void m65ce02_device_jsr_iax_3(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_iax_4;return; // READ
 }
 
-void m65ce02_device::jsr_iax_4() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::jsr_iax_5;return; // READ
+void m65ce02_device_jsr_iax_4(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_iax_5;return; // READ
 }
 
-void m65ce02_device::jsr_iax_5() {
-  PC = DAT;
-  ADDR = TMP+1;
-  RNW = true;
-  NextFn = &m65ce02_device::jsr_iax_6;return; // READ
+void m65ce02_device_jsr_iax_5(m65ce02_device &cpu) {
+  cpu.PC = cpu.DAT;
+  cpu.ADDR = cpu.TMP+1;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_iax_6;return; // READ
 }
 
-void m65ce02_device::jsr_iax_6() {
-  PC = set_h(PC, DAT);
-  PC += X;
-  fetch();return; // fetch
+void m65ce02_device_jsr_iax_6(m65ce02_device &cpu) {
+  cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
+  cpu.PC += cpu.X;
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op jsr_ind --- 
-void m65ce02_device::jsr_ind_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::jsr_ind_1;return; // READ
+void m65ce02_device_jsr_ind_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_ind_1;return; // READ
 }
 
-void m65ce02_device::jsr_ind_1() {
-  TMP = DAT;
-  ADDR = SP;
-  DAT =  PC>>8;
-  RNW = false;
-  NextFn = &m65ce02_device::jsr_ind_2;return; // WRITE
+void m65ce02_device_jsr_ind_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.PC>>8;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_ind_2;return; // WRITE
 }
 
-void m65ce02_device::jsr_ind_2() {
-  dec_SP_ce();
-  ADDR = SP;
-  DAT =  PC;
-  RNW = false;
-  NextFn = &m65ce02_device::jsr_ind_3;return; // WRITE
+void m65ce02_device_jsr_ind_2(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.PC;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_ind_3;return; // WRITE
 }
 
-void m65ce02_device::jsr_ind_3() {
-  dec_SP_ce();
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::jsr_ind_4;return; // READ
+void m65ce02_device_jsr_ind_3(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_ind_4;return; // READ
 }
 
-void m65ce02_device::jsr_ind_4() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::jsr_ind_5;return; // READ
+void m65ce02_device_jsr_ind_4(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_ind_5;return; // READ
 }
 
-void m65ce02_device::jsr_ind_5() {
-  PC = DAT;
-  ADDR = TMP+1;
-  RNW = true;
-  NextFn = &m65ce02_device::jsr_ind_6;return; // READ
+void m65ce02_device_jsr_ind_5(m65ce02_device &cpu) {
+  cpu.PC = cpu.DAT;
+  cpu.ADDR = cpu.TMP+1;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_jsr_ind_6;return; // READ
 }
 
-void m65ce02_device::jsr_ind_6() {
-  PC = set_h(PC, DAT);
-  fetch();return; // fetch
+void m65ce02_device_jsr_ind_6(m65ce02_device &cpu) {
+  cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op lda_ce_abx --- 
-void m65ce02_device::lda_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_abx_1;return; // READ
+// --- op lda_abx --- 
+void m65ce02_device_lda_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_abx_1;return; // READ
 }
 
-void m65ce02_device::lda_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_abx_2;return; // READ
+void m65ce02_device_lda_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_abx_2;return; // READ
 }
 
-void m65ce02_device::lda_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP + X;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_abx_3;return; // READ
+void m65ce02_device_lda_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP + cpu.X;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_abx_3;return; // READ
 }
 
-void m65ce02_device::lda_ce_abx_3() {
-  A = DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_lda_abx_3(m65ce02_device &cpu) {
+  cpu.A = cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op lda_ce_aby --- 
-void m65ce02_device::lda_ce_aby_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_aby_1;return; // READ
+// --- op lda_aby --- 
+void m65ce02_device_lda_aby_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_aby_1;return; // READ
 }
 
-void m65ce02_device::lda_ce_aby_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_aby_2;return; // READ
+void m65ce02_device_lda_aby_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_aby_2;return; // READ
 }
 
-void m65ce02_device::lda_ce_aby_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP + Y;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_aby_3;return; // READ
+void m65ce02_device_lda_aby_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP + cpu.Y;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_aby_3;return; // READ
 }
 
-void m65ce02_device::lda_ce_aby_3() {
-  A = DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_lda_aby_3(m65ce02_device &cpu) {
+  cpu.A = cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op lda_ce_idx --- 
-void m65ce02_device::lda_ce_idx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_idx_1;return; // READ
+// --- op lda_idx --- 
+void m65ce02_device_lda_idx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_idx_1;return; // READ
 }
 
-void m65ce02_device::lda_ce_idx_1() {
-  TMP2 = DAT;
-  TMP2 += X;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_idx_2;return; // READ
+void m65ce02_device_lda_idx_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 += cpu.X;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_idx_2;return; // READ
 }
 
-void m65ce02_device::lda_ce_idx_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_idx_3;return; // READ
+void m65ce02_device_lda_idx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_idx_3;return; // READ
 }
 
-void m65ce02_device::lda_ce_idx_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_idx_4;return; // READ
+void m65ce02_device_lda_idx_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_idx_4;return; // READ
 }
 
-void m65ce02_device::lda_ce_idx_4() {
-  A = DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_lda_idx_4(m65ce02_device &cpu) {
+  cpu.A = cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op lda_ce_idy --- 
-void m65ce02_device::lda_ce_idy_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_idy_1;return; // READ
+// --- op lda_idy --- 
+void m65ce02_device_lda_idy_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_idy_1;return; // READ
 }
 
-void m65ce02_device::lda_ce_idy_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_idy_2;return; // READ
+void m65ce02_device_lda_idy_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_idy_2;return; // READ
 }
 
-void m65ce02_device::lda_ce_idy_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_idy_3;return; // READ
+void m65ce02_device_lda_idy_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_idy_3;return; // READ
 }
 
-void m65ce02_device::lda_ce_idy_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Y;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_idy_4;return; // READ
+void m65ce02_device_lda_idy_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Y;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_idy_4;return; // READ
 }
 
-void m65ce02_device::lda_ce_idy_4() {
-  A = DAT;
-  set_nz(A);
-  fetch();return; // fetch
-}
-
-// --- op lda_ce_zpg --- 
-void m65ce02_device::lda_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_zpg_1;return; // READ
-}
-
-void m65ce02_device::lda_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_zpg_2;return; // READ
-}
-
-void m65ce02_device::lda_ce_zpg_2() {
-  A = DAT;
-  set_nz(A);
-  fetch();return; // fetch
-}
-
-// --- op lda_ce_zpx --- 
-void m65ce02_device::lda_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_zpx_1;return; // READ
-}
-
-void m65ce02_device::lda_ce_zpx_1() {
-  TMP = DAT;
-  ADDR = B|uint8_t(TMP+X);
-  RNW = true;
-  NextFn = &m65ce02_device::lda_ce_zpx_2;return; // READ
-}
-
-void m65ce02_device::lda_ce_zpx_2() {
-  A = DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_lda_idy_4(m65ce02_device &cpu) {
+  cpu.A = cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op lda_idz --- 
-void m65ce02_device::lda_idz_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_idz_1;return; // READ
+void m65ce02_device_lda_idz_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_idz_1;return; // READ
 }
 
-void m65ce02_device::lda_idz_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_idz_2;return; // READ
+void m65ce02_device_lda_idz_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_idz_2;return; // READ
 }
 
-void m65ce02_device::lda_idz_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_idz_3;return; // READ
+void m65ce02_device_lda_idz_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_idz_3;return; // READ
 }
 
-void m65ce02_device::lda_idz_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Z;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_idz_4;return; // READ
+void m65ce02_device_lda_idz_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Z;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_idz_4;return; // READ
 }
 
-void m65ce02_device::lda_idz_4() {
-  A = DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_lda_idz_4(m65ce02_device &cpu) {
+  cpu.A = cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op lda_isy --- 
-void m65ce02_device::lda_isy_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_isy_1;return; // READ
+void m65ce02_device_lda_isy_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_isy_1;return; // READ
 }
 
-void m65ce02_device::lda_isy_1() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_isy_2;return; // READ
+void m65ce02_device_lda_isy_1(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_isy_2;return; // READ
 }
 
-void m65ce02_device::lda_isy_2() {
-  TMP = DAT;
-  if (P & F_E) {
-    TMP = set_l(SP, SP+TMP);
+void m65ce02_device_lda_isy_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  if (cpu.P & cpu.F_E) {
+    cpu.TMP = cpu.set_l(cpu.SP, cpu.SP+cpu.TMP);
   } else {
-    TMP = SP + TMP;
+    cpu.TMP = cpu.SP + cpu.TMP;
   }
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_isy_3;return; // READ
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_isy_3;return; // READ
 }
 
-void m65ce02_device::lda_isy_3() {
-  TMP2 = DAT;
-  TMP++;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_isy_4;return; // READ
+void m65ce02_device_lda_isy_3(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP++;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_isy_4;return; // READ
 }
 
-void m65ce02_device::lda_isy_4() {
-  TMP = TMP2 | (DAT << 8);
-  ADDR = TMP+Y;
-  RNW = true;
-  NextFn = &m65ce02_device::lda_isy_5;return; // READ
+void m65ce02_device_lda_isy_4(m65ce02_device &cpu) {
+  cpu.TMP = cpu.TMP2 | (cpu.DAT << 8);
+  cpu.ADDR = cpu.TMP+cpu.Y;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_isy_5;return; // READ
 }
 
-void m65ce02_device::lda_isy_5() {
-  A = DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_lda_isy_5(m65ce02_device &cpu) {
+  cpu.A = cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op ldx_ce_aby --- 
-void m65ce02_device::ldx_ce_aby_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ldx_ce_aby_1;return; // READ
+// --- op lda_zpg --- 
+void m65ce02_device_lda_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_zpg_1;return; // READ
 }
 
-void m65ce02_device::ldx_ce_aby_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ldx_ce_aby_2;return; // READ
+void m65ce02_device_lda_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_zpg_2;return; // READ
 }
 
-void m65ce02_device::ldx_ce_aby_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP + Y;
-  RNW = true;
-  NextFn = &m65ce02_device::ldx_ce_aby_3;return; // READ
+void m65ce02_device_lda_zpg_2(m65ce02_device &cpu) {
+  cpu.A = cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::ldx_ce_aby_3() {
-  X = DAT;
-  set_nz(X);
-  fetch();return; // fetch
+// --- op lda_zpx --- 
+void m65ce02_device_lda_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_zpx_1;return; // READ
 }
 
-// --- op ldx_ce_zpg --- 
-void m65ce02_device::ldx_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ldx_ce_zpg_1;return; // READ
+void m65ce02_device_lda_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lda_zpx_2;return; // READ
 }
 
-void m65ce02_device::ldx_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::ldx_ce_zpg_2;return; // READ
+void m65ce02_device_lda_zpx_2(m65ce02_device &cpu) {
+  cpu.A = cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::ldx_ce_zpg_2() {
-  X = DAT;
-  set_nz(X);
-  fetch();return; // fetch
+// --- op ldx_aby --- 
+void m65ce02_device_ldx_aby_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldx_aby_1;return; // READ
 }
 
-// --- op ldx_ce_zpy --- 
-void m65ce02_device::ldx_ce_zpy_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ldx_ce_zpy_1;return; // READ
+void m65ce02_device_ldx_aby_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldx_aby_2;return; // READ
 }
 
-void m65ce02_device::ldx_ce_zpy_1() {
-  TMP = DAT;
-  ADDR = B|uint8_t(TMP+Y);
-  RNW = true;
-  NextFn = &m65ce02_device::ldx_ce_zpy_2;return; // READ
+void m65ce02_device_ldx_aby_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP + cpu.Y;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldx_aby_3;return; // READ
 }
 
-void m65ce02_device::ldx_ce_zpy_2() {
-  X = DAT;
-  set_nz(X);
-  fetch();return; // fetch
+void m65ce02_device_ldx_aby_3(m65ce02_device &cpu) {
+  cpu.X = cpu.DAT;
+  cpu.set_nz(cpu.X);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op ldy_ce_abx --- 
-void m65ce02_device::ldy_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ldy_ce_abx_1;return; // READ
+// --- op ldx_zpg --- 
+void m65ce02_device_ldx_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldx_zpg_1;return; // READ
 }
 
-void m65ce02_device::ldy_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ldy_ce_abx_2;return; // READ
+void m65ce02_device_ldx_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldx_zpg_2;return; // READ
 }
 
-void m65ce02_device::ldy_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += X;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::ldy_ce_abx_3;return; // READ
+void m65ce02_device_ldx_zpg_2(m65ce02_device &cpu) {
+  cpu.X = cpu.DAT;
+  cpu.set_nz(cpu.X);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::ldy_ce_abx_3() {
-  Y = DAT;
-  set_nz(Y);
-  fetch();return; // fetch
+// --- op ldx_zpy --- 
+void m65ce02_device_ldx_zpy_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldx_zpy_1;return; // READ
 }
 
-// --- op ldy_ce_zpg --- 
-void m65ce02_device::ldy_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ldy_ce_zpg_1;return; // READ
+void m65ce02_device_ldx_zpy_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|uint8_t(cpu.TMP+cpu.Y);
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldx_zpy_2;return; // READ
 }
 
-void m65ce02_device::ldy_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::ldy_ce_zpg_2;return; // READ
+void m65ce02_device_ldx_zpy_2(m65ce02_device &cpu) {
+  cpu.X = cpu.DAT;
+  cpu.set_nz(cpu.X);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::ldy_ce_zpg_2() {
-  Y = DAT;
-  set_nz(Y);
-  fetch();return; // fetch
+// --- op ldy_abx --- 
+void m65ce02_device_ldy_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldy_abx_1;return; // READ
 }
 
-// --- op ldy_ce_zpx --- 
-void m65ce02_device::ldy_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ldy_ce_zpx_1;return; // READ
+void m65ce02_device_ldy_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldy_abx_2;return; // READ
 }
 
-void m65ce02_device::ldy_ce_zpx_1() {
-  TMP = DAT;
-  ADDR = B|uint8_t(TMP+X);
-  RNW = true;
-  NextFn = &m65ce02_device::ldy_ce_zpx_2;return; // READ
+void m65ce02_device_ldy_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.X;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldy_abx_3;return; // READ
 }
 
-void m65ce02_device::ldy_ce_zpx_2() {
-  Y = DAT;
-  set_nz(Y);
-  fetch();return; // fetch
+void m65ce02_device_ldy_abx_3(m65ce02_device &cpu) {
+  cpu.Y = cpu.DAT;
+  cpu.set_nz(cpu.Y);
+  m65x_device_fetch(cpu);return; // fetch
+}
+
+// --- op ldy_zpg --- 
+void m65ce02_device_ldy_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldy_zpg_1;return; // READ
+}
+
+void m65ce02_device_ldy_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldy_zpg_2;return; // READ
+}
+
+void m65ce02_device_ldy_zpg_2(m65ce02_device &cpu) {
+  cpu.Y = cpu.DAT;
+  cpu.set_nz(cpu.Y);
+  m65x_device_fetch(cpu);return; // fetch
+}
+
+// --- op ldy_zpx --- 
+void m65ce02_device_ldy_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldy_zpx_1;return; // READ
+}
+
+void m65ce02_device_ldy_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldy_zpx_2;return; // READ
+}
+
+void m65ce02_device_ldy_zpx_2(m65ce02_device &cpu) {
+  cpu.Y = cpu.DAT;
+  cpu.set_nz(cpu.Y);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op ldz_aba --- 
-void m65ce02_device::ldz_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ldz_aba_1;return; // READ
+void m65ce02_device_ldz_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldz_aba_1;return; // READ
 }
 
-void m65ce02_device::ldz_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ldz_aba_2;return; // READ
+void m65ce02_device_ldz_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldz_aba_2;return; // READ
 }
 
-void m65ce02_device::ldz_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::ldz_aba_3;return; // READ
+void m65ce02_device_ldz_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldz_aba_3;return; // READ
 }
 
-void m65ce02_device::ldz_aba_3() {
-  Z = DAT;
-  set_nz(Z);
-  fetch();return; // fetch
+void m65ce02_device_ldz_aba_3(m65ce02_device &cpu) {
+  cpu.Z = cpu.DAT;
+  cpu.set_nz(cpu.Z);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op ldz_abx --- 
-void m65ce02_device::ldz_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ldz_abx_1;return; // READ
+void m65ce02_device_ldz_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldz_abx_1;return; // READ
 }
 
-void m65ce02_device::ldz_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ldz_abx_2;return; // READ
+void m65ce02_device_ldz_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldz_abx_2;return; // READ
 }
 
-void m65ce02_device::ldz_abx_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP + X;
-  RNW = true;
-  NextFn = &m65ce02_device::ldz_abx_3;return; // READ
+void m65ce02_device_ldz_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP + cpu.X;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldz_abx_3;return; // READ
 }
 
-void m65ce02_device::ldz_abx_3() {
-  Z = DAT;
-  set_nz(Z);
-  fetch();return; // fetch
+void m65ce02_device_ldz_abx_3(m65ce02_device &cpu) {
+  cpu.Z = cpu.DAT;
+  cpu.set_nz(cpu.Z);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op ldz_imm --- 
-void m65ce02_device::ldz_imm_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ldz_imm_1;return; // READ
+void m65ce02_device_ldz_imm_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ldz_imm_1;return; // READ
 }
 
-void m65ce02_device::ldz_imm_1() {
-  Z = DAT;
-  set_nz(Z);
-  fetch();return; // fetch
+void m65ce02_device_ldz_imm_1(m65ce02_device &cpu) {
+  cpu.Z = cpu.DAT;
+  cpu.set_nz(cpu.Z);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op lsr_ce_aba --- 
-void m65ce02_device::lsr_ce_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lsr_ce_aba_1;return; // READ
+// --- op lsr_aba --- 
+void m65ce02_device_lsr_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lsr_aba_1;return; // READ
 }
 
-void m65ce02_device::lsr_ce_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lsr_ce_aba_2;return; // READ
+void m65ce02_device_lsr_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lsr_aba_2;return; // READ
 }
 
-void m65ce02_device::lsr_ce_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::lsr_ce_aba_3;return; // READ
+void m65ce02_device_lsr_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lsr_aba_3;return; // READ
 }
 
-void m65ce02_device::lsr_ce_aba_3() {
-  TMP2 = DAT;
-  TMP2 = do_lsr(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::lsr_ce_aba_4;return; // WRITE
+void m65ce02_device_lsr_aba_3(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_lsr(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_lsr_aba_4;return; // WRITE
 }
 
-void m65ce02_device::lsr_ce_aba_4() {
-  fetch();return; // fetch
+void m65ce02_device_lsr_aba_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op lsr_ce_abx --- 
-void m65ce02_device::lsr_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lsr_ce_abx_1;return; // READ
+// --- op lsr_abx --- 
+void m65ce02_device_lsr_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lsr_abx_1;return; // READ
 }
 
-void m65ce02_device::lsr_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lsr_ce_abx_2;return; // READ
+void m65ce02_device_lsr_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lsr_abx_2;return; // READ
 }
 
-void m65ce02_device::lsr_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = set_l(TMP, TMP+X);
-  RNW = true;
-  NextFn = &m65ce02_device::lsr_ce_abx_3;return; // READ
+void m65ce02_device_lsr_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.set_l(cpu.TMP, cpu.TMP+cpu.X);
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lsr_abx_3;return; // READ
 }
 
-void m65ce02_device::lsr_ce_abx_3() {
-  TMP += X;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::lsr_ce_abx_4;return; // READ
+void m65ce02_device_lsr_abx_3(m65ce02_device &cpu) {
+  cpu.TMP += cpu.X;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lsr_abx_4;return; // READ
 }
 
-void m65ce02_device::lsr_ce_abx_4() {
-  TMP2 = DAT;
-  TMP2 = do_lsr(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::lsr_ce_abx_5;return; // WRITE
+void m65ce02_device_lsr_abx_4(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_lsr(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_lsr_abx_5;return; // WRITE
 }
 
-void m65ce02_device::lsr_ce_abx_5() {
-  fetch();return; // fetch
+void m65ce02_device_lsr_abx_5(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op lsr_ce_acc --- 
-void m65ce02_device::lsr_ce_acc_0() {
-  A = do_lsr(A);
-  fetch();return; // fetch
+// --- op lsr_acc --- 
+void m65ce02_device_lsr_acc_0(m65ce02_device &cpu) {
+  cpu.A = cpu.do_lsr(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op lsr_ce_zpg --- 
-void m65ce02_device::lsr_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lsr_ce_zpg_1;return; // READ
+// --- op lsr_zpg --- 
+void m65ce02_device_lsr_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lsr_zpg_1;return; // READ
 }
 
-void m65ce02_device::lsr_ce_zpg_1() {
-  TMP = B|DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::lsr_ce_zpg_2;return; // READ
+void m65ce02_device_lsr_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.B|cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lsr_zpg_2;return; // READ
 }
 
-void m65ce02_device::lsr_ce_zpg_2() {
-  TMP2 = DAT;
-  TMP2 = do_lsr(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::lsr_ce_zpg_3;return; // WRITE
+void m65ce02_device_lsr_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_lsr(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_lsr_zpg_3;return; // WRITE
 }
 
-void m65ce02_device::lsr_ce_zpg_3() {
-  fetch();return; // fetch
+void m65ce02_device_lsr_zpg_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op lsr_ce_zpx --- 
-void m65ce02_device::lsr_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::lsr_ce_zpx_1;return; // READ
+// --- op lsr_zpx --- 
+void m65ce02_device_lsr_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lsr_zpx_1;return; // READ
 }
 
-void m65ce02_device::lsr_ce_zpx_1() {
-  TMP = DAT;
-  TMP = B|uint8_t(TMP+X);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::lsr_ce_zpx_2;return; // READ
+void m65ce02_device_lsr_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_lsr_zpx_2;return; // READ
 }
 
-void m65ce02_device::lsr_ce_zpx_2() {
-  TMP2 = DAT;
-  TMP2 = do_lsr(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::lsr_ce_zpx_3;return; // WRITE
+void m65ce02_device_lsr_zpx_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_lsr(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_lsr_zpx_3;return; // WRITE
 }
 
-void m65ce02_device::lsr_ce_zpx_3() {
-  fetch();return; // fetch
+void m65ce02_device_lsr_zpx_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op neg_acc --- 
-void m65ce02_device::neg_acc_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::neg_acc_1;return; // READ
+void m65ce02_device_neg_acc_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_neg_acc_1;return; // READ
 }
 
-void m65ce02_device::neg_acc_1() {
-  A = -A;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_neg_acc_1(m65ce02_device &cpu) {
+  cpu.A = -cpu.A;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op ora_ce_abx --- 
-void m65ce02_device::ora_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_abx_1;return; // READ
+// --- op ora_abx --- 
+void m65ce02_device_ora_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_abx_1;return; // READ
 }
 
-void m65ce02_device::ora_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_abx_2;return; // READ
+void m65ce02_device_ora_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_abx_2;return; // READ
 }
 
-void m65ce02_device::ora_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += X;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_abx_3;return; // READ
+void m65ce02_device_ora_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.X;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_abx_3;return; // READ
 }
 
-void m65ce02_device::ora_ce_abx_3() {
-  A |= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_ora_abx_3(m65ce02_device &cpu) {
+  cpu.A |= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op ora_ce_aby --- 
-void m65ce02_device::ora_ce_aby_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_aby_1;return; // READ
+// --- op ora_aby --- 
+void m65ce02_device_ora_aby_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_aby_1;return; // READ
 }
 
-void m65ce02_device::ora_ce_aby_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_aby_2;return; // READ
+void m65ce02_device_ora_aby_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_aby_2;return; // READ
 }
 
-void m65ce02_device::ora_ce_aby_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += Y;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_aby_3;return; // READ
+void m65ce02_device_ora_aby_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.Y;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_aby_3;return; // READ
 }
 
-void m65ce02_device::ora_ce_aby_3() {
-  A |= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_ora_aby_3(m65ce02_device &cpu) {
+  cpu.A |= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op ora_ce_idx --- 
-void m65ce02_device::ora_ce_idx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_idx_1;return; // READ
+// --- op ora_idx --- 
+void m65ce02_device_ora_idx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_idx_1;return; // READ
 }
 
-void m65ce02_device::ora_ce_idx_1() {
-  TMP2 = DAT;
-  TMP2 += X;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_idx_2;return; // READ
+void m65ce02_device_ora_idx_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 += cpu.X;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_idx_2;return; // READ
 }
 
-void m65ce02_device::ora_ce_idx_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_idx_3;return; // READ
+void m65ce02_device_ora_idx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_idx_3;return; // READ
 }
 
-void m65ce02_device::ora_ce_idx_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_idx_4;return; // READ
+void m65ce02_device_ora_idx_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_idx_4;return; // READ
 }
 
-void m65ce02_device::ora_ce_idx_4() {
-  A |= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_ora_idx_4(m65ce02_device &cpu) {
+  cpu.A |= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op ora_ce_idy --- 
-void m65ce02_device::ora_ce_idy_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_idy_1;return; // READ
+// --- op ora_idy --- 
+void m65ce02_device_ora_idy_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_idy_1;return; // READ
 }
 
-void m65ce02_device::ora_ce_idy_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_idy_2;return; // READ
+void m65ce02_device_ora_idy_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_idy_2;return; // READ
 }
 
-void m65ce02_device::ora_ce_idy_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_idy_3;return; // READ
+void m65ce02_device_ora_idy_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_idy_3;return; // READ
 }
 
-void m65ce02_device::ora_ce_idy_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Y;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_idy_4;return; // READ
+void m65ce02_device_ora_idy_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Y;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_idy_4;return; // READ
 }
 
-void m65ce02_device::ora_ce_idy_4() {
-  A |= DAT;
-  set_nz(A);
-  fetch();return; // fetch
-}
-
-// --- op ora_ce_zpg --- 
-void m65ce02_device::ora_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_zpg_1;return; // READ
-}
-
-void m65ce02_device::ora_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_zpg_2;return; // READ
-}
-
-void m65ce02_device::ora_ce_zpg_2() {
-  A |= DAT;
-  set_nz(A);
-  fetch();return; // fetch
-}
-
-// --- op ora_ce_zpx --- 
-void m65ce02_device::ora_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_zpx_1;return; // READ
-}
-
-void m65ce02_device::ora_ce_zpx_1() {
-  TMP = DAT;
-  ADDR = B|uint8_t(TMP+X);
-  RNW = true;
-  NextFn = &m65ce02_device::ora_ce_zpx_2;return; // READ
-}
-
-void m65ce02_device::ora_ce_zpx_2() {
-  A |= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_ora_idy_4(m65ce02_device &cpu) {
+  cpu.A |= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op ora_idz --- 
-void m65ce02_device::ora_idz_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_idz_1;return; // READ
+void m65ce02_device_ora_idz_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_idz_1;return; // READ
 }
 
-void m65ce02_device::ora_idz_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_idz_2;return; // READ
+void m65ce02_device_ora_idz_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_idz_2;return; // READ
 }
 
-void m65ce02_device::ora_idz_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_idz_3;return; // READ
+void m65ce02_device_ora_idz_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_idz_3;return; // READ
 }
 
-void m65ce02_device::ora_idz_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Z;
-  RNW = true;
-  NextFn = &m65ce02_device::ora_idz_4;return; // READ
+void m65ce02_device_ora_idz_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Z;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_idz_4;return; // READ
 }
 
-void m65ce02_device::ora_idz_4() {
-  A |= DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_ora_idz_4(m65ce02_device &cpu) {
+  cpu.A |= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op pha_ce_imp --- 
-void m65ce02_device::pha_ce_imp_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::pha_ce_imp_1;return; // READ
+// --- op ora_zpg --- 
+void m65ce02_device_ora_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_zpg_1;return; // READ
 }
 
-void m65ce02_device::pha_ce_imp_1() {
-  ADDR = SP;
-  DAT =  A;
-  RNW = false;
-  NextFn = &m65ce02_device::pha_ce_imp_2;return; // WRITE
+void m65ce02_device_ora_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_zpg_2;return; // READ
 }
 
-void m65ce02_device::pha_ce_imp_2() {
-  dec_SP_ce();
-  fetch();return; // fetch
+void m65ce02_device_ora_zpg_2(m65ce02_device &cpu) {
+  cpu.A |= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op php_ce_imp --- 
-void m65ce02_device::php_ce_imp_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::php_ce_imp_1;return; // READ
+// --- op ora_zpx --- 
+void m65ce02_device_ora_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_zpx_1;return; // READ
 }
 
-void m65ce02_device::php_ce_imp_1() {
-  ADDR = SP;
-  DAT =  P;
-  RNW = false;
-  NextFn = &m65ce02_device::php_ce_imp_2;return; // WRITE
+void m65ce02_device_ora_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ora_zpx_2;return; // READ
 }
 
-void m65ce02_device::php_ce_imp_2() {
-  dec_SP_ce();
-  fetch();return; // fetch
+void m65ce02_device_ora_zpx_2(m65ce02_device &cpu) {
+  cpu.A |= cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
+}
+
+// --- op pha_imp --- 
+void m65ce02_device_pha_imp_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_pha_imp_1;return; // READ
+}
+
+void m65ce02_device_pha_imp_1(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.A;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_pha_imp_2;return; // WRITE
+}
+
+void m65ce02_device_pha_imp_2(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  m65x_device_fetch(cpu);return; // fetch
+}
+
+// --- op php_imp --- 
+void m65ce02_device_php_imp_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_php_imp_1;return; // READ
+}
+
+void m65ce02_device_php_imp_1(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.P;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_php_imp_2;return; // WRITE
+}
+
+void m65ce02_device_php_imp_2(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op phw_aba --- 
-void m65ce02_device::phw_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::phw_aba_1;return; // READ
+void m65ce02_device_phw_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_phw_aba_1;return; // READ
 }
 
-void m65ce02_device::phw_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::phw_aba_2;return; // READ
+void m65ce02_device_phw_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_phw_aba_2;return; // READ
 }
 
-void m65ce02_device::phw_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::phw_aba_3;return; // READ
+void m65ce02_device_phw_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_phw_aba_3;return; // READ
 }
 
-void m65ce02_device::phw_aba_3() {
-  TMP3 = DAT;
-  ADDR = TMP+1;
-  RNW = true;
-  NextFn = &m65ce02_device::phw_aba_4;return; // READ
+void m65ce02_device_phw_aba_3(m65ce02_device &cpu) {
+  cpu.TMP3 = cpu.DAT;
+  cpu.ADDR = cpu.TMP+1;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_phw_aba_4;return; // READ
 }
 
-void m65ce02_device::phw_aba_4() {
-  TMP3 = set_h(TMP3, DAT);
-  dec_SP_ce();
-  ADDR = SP;
-  DAT =  TMP3;
-  RNW = false;
-  NextFn = &m65ce02_device::phw_aba_5;return; // WRITE
+void m65ce02_device_phw_aba_4(m65ce02_device &cpu) {
+  cpu.TMP3 = cpu.set_h(cpu.TMP3, cpu.DAT);
+  cpu.dec_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.TMP3;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_phw_aba_5;return; // WRITE
 }
 
-void m65ce02_device::phw_aba_5() {
-  dec_SP_ce();
-  ADDR = SP;
-  DAT =  TMP3 >> 8;
-  RNW = false;
-  NextFn = &m65ce02_device::phw_aba_6;return; // WRITE
+void m65ce02_device_phw_aba_5(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.TMP3 >> 8;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_phw_aba_6;return; // WRITE
 }
 
-void m65ce02_device::phw_aba_6() {
-  fetch();return; // fetch
+void m65ce02_device_phw_aba_6(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op phw_iw2 --- 
-void m65ce02_device::phw_iw2_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::phw_iw2_1;return; // READ
+void m65ce02_device_phw_iw2_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_phw_iw2_1;return; // READ
 }
 
-void m65ce02_device::phw_iw2_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::phw_iw2_2;return; // READ
+void m65ce02_device_phw_iw2_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_phw_iw2_2;return; // READ
 }
 
-void m65ce02_device::phw_iw2_2() {
-  TMP = set_h(TMP, DAT);
-  dec_SP_ce();
-  ADDR = SP;
-  DAT =  TMP;
-  RNW = false;
-  NextFn = &m65ce02_device::phw_iw2_3;return; // WRITE
+void m65ce02_device_phw_iw2_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.dec_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.TMP;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_phw_iw2_3;return; // WRITE
 }
 
-void m65ce02_device::phw_iw2_3() {
-  dec_SP_ce();
-  ADDR = SP;
-  DAT =  TMP >> 8;
-  RNW = false;
-  NextFn = &m65ce02_device::phw_iw2_4;return; // WRITE
+void m65ce02_device_phw_iw2_3(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.TMP >> 8;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_phw_iw2_4;return; // WRITE
 }
 
-void m65ce02_device::phw_iw2_4() {
-  fetch();return; // fetch
+void m65ce02_device_phw_iw2_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op phx_ce_imp --- 
-void m65ce02_device::phx_ce_imp_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::phx_ce_imp_1;return; // READ
+// --- op phx_imp --- 
+void m65ce02_device_phx_imp_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_phx_imp_1;return; // READ
 }
 
-void m65ce02_device::phx_ce_imp_1() {
-  ADDR = SP;
-  DAT =  X;
-  RNW = false;
-  NextFn = &m65ce02_device::phx_ce_imp_2;return; // WRITE
+void m65ce02_device_phx_imp_1(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.X;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_phx_imp_2;return; // WRITE
 }
 
-void m65ce02_device::phx_ce_imp_2() {
-  dec_SP_ce();
-  fetch();return; // fetch
+void m65ce02_device_phx_imp_2(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op phy_ce_imp --- 
-void m65ce02_device::phy_ce_imp_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::phy_ce_imp_1;return; // READ
+// --- op phy_imp --- 
+void m65ce02_device_phy_imp_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_phy_imp_1;return; // READ
 }
 
-void m65ce02_device::phy_ce_imp_1() {
-  ADDR = SP;
-  DAT =  Y;
-  RNW = false;
-  NextFn = &m65ce02_device::phy_ce_imp_2;return; // WRITE
+void m65ce02_device_phy_imp_1(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.Y;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_phy_imp_2;return; // WRITE
 }
 
-void m65ce02_device::phy_ce_imp_2() {
-  dec_SP_ce();
-  fetch();return; // fetch
+void m65ce02_device_phy_imp_2(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op phz_imp --- 
-void m65ce02_device::phz_imp_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::phz_imp_1;return; // READ
+void m65ce02_device_phz_imp_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_phz_imp_1;return; // READ
 }
 
-void m65ce02_device::phz_imp_1() {
-  ADDR = SP;
-  DAT =  Z;
-  RNW = false;
-  NextFn = &m65ce02_device::phz_imp_2;return; // WRITE
+void m65ce02_device_phz_imp_1(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.SP;
+  cpu.DAT =  cpu.Z;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_phz_imp_2;return; // WRITE
 }
 
-void m65ce02_device::phz_imp_2() {
-  dec_SP_ce();
-  fetch();return; // fetch
+void m65ce02_device_phz_imp_2(m65ce02_device &cpu) {
+  cpu.dec_SP_ce();
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op pla_ce_imp --- 
-void m65ce02_device::pla_ce_imp_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::pla_ce_imp_1;return; // READ
+// --- op pla_imp --- 
+void m65ce02_device_pla_imp_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_pla_imp_1;return; // READ
 }
 
-void m65ce02_device::pla_ce_imp_1() {
-  inc_SP_ce();
-  ADDR = SP;
-  RNW = true;
-  NextFn = &m65ce02_device::pla_ce_imp_2;return; // READ
+void m65ce02_device_pla_imp_1(m65ce02_device &cpu) {
+  cpu.inc_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_pla_imp_2;return; // READ
 }
 
-void m65ce02_device::pla_ce_imp_2() {
-  A = DAT;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_pla_imp_2(m65ce02_device &cpu) {
+  cpu.A = cpu.DAT;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op plp_ce_imp --- 
-void m65ce02_device::plp_ce_imp_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::plp_ce_imp_1;return; // READ
+// --- op plp_imp --- 
+void m65ce02_device_plp_imp_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_plp_imp_1;return; // READ
 }
 
-void m65ce02_device::plp_ce_imp_1() {
-  inc_SP_ce();
-  ADDR = SP;
-  RNW = true;
-  NextFn = &m65ce02_device::plp_ce_imp_2;return; // READ
+void m65ce02_device_plp_imp_1(m65ce02_device &cpu) {
+  cpu.inc_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_plp_imp_2;return; // READ
 }
 
-void m65ce02_device::plp_ce_imp_2() {
-  TMP = DAT | F_B;
-  PrefetchNextFn = &m65ce02_device::plp_ce_imp_3;
-  prefetch();return; // prefetch
+void m65ce02_device_plp_imp_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT | cpu.F_B;
+  cpu.PrefetchNextFn = (void *)&m65ce02_device_plp_imp_3;
+  m65x_device_prefetch(cpu);return; // prefetch
 }
 
-void m65ce02_device::plp_ce_imp_3() {
-  P = TMP;
-  postfetch();return; // postfetch
+void m65ce02_device_plp_imp_3(m65ce02_device &cpu) {
+  cpu.P = cpu.TMP;
+  m65x_device_postfetch(cpu);return; // postfetch
 }
 
-// --- op plx_ce_imp --- 
-void m65ce02_device::plx_ce_imp_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::plx_ce_imp_1;return; // READ
+// --- op plx_imp --- 
+void m65ce02_device_plx_imp_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_plx_imp_1;return; // READ
 }
 
-void m65ce02_device::plx_ce_imp_1() {
-  inc_SP_ce();
-  ADDR = SP;
-  RNW = true;
-  NextFn = &m65ce02_device::plx_ce_imp_2;return; // READ
+void m65ce02_device_plx_imp_1(m65ce02_device &cpu) {
+  cpu.inc_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_plx_imp_2;return; // READ
 }
 
-void m65ce02_device::plx_ce_imp_2() {
-  X = DAT;
-  set_nz(X);
-  fetch();return; // fetch
+void m65ce02_device_plx_imp_2(m65ce02_device &cpu) {
+  cpu.X = cpu.DAT;
+  cpu.set_nz(cpu.X);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op ply_ce_imp --- 
-void m65ce02_device::ply_ce_imp_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::ply_ce_imp_1;return; // READ
+// --- op ply_imp --- 
+void m65ce02_device_ply_imp_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ply_imp_1;return; // READ
 }
 
-void m65ce02_device::ply_ce_imp_1() {
-  inc_SP_ce();
-  ADDR = SP;
-  RNW = true;
-  NextFn = &m65ce02_device::ply_ce_imp_2;return; // READ
+void m65ce02_device_ply_imp_1(m65ce02_device &cpu) {
+  cpu.inc_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ply_imp_2;return; // READ
 }
 
-void m65ce02_device::ply_ce_imp_2() {
-  Y = DAT;
-  set_nz(Y);
-  fetch();return; // fetch
+void m65ce02_device_ply_imp_2(m65ce02_device &cpu) {
+  cpu.Y = cpu.DAT;
+  cpu.set_nz(cpu.Y);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op plz_imp --- 
-void m65ce02_device::plz_imp_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::plz_imp_1;return; // READ
+void m65ce02_device_plz_imp_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_plz_imp_1;return; // READ
 }
 
-void m65ce02_device::plz_imp_1() {
-  inc_SP_ce();
-  ADDR = SP;
-  RNW = true;
-  NextFn = &m65ce02_device::plz_imp_2;return; // READ
+void m65ce02_device_plz_imp_1(m65ce02_device &cpu) {
+  cpu.inc_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_plz_imp_2;return; // READ
 }
 
-void m65ce02_device::plz_imp_2() {
-  Z = DAT;
-  set_nz(Z);
-  fetch();return; // fetch
+void m65ce02_device_plz_imp_2(m65ce02_device &cpu) {
+  cpu.Z = cpu.DAT;
+  cpu.set_nz(cpu.Z);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op rmb_ce_bzp --- 
-void m65ce02_device::rmb_ce_bzp_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::rmb_ce_bzp_1;return; // READ
+// --- op rmb_bzp --- 
+void m65ce02_device_rmb_bzp_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rmb_bzp_1;return; // READ
 }
 
-void m65ce02_device::rmb_ce_bzp_1() {
-  TMP = DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::rmb_ce_bzp_2;return; // READ
+void m65ce02_device_rmb_bzp_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rmb_bzp_2;return; // READ
 }
 
-void m65ce02_device::rmb_ce_bzp_2() {
-  TMP2 = DAT;
-  TMP2 &= ~(1 << ((IR >> 4) & 7));
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::rmb_ce_bzp_3;return; // WRITE
+void m65ce02_device_rmb_bzp_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 &= ~(1 << ((cpu.IR >> 4) & 7));
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_rmb_bzp_3;return; // WRITE
 }
 
-void m65ce02_device::rmb_ce_bzp_3() {
-  fetch();return; // fetch
+void m65ce02_device_rmb_bzp_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op rol_ce_aba --- 
-void m65ce02_device::rol_ce_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::rol_ce_aba_1;return; // READ
+// --- op rol_aba --- 
+void m65ce02_device_rol_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rol_aba_1;return; // READ
 }
 
-void m65ce02_device::rol_ce_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::rol_ce_aba_2;return; // READ
+void m65ce02_device_rol_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rol_aba_2;return; // READ
 }
 
-void m65ce02_device::rol_ce_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::rol_ce_aba_3;return; // READ
+void m65ce02_device_rol_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rol_aba_3;return; // READ
 }
 
-void m65ce02_device::rol_ce_aba_3() {
-  TMP2 = DAT;
-  TMP2 = do_rol(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::rol_ce_aba_4;return; // WRITE
+void m65ce02_device_rol_aba_3(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_rol(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_rol_aba_4;return; // WRITE
 }
 
-void m65ce02_device::rol_ce_aba_4() {
-  fetch();return; // fetch
+void m65ce02_device_rol_aba_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op rol_ce_abx --- 
-void m65ce02_device::rol_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::rol_ce_abx_1;return; // READ
+// --- op rol_abx --- 
+void m65ce02_device_rol_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rol_abx_1;return; // READ
 }
 
-void m65ce02_device::rol_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::rol_ce_abx_2;return; // READ
+void m65ce02_device_rol_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rol_abx_2;return; // READ
 }
 
-void m65ce02_device::rol_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += X;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::rol_ce_abx_3;return; // READ
+void m65ce02_device_rol_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.X;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rol_abx_3;return; // READ
 }
 
-void m65ce02_device::rol_ce_abx_3() {
-  TMP2 = DAT;
-  TMP2 = do_rol(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::rol_ce_abx_4;return; // WRITE
+void m65ce02_device_rol_abx_3(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_rol(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_rol_abx_4;return; // WRITE
 }
 
-void m65ce02_device::rol_ce_abx_4() {
-  fetch();return; // fetch
+void m65ce02_device_rol_abx_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op rol_ce_acc --- 
-void m65ce02_device::rol_ce_acc_0() {
-  A = do_rol(A);
-  fetch();return; // fetch
+// --- op rol_acc --- 
+void m65ce02_device_rol_acc_0(m65ce02_device &cpu) {
+  cpu.A = cpu.do_rol(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op rol_ce_zpg --- 
-void m65ce02_device::rol_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::rol_ce_zpg_1;return; // READ
+// --- op rol_zpg --- 
+void m65ce02_device_rol_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rol_zpg_1;return; // READ
 }
 
-void m65ce02_device::rol_ce_zpg_1() {
-  TMP = B|DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::rol_ce_zpg_2;return; // READ
+void m65ce02_device_rol_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.B|cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rol_zpg_2;return; // READ
 }
 
-void m65ce02_device::rol_ce_zpg_2() {
-  TMP2 = DAT;
-  TMP2 = do_rol(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::rol_ce_zpg_3;return; // WRITE
+void m65ce02_device_rol_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_rol(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_rol_zpg_3;return; // WRITE
 }
 
-void m65ce02_device::rol_ce_zpg_3() {
-  fetch();return; // fetch
+void m65ce02_device_rol_zpg_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op rol_ce_zpx --- 
-void m65ce02_device::rol_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::rol_ce_zpx_1;return; // READ
+// --- op rol_zpx --- 
+void m65ce02_device_rol_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rol_zpx_1;return; // READ
 }
 
-void m65ce02_device::rol_ce_zpx_1() {
-  TMP = DAT;
-  TMP = B|uint8_t(TMP+X);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::rol_ce_zpx_2;return; // READ
+void m65ce02_device_rol_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rol_zpx_2;return; // READ
 }
 
-void m65ce02_device::rol_ce_zpx_2() {
-  TMP2 = DAT;
-  TMP2 = do_rol(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::rol_ce_zpx_3;return; // WRITE
+void m65ce02_device_rol_zpx_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_rol(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_rol_zpx_3;return; // WRITE
 }
 
-void m65ce02_device::rol_ce_zpx_3() {
-  fetch();return; // fetch
+void m65ce02_device_rol_zpx_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op ror_ce_aba --- 
-void m65ce02_device::ror_ce_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ror_ce_aba_1;return; // READ
+// --- op ror_aba --- 
+void m65ce02_device_ror_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ror_aba_1;return; // READ
 }
 
-void m65ce02_device::ror_ce_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ror_ce_aba_2;return; // READ
+void m65ce02_device_ror_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ror_aba_2;return; // READ
 }
 
-void m65ce02_device::ror_ce_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::ror_ce_aba_3;return; // READ
+void m65ce02_device_ror_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ror_aba_3;return; // READ
 }
 
-void m65ce02_device::ror_ce_aba_3() {
-  TMP2 = DAT;
-  TMP2 = do_ror(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::ror_ce_aba_4;return; // WRITE
+void m65ce02_device_ror_aba_3(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_ror(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_ror_aba_4;return; // WRITE
 }
 
-void m65ce02_device::ror_ce_aba_4() {
-  fetch();return; // fetch
+void m65ce02_device_ror_aba_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op ror_ce_abx --- 
-void m65ce02_device::ror_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ror_ce_abx_1;return; // READ
+// --- op ror_abx --- 
+void m65ce02_device_ror_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ror_abx_1;return; // READ
 }
 
-void m65ce02_device::ror_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ror_ce_abx_2;return; // READ
+void m65ce02_device_ror_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ror_abx_2;return; // READ
 }
 
-void m65ce02_device::ror_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += X;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::ror_ce_abx_3;return; // READ
+void m65ce02_device_ror_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.X;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ror_abx_3;return; // READ
 }
 
-void m65ce02_device::ror_ce_abx_3() {
-  TMP2 = DAT;
-  TMP2 = do_ror(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::ror_ce_abx_4;return; // WRITE
+void m65ce02_device_ror_abx_3(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_ror(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_ror_abx_4;return; // WRITE
 }
 
-void m65ce02_device::ror_ce_abx_4() {
-  fetch();return; // fetch
+void m65ce02_device_ror_abx_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op ror_ce_acc --- 
-void m65ce02_device::ror_ce_acc_0() {
-  A = do_ror(A);
-  fetch();return; // fetch
+// --- op ror_acc --- 
+void m65ce02_device_ror_acc_0(m65ce02_device &cpu) {
+  cpu.A = cpu.do_ror(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op ror_ce_zpg --- 
-void m65ce02_device::ror_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ror_ce_zpg_1;return; // READ
+// --- op ror_zpg --- 
+void m65ce02_device_ror_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ror_zpg_1;return; // READ
 }
 
-void m65ce02_device::ror_ce_zpg_1() {
-  TMP = B|DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::ror_ce_zpg_2;return; // READ
+void m65ce02_device_ror_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.B|cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ror_zpg_2;return; // READ
 }
 
-void m65ce02_device::ror_ce_zpg_2() {
-  TMP2 = DAT;
-  TMP2 = do_ror(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::ror_ce_zpg_3;return; // WRITE
+void m65ce02_device_ror_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_ror(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_ror_zpg_3;return; // WRITE
 }
 
-void m65ce02_device::ror_ce_zpg_3() {
-  fetch();return; // fetch
+void m65ce02_device_ror_zpg_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op ror_ce_zpx --- 
-void m65ce02_device::ror_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::ror_ce_zpx_1;return; // READ
+// --- op ror_zpx --- 
+void m65ce02_device_ror_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ror_zpx_1;return; // READ
 }
 
-void m65ce02_device::ror_ce_zpx_1() {
-  TMP = DAT;
-  TMP = B|uint8_t(TMP+X);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::ror_ce_zpx_2;return; // READ
+void m65ce02_device_ror_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_ror_zpx_2;return; // READ
 }
 
-void m65ce02_device::ror_ce_zpx_2() {
-  TMP2 = DAT;
-  TMP2 = do_ror(TMP2);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::ror_ce_zpx_3;return; // WRITE
+void m65ce02_device_ror_zpx_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 = cpu.do_ror(cpu.TMP2);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_ror_zpx_3;return; // WRITE
 }
 
-void m65ce02_device::ror_ce_zpx_3() {
-  fetch();return; // fetch
+void m65ce02_device_ror_zpx_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op row_aba --- 
-void m65ce02_device::row_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::row_aba_1;return; // READ
+void m65ce02_device_row_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_row_aba_1;return; // READ
 }
 
-void m65ce02_device::row_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::row_aba_2;return; // READ
+void m65ce02_device_row_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_row_aba_2;return; // READ
 }
 
-void m65ce02_device::row_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::row_aba_3;return; // READ
+void m65ce02_device_row_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_row_aba_3;return; // READ
 }
 
-void m65ce02_device::row_aba_3() {
-  TMP3 = DAT;
-  ADDR = TMP+1;
-  RNW = true;
-  NextFn = &m65ce02_device::row_aba_4;return; // READ
+void m65ce02_device_row_aba_3(m65ce02_device &cpu) {
+  cpu.TMP3 = cpu.DAT;
+  cpu.ADDR = cpu.TMP+1;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_row_aba_4;return; // READ
 }
 
-void m65ce02_device::row_aba_4() {
-  TMP3 = set_h(TMP3, DAT);
-  TMP2 = P;
-  P &= ~(F_C|F_N|F_Z);
-  if (TMP3 & 0x8000) {
-    P |= F_C;
+void m65ce02_device_row_aba_4(m65ce02_device &cpu) {
+  cpu.TMP3 = cpu.set_h(cpu.TMP3, cpu.DAT);
+  cpu.TMP2 = cpu.P;
+  cpu.P &= ~(cpu.F_C|cpu.F_N|cpu.F_Z);
+  if (cpu.TMP3 & 0x8000) {
+    cpu.P |= cpu.F_C;
   }
-  TMP3 <<= 1;
-  if (TMP2 & F_C) {
-    TMP3 |= 0x0001;
+  cpu.TMP3 <<= 1;
+  if (cpu.TMP2 & cpu.F_C) {
+    cpu.TMP3 |= 0x0001;
   }
-  if (!TMP3) {
-    P |= F_Z;
+  if (!cpu.TMP3) {
+    cpu.P |= cpu.F_Z;
   } else {
-    if (TMP3 & 0x8000) {
-      P |= F_N;
+    if (cpu.TMP3 & 0x8000) {
+      cpu.P |= cpu.F_N;
     }
   }
-  ADDR = TMP;
-  DAT =  TMP3;
-  RNW = false;
-  NextFn = &m65ce02_device::row_aba_5;return; // WRITE
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP3;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_row_aba_5;return; // WRITE
 }
 
-void m65ce02_device::row_aba_5() {
-  ADDR = TMP;
-  DAT =  TMP3 >> 8;
-  RNW = false;
-  NextFn = &m65ce02_device::row_aba_6;return; // WRITE
+void m65ce02_device_row_aba_5(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP3 >> 8;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_row_aba_6;return; // WRITE
 }
 
-void m65ce02_device::row_aba_6() {
-  fetch();return; // fetch
+void m65ce02_device_row_aba_6(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op rti_ce_imp --- 
-void m65ce02_device::rti_ce_imp_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::rti_ce_imp_1;return; // READ
+// --- op rti_imp --- 
+void m65ce02_device_rti_imp_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rti_imp_1;return; // READ
 }
 
-void m65ce02_device::rti_ce_imp_1() {
-  inc_SP_ce();
-  ADDR = SP;
-  RNW = true;
-  NextFn = &m65ce02_device::rti_ce_imp_2;return; // READ
+void m65ce02_device_rti_imp_1(m65ce02_device &cpu) {
+  cpu.inc_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rti_imp_2;return; // READ
 }
 
-void m65ce02_device::rti_ce_imp_2() {
-  P = DAT | F_B;
-  inc_SP_ce();
-  ADDR = SP;
-  RNW = true;
-  NextFn = &m65ce02_device::rti_ce_imp_3;return; // READ
+void m65ce02_device_rti_imp_2(m65ce02_device &cpu) {
+  cpu.P = cpu.DAT | cpu.F_B;
+  cpu.inc_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rti_imp_3;return; // READ
 }
 
-void m65ce02_device::rti_ce_imp_3() {
-  PC = DAT;
-  inc_SP_ce();
-  ADDR = SP;
-  RNW = true;
-  NextFn = &m65ce02_device::rti_ce_imp_4;return; // READ
+void m65ce02_device_rti_imp_3(m65ce02_device &cpu) {
+  cpu.PC = cpu.DAT;
+  cpu.inc_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rti_imp_4;return; // READ
 }
 
-void m65ce02_device::rti_ce_imp_4() {
-  PC = set_h(PC, DAT);
-  fetch();return; // fetch
+void m65ce02_device_rti_imp_4(m65ce02_device &cpu) {
+  cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op rtn_imm --- 
-void m65ce02_device::rtn_imm_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::rtn_imm_1;return; // READ
+void m65ce02_device_rtn_imm_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rtn_imm_1;return; // READ
 }
 
-void m65ce02_device::rtn_imm_1() {
-  TMP = DAT;
-  if (P & F_E) {
-    SP = set_l(SP, SP+TMP);
+void m65ce02_device_rtn_imm_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  if (cpu.P & cpu.F_E) {
+    cpu.SP = cpu.set_l(cpu.SP, cpu.SP+cpu.TMP);
   } else {
-    SP += TMP;
+    cpu.SP += cpu.TMP;
   }
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::rtn_imm_2;return; // READ
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rtn_imm_2;return; // READ
 }
 
-void m65ce02_device::rtn_imm_2() {
-  ADDR = SP;
-  RNW = true;
-  NextFn = &m65ce02_device::rtn_imm_3;return; // READ
+void m65ce02_device_rtn_imm_2(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.SP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rtn_imm_3;return; // READ
 }
 
-void m65ce02_device::rtn_imm_3() {
-  inc_SP();
-  ADDR = SP;
-  RNW = true;
-  NextFn = &m65ce02_device::rtn_imm_4;return; // READ
+void m65ce02_device_rtn_imm_3(m65ce02_device &cpu) {
+  cpu.inc_SP();
+  cpu.ADDR = cpu.SP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rtn_imm_4;return; // READ
 }
 
-void m65ce02_device::rtn_imm_4() {
-  PC = DAT;
-  inc_SP();
-  ADDR = SP;
-  RNW = true;
-  NextFn = &m65ce02_device::rtn_imm_5;return; // READ
+void m65ce02_device_rtn_imm_4(m65ce02_device &cpu) {
+  cpu.PC = cpu.DAT;
+  cpu.inc_SP();
+  cpu.ADDR = cpu.SP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rtn_imm_5;return; // READ
 }
 
-void m65ce02_device::rtn_imm_5() {
-  PC = set_h(PC, DAT);
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::rtn_imm_6;return; // READ
+void m65ce02_device_rtn_imm_5(m65ce02_device &cpu) {
+  cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rtn_imm_6;return; // READ
 }
 
-void m65ce02_device::rtn_imm_6() {
-  fetch();return; // fetch
+void m65ce02_device_rtn_imm_6(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op rts_ce_imp --- 
-void m65ce02_device::rts_ce_imp_0() {
-  inc_SP_ce();
-  ADDR = SP;
-  RNW = true;
-  NextFn = &m65ce02_device::rts_ce_imp_1;return; // READ
+// --- op rts_imp --- 
+void m65ce02_device_rts_imp_0(m65ce02_device &cpu) {
+  cpu.inc_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rts_imp_1;return; // READ
 }
 
-void m65ce02_device::rts_ce_imp_1() {
-  PC = DAT;
-  inc_SP_ce();
-  ADDR = SP;
-  RNW = true;
-  NextFn = &m65ce02_device::rts_ce_imp_2;return; // READ
+void m65ce02_device_rts_imp_1(m65ce02_device &cpu) {
+  cpu.PC = cpu.DAT;
+  cpu.inc_SP_ce();
+  cpu.ADDR = cpu.SP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rts_imp_2;return; // READ
 }
 
-void m65ce02_device::rts_ce_imp_2() {
-  PC = set_h(PC, DAT);
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::rts_ce_imp_3;return; // READ
+void m65ce02_device_rts_imp_2(m65ce02_device &cpu) {
+  cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_rts_imp_3;return; // READ
 }
 
-void m65ce02_device::rts_ce_imp_3() {
-  fetch();return; // fetch
+void m65ce02_device_rts_imp_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op sbc_ce_aba --- 
-void m65ce02_device::sbc_ce_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_aba_1;return; // READ
+// --- op sbc_aba --- 
+void m65ce02_device_sbc_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_aba_1;return; // READ
 }
 
-void m65ce02_device::sbc_ce_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_aba_2;return; // READ
+void m65ce02_device_sbc_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_aba_2;return; // READ
 }
 
-void m65ce02_device::sbc_ce_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_aba_3;return; // READ
+void m65ce02_device_sbc_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_aba_3;return; // READ
 }
 
-void m65ce02_device::sbc_ce_aba_3() {
-  TMP = DAT;
-  do_sbc(TMP);
-  if (P & F_D) {
-    set_nz(A);
+void m65ce02_device_sbc_aba_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_sbc(cpu.TMP);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op sbc_ce_abx --- 
-void m65ce02_device::sbc_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_abx_1;return; // READ
+// --- op sbc_abx --- 
+void m65ce02_device_sbc_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_abx_1;return; // READ
 }
 
-void m65ce02_device::sbc_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_abx_2;return; // READ
+void m65ce02_device_sbc_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_abx_2;return; // READ
 }
 
-void m65ce02_device::sbc_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += X;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_abx_3;return; // READ
+void m65ce02_device_sbc_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.X;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_abx_3;return; // READ
 }
 
-void m65ce02_device::sbc_ce_abx_3() {
-  TMP = DAT;
-  do_sbc(TMP);
-  if (P & F_D) {
-    set_nz(A);
+void m65ce02_device_sbc_abx_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_sbc(cpu.TMP);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op sbc_ce_aby --- 
-void m65ce02_device::sbc_ce_aby_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_aby_1;return; // READ
+// --- op sbc_aby --- 
+void m65ce02_device_sbc_aby_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_aby_1;return; // READ
 }
 
-void m65ce02_device::sbc_ce_aby_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_aby_2;return; // READ
+void m65ce02_device_sbc_aby_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_aby_2;return; // READ
 }
 
-void m65ce02_device::sbc_ce_aby_2() {
-  TMP = set_h(TMP, DAT);
-  TMP += Y;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_aby_3;return; // READ
+void m65ce02_device_sbc_aby_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.TMP += cpu.Y;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_aby_3;return; // READ
 }
 
-void m65ce02_device::sbc_ce_aby_3() {
-  TMP = DAT;
-  do_sbc(TMP);
-  if (P & F_D) {
-    set_nz(A);
+void m65ce02_device_sbc_aby_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_sbc(cpu.TMP);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op sbc_ce_idx --- 
-void m65ce02_device::sbc_ce_idx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_idx_1;return; // READ
+// --- op sbc_idx --- 
+void m65ce02_device_sbc_idx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_idx_1;return; // READ
 }
 
-void m65ce02_device::sbc_ce_idx_1() {
-  TMP2 = DAT;
-  TMP2 += X;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_idx_2;return; // READ
+void m65ce02_device_sbc_idx_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 += cpu.X;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_idx_2;return; // READ
 }
 
-void m65ce02_device::sbc_ce_idx_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_idx_3;return; // READ
+void m65ce02_device_sbc_idx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_idx_3;return; // READ
 }
 
-void m65ce02_device::sbc_ce_idx_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_idx_4;return; // READ
+void m65ce02_device_sbc_idx_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_idx_4;return; // READ
 }
 
-void m65ce02_device::sbc_ce_idx_4() {
-  do_sbc(DAT);
-  if (P & F_D) {
-    set_nz(A);
+void m65ce02_device_sbc_idx_4(m65ce02_device &cpu) {
+  cpu.do_sbc(cpu.DAT);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op sbc_ce_idy --- 
-void m65ce02_device::sbc_ce_idy_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_idy_1;return; // READ
+// --- op sbc_idy --- 
+void m65ce02_device_sbc_idy_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_idy_1;return; // READ
 }
 
-void m65ce02_device::sbc_ce_idy_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_idy_2;return; // READ
+void m65ce02_device_sbc_idy_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_idy_2;return; // READ
 }
 
-void m65ce02_device::sbc_ce_idy_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_idy_3;return; // READ
+void m65ce02_device_sbc_idy_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_idy_3;return; // READ
 }
 
-void m65ce02_device::sbc_ce_idy_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Y;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_idy_4;return; // READ
+void m65ce02_device_sbc_idy_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Y;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_idy_4;return; // READ
 }
 
-void m65ce02_device::sbc_ce_idy_4() {
-  do_sbc(DAT);
-  if (P & F_D) {
-    set_nz(A);
+void m65ce02_device_sbc_idy_4(m65ce02_device &cpu) {
+  cpu.do_sbc(cpu.DAT);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
   }
-  fetch();return; // fetch
-}
-
-// --- op sbc_ce_imm --- 
-void m65ce02_device::sbc_ce_imm_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_imm_1;return; // READ
-}
-
-void m65ce02_device::sbc_ce_imm_1() {
-  TMP = DAT;
-  do_sbc(TMP);
-  if (P & F_D) {
-    set_nz(A);
-  }
-  fetch();return; // fetch
-}
-
-// --- op sbc_ce_zpg --- 
-void m65ce02_device::sbc_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_zpg_1;return; // READ
-}
-
-void m65ce02_device::sbc_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_zpg_2;return; // READ
-}
-
-void m65ce02_device::sbc_ce_zpg_2() {
-  TMP = DAT;
-  do_sbc(TMP);
-  if (P & F_D) {
-    set_nz(A);
-  }
-  fetch();return; // fetch
-}
-
-// --- op sbc_ce_zpx --- 
-void m65ce02_device::sbc_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_zpx_1;return; // READ
-}
-
-void m65ce02_device::sbc_ce_zpx_1() {
-  TMP = DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_zpx_2;return; // READ
-}
-
-void m65ce02_device::sbc_ce_zpx_2() {
-  ADDR = B|uint8_t(TMP+X);
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_ce_zpx_3;return; // READ
-}
-
-void m65ce02_device::sbc_ce_zpx_3() {
-  TMP = DAT;
-  do_sbc(TMP);
-  if (P & F_D) {
-    set_nz(A);
-  }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_idz --- 
-void m65ce02_device::sbc_idz_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_idz_1;return; // READ
+void m65ce02_device_sbc_idz_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_idz_1;return; // READ
 }
 
-void m65ce02_device::sbc_idz_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_idz_2;return; // READ
+void m65ce02_device_sbc_idz_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_idz_2;return; // READ
 }
 
-void m65ce02_device::sbc_idz_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_idz_3;return; // READ
+void m65ce02_device_sbc_idz_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_idz_3;return; // READ
 }
 
-void m65ce02_device::sbc_idz_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Z;
-  RNW = true;
-  NextFn = &m65ce02_device::sbc_idz_4;return; // READ
+void m65ce02_device_sbc_idz_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Z;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_idz_4;return; // READ
 }
 
-void m65ce02_device::sbc_idz_4() {
-  do_sbc(DAT);
-  if (P & F_D) {
-    set_nz(A);
+void m65ce02_device_sbc_idz_4(m65ce02_device &cpu) {
+  cpu.do_sbc(cpu.DAT);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
   }
-  fetch();return; // fetch
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op sec_ce_imp --- 
-void m65ce02_device::sec_ce_imp_0() {
-  P |= F_C;
-  fetch();return; // fetch
+// --- op sbc_imm --- 
+void m65ce02_device_sbc_imm_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_imm_1;return; // READ
 }
 
-// --- op sed_ce_imp --- 
-void m65ce02_device::sed_ce_imp_0() {
-  P |= F_D;
-  fetch();return; // fetch
+void m65ce02_device_sbc_imm_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_sbc(cpu.TMP);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
+  }
+  m65x_device_fetch(cpu);return; // fetch
+}
+
+// --- op sbc_zpg --- 
+void m65ce02_device_sbc_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_zpg_1;return; // READ
+}
+
+void m65ce02_device_sbc_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_zpg_2;return; // READ
+}
+
+void m65ce02_device_sbc_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_sbc(cpu.TMP);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
+  }
+  m65x_device_fetch(cpu);return; // fetch
+}
+
+// --- op sbc_zpx --- 
+void m65ce02_device_sbc_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_zpx_1;return; // READ
+}
+
+void m65ce02_device_sbc_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_zpx_2;return; // READ
+}
+
+void m65ce02_device_sbc_zpx_2(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sbc_zpx_3;return; // READ
+}
+
+void m65ce02_device_sbc_zpx_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.do_sbc(cpu.TMP);
+  if (cpu.P & cpu.F_D) {
+    cpu.set_nz(cpu.A);
+  }
+  m65x_device_fetch(cpu);return; // fetch
+}
+
+// --- op sec_imp --- 
+void m65ce02_device_sec_imp_0(m65ce02_device &cpu) {
+  cpu.P |= cpu.F_C;
+  m65x_device_fetch(cpu);return; // fetch
+}
+
+// --- op sed_imp --- 
+void m65ce02_device_sed_imp_0(m65ce02_device &cpu) {
+  cpu.P |= cpu.F_D;
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op see_imp --- 
-void m65ce02_device::see_imp_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::see_imp_1;return; // READ
+void m65ce02_device_see_imp_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_see_imp_1;return; // READ
 }
 
-void m65ce02_device::see_imp_1() {
-  P |= F_E;
-  fetch();return; // fetch
+void m65ce02_device_see_imp_1(m65ce02_device &cpu) {
+  cpu.P |= cpu.F_E;
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op sei_ce_imp --- 
-void m65ce02_device::sei_ce_imp_0() {
-  PrefetchNextFn = &m65ce02_device::sei_ce_imp_1;
-  prefetch();return; // prefetch
+// --- op sei_imp --- 
+void m65ce02_device_sei_imp_0(m65ce02_device &cpu) {
+  cpu.PrefetchNextFn = (void *)&m65ce02_device_sei_imp_1;
+  m65x_device_prefetch(cpu);return; // prefetch
 }
 
-void m65ce02_device::sei_ce_imp_1() {
-  P |= F_I;
-  postfetch();return; // postfetch
+void m65ce02_device_sei_imp_1(m65ce02_device &cpu) {
+  cpu.P |= cpu.F_I;
+  m65x_device_postfetch(cpu);return; // postfetch
 }
 
-// --- op smb_ce_bzp --- 
-void m65ce02_device::smb_ce_bzp_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::smb_ce_bzp_1;return; // READ
+// --- op smb_bzp --- 
+void m65ce02_device_smb_bzp_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_smb_bzp_1;return; // READ
 }
 
-void m65ce02_device::smb_ce_bzp_1() {
-  TMP = DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::smb_ce_bzp_2;return; // READ
+void m65ce02_device_smb_bzp_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_smb_bzp_2;return; // READ
 }
 
-void m65ce02_device::smb_ce_bzp_2() {
-  TMP2 = DAT;
-  TMP2 |= 1 << ((IR >> 4) & 7);
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::smb_ce_bzp_3;return; // WRITE
+void m65ce02_device_smb_bzp_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 |= 1 << ((cpu.IR >> 4) & 7);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_smb_bzp_3;return; // WRITE
 }
 
-void m65ce02_device::smb_ce_bzp_3() {
-  fetch();return; // fetch
+void m65ce02_device_smb_bzp_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op sta_ce_abx --- 
-void m65ce02_device::sta_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_ce_abx_1;return; // READ
+// --- op sta_abx --- 
+void m65ce02_device_sta_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_abx_1;return; // READ
 }
 
-void m65ce02_device::sta_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_ce_abx_2;return; // READ
+void m65ce02_device_sta_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_abx_2;return; // READ
 }
 
-void m65ce02_device::sta_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+X;
-  DAT =  A;
-  RNW = false;
-  NextFn = &m65ce02_device::sta_ce_abx_3;return; // WRITE
+void m65ce02_device_sta_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.X;
+  cpu.DAT =  cpu.A;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_sta_abx_3;return; // WRITE
 }
 
-void m65ce02_device::sta_ce_abx_3() {
-  fetch();return; // fetch
+void m65ce02_device_sta_abx_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op sta_ce_aby --- 
-void m65ce02_device::sta_ce_aby_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_ce_aby_1;return; // READ
+// --- op sta_aby --- 
+void m65ce02_device_sta_aby_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_aby_1;return; // READ
 }
 
-void m65ce02_device::sta_ce_aby_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_ce_aby_2;return; // READ
+void m65ce02_device_sta_aby_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_aby_2;return; // READ
 }
 
-void m65ce02_device::sta_ce_aby_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Y;
-  DAT =  A;
-  RNW = false;
-  NextFn = &m65ce02_device::sta_ce_aby_3;return; // WRITE
+void m65ce02_device_sta_aby_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Y;
+  cpu.DAT =  cpu.A;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_sta_aby_3;return; // WRITE
 }
 
-void m65ce02_device::sta_ce_aby_3() {
-  fetch();return; // fetch
+void m65ce02_device_sta_aby_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op sta_ce_idx --- 
-void m65ce02_device::sta_ce_idx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_ce_idx_1;return; // READ
+// --- op sta_idx --- 
+void m65ce02_device_sta_idx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_idx_1;return; // READ
 }
 
-void m65ce02_device::sta_ce_idx_1() {
-  TMP2 = DAT;
-  TMP2 += X;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_ce_idx_2;return; // READ
+void m65ce02_device_sta_idx_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP2 += cpu.X;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_idx_2;return; // READ
 }
 
-void m65ce02_device::sta_ce_idx_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_ce_idx_3;return; // READ
+void m65ce02_device_sta_idx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_idx_3;return; // READ
 }
 
-void m65ce02_device::sta_ce_idx_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  DAT =  A;
-  RNW = false;
-  NextFn = &m65ce02_device::sta_ce_idx_4;return; // WRITE
+void m65ce02_device_sta_idx_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.A;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_sta_idx_4;return; // WRITE
 }
 
-void m65ce02_device::sta_ce_idx_4() {
-  fetch();return; // fetch
+void m65ce02_device_sta_idx_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op sta_ce_idy --- 
-void m65ce02_device::sta_ce_idy_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_ce_idy_1;return; // READ
+// --- op sta_idy --- 
+void m65ce02_device_sta_idy_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_idy_1;return; // READ
 }
 
-void m65ce02_device::sta_ce_idy_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_ce_idy_2;return; // READ
+void m65ce02_device_sta_idy_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_idy_2;return; // READ
 }
 
-void m65ce02_device::sta_ce_idy_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_ce_idy_3;return; // READ
+void m65ce02_device_sta_idy_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_idy_3;return; // READ
 }
 
-void m65ce02_device::sta_ce_idy_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Y;
-  DAT =  A;
-  RNW = false;
-  NextFn = &m65ce02_device::sta_ce_idy_4;return; // WRITE
+void m65ce02_device_sta_idy_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Y;
+  cpu.DAT =  cpu.A;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_sta_idy_4;return; // WRITE
 }
 
-void m65ce02_device::sta_ce_idy_4() {
-  fetch();return; // fetch
-}
-
-// --- op sta_ce_zpg --- 
-void m65ce02_device::sta_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_ce_zpg_1;return; // READ
-}
-
-void m65ce02_device::sta_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  DAT =  A;
-  RNW = false;
-  NextFn = &m65ce02_device::sta_ce_zpg_2;return; // WRITE
-}
-
-void m65ce02_device::sta_ce_zpg_2() {
-  fetch();return; // fetch
-}
-
-// --- op sta_ce_zpx --- 
-void m65ce02_device::sta_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_ce_zpx_1;return; // READ
-}
-
-void m65ce02_device::sta_ce_zpx_1() {
-  TMP = DAT;
-  ADDR = B|uint8_t(TMP+X);
-  DAT =  A;
-  RNW = false;
-  NextFn = &m65ce02_device::sta_ce_zpx_2;return; // WRITE
-}
-
-void m65ce02_device::sta_ce_zpx_2() {
-  fetch();return; // fetch
+void m65ce02_device_sta_idy_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op sta_idz --- 
-void m65ce02_device::sta_idz_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_idz_1;return; // READ
+void m65ce02_device_sta_idz_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_idz_1;return; // READ
 }
 
-void m65ce02_device::sta_idz_1() {
-  TMP2 = DAT;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_idz_2;return; // READ
+void m65ce02_device_sta_idz_1(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_idz_2;return; // READ
 }
 
-void m65ce02_device::sta_idz_2() {
-  TMP = DAT;
-  TMP2++;
-  ADDR = B|TMP2;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_idz_3;return; // READ
+void m65ce02_device_sta_idz_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.TMP2++;
+  cpu.ADDR = cpu.B|cpu.TMP2;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_idz_3;return; // READ
 }
 
-void m65ce02_device::sta_idz_3() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Z;
-  DAT =  A;
-  RNW = false;
-  NextFn = &m65ce02_device::sta_idz_4;return; // WRITE
+void m65ce02_device_sta_idz_3(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Z;
+  cpu.DAT =  cpu.A;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_sta_idz_4;return; // WRITE
 }
 
-void m65ce02_device::sta_idz_4() {
-  fetch();return; // fetch
+void m65ce02_device_sta_idz_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op sta_isy --- 
-void m65ce02_device::sta_isy_0() {
-  ADDR = PC;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_isy_1;return; // READ
+void m65ce02_device_sta_isy_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_isy_1;return; // READ
 }
 
-void m65ce02_device::sta_isy_1() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_isy_2;return; // READ
+void m65ce02_device_sta_isy_1(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_isy_2;return; // READ
 }
 
-void m65ce02_device::sta_isy_2() {
-  TMP = DAT;
-  if (P & F_E) {
-    TMP = set_l(SP, SP+TMP);
+void m65ce02_device_sta_isy_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  if (cpu.P & cpu.F_E) {
+    cpu.TMP = cpu.set_l(cpu.SP, cpu.SP+cpu.TMP);
   } else {
-    TMP = SP + TMP;
+    cpu.TMP = cpu.SP + cpu.TMP;
   }
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_isy_3;return; // READ
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_isy_3;return; // READ
 }
 
-void m65ce02_device::sta_isy_3() {
-  TMP2 = DAT;
-  TMP++;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::sta_isy_4;return; // READ
+void m65ce02_device_sta_isy_3(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  cpu.TMP++;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_isy_4;return; // READ
 }
 
-void m65ce02_device::sta_isy_4() {
-  TMP = TMP2 | (DAT << 8);
-  ADDR = TMP+Y;
-  DAT =  A;
-  RNW = false;
-  NextFn = &m65ce02_device::sta_isy_5;return; // WRITE
+void m65ce02_device_sta_isy_4(m65ce02_device &cpu) {
+  cpu.TMP = cpu.TMP2 | (cpu.DAT << 8);
+  cpu.ADDR = cpu.TMP+cpu.Y;
+  cpu.DAT =  cpu.A;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_sta_isy_5;return; // WRITE
 }
 
-void m65ce02_device::sta_isy_5() {
-  fetch();return; // fetch
+void m65ce02_device_sta_isy_5(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
+}
+
+// --- op sta_zpg --- 
+void m65ce02_device_sta_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_zpg_1;return; // READ
+}
+
+void m65ce02_device_sta_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.DAT =  cpu.A;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_sta_zpg_2;return; // WRITE
+}
+
+void m65ce02_device_sta_zpg_2(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
+}
+
+// --- op sta_zpx --- 
+void m65ce02_device_sta_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sta_zpx_1;return; // READ
+}
+
+void m65ce02_device_sta_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.DAT =  cpu.A;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_sta_zpx_2;return; // WRITE
+}
+
+void m65ce02_device_sta_zpx_2(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op stx_aby --- 
-void m65ce02_device::stx_aby_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::stx_aby_1;return; // READ
+void m65ce02_device_stx_aby_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_stx_aby_1;return; // READ
 }
 
-void m65ce02_device::stx_aby_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::stx_aby_2;return; // READ
+void m65ce02_device_stx_aby_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_stx_aby_2;return; // READ
 }
 
-void m65ce02_device::stx_aby_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+Y;
-  DAT =  X;
-  RNW = false;
-  NextFn = &m65ce02_device::stx_aby_3;return; // WRITE
+void m65ce02_device_stx_aby_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.Y;
+  cpu.DAT =  cpu.X;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_stx_aby_3;return; // WRITE
 }
 
-void m65ce02_device::stx_aby_3() {
-  fetch();return; // fetch
+void m65ce02_device_stx_aby_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op stx_ce_zpg --- 
-void m65ce02_device::stx_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::stx_ce_zpg_1;return; // READ
+// --- op stx_zpg --- 
+void m65ce02_device_stx_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_stx_zpg_1;return; // READ
 }
 
-void m65ce02_device::stx_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  DAT =  X;
-  RNW = false;
-  NextFn = &m65ce02_device::stx_ce_zpg_2;return; // WRITE
+void m65ce02_device_stx_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.DAT =  cpu.X;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_stx_zpg_2;return; // WRITE
 }
 
-void m65ce02_device::stx_ce_zpg_2() {
-  fetch();return; // fetch
+void m65ce02_device_stx_zpg_2(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op stx_ce_zpy --- 
-void m65ce02_device::stx_ce_zpy_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::stx_ce_zpy_1;return; // READ
+// --- op stx_zpy --- 
+void m65ce02_device_stx_zpy_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_stx_zpy_1;return; // READ
 }
 
-void m65ce02_device::stx_ce_zpy_1() {
-  TMP = DAT;
-  ADDR = B|uint8_t(TMP+Y);
-  DAT =  X;
-  RNW = false;
-  NextFn = &m65ce02_device::stx_ce_zpy_2;return; // WRITE
+void m65ce02_device_stx_zpy_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|uint8_t(cpu.TMP+cpu.Y);
+  cpu.DAT =  cpu.X;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_stx_zpy_2;return; // WRITE
 }
 
-void m65ce02_device::stx_ce_zpy_2() {
-  fetch();return; // fetch
+void m65ce02_device_stx_zpy_2(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op sty_abx --- 
-void m65ce02_device::sty_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sty_abx_1;return; // READ
+void m65ce02_device_sty_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sty_abx_1;return; // READ
 }
 
-void m65ce02_device::sty_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sty_abx_2;return; // READ
+void m65ce02_device_sty_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sty_abx_2;return; // READ
 }
 
-void m65ce02_device::sty_abx_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+X;
-  DAT =  Y;
-  RNW = false;
-  NextFn = &m65ce02_device::sty_abx_3;return; // WRITE
+void m65ce02_device_sty_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.X;
+  cpu.DAT =  cpu.Y;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_sty_abx_3;return; // WRITE
 }
 
-void m65ce02_device::sty_abx_3() {
-  fetch();return; // fetch
+void m65ce02_device_sty_abx_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op sty_ce_zpg --- 
-void m65ce02_device::sty_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sty_ce_zpg_1;return; // READ
+// --- op sty_zpg --- 
+void m65ce02_device_sty_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sty_zpg_1;return; // READ
 }
 
-void m65ce02_device::sty_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  DAT =  Y;
-  RNW = false;
-  NextFn = &m65ce02_device::sty_ce_zpg_2;return; // WRITE
+void m65ce02_device_sty_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.DAT =  cpu.Y;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_sty_zpg_2;return; // WRITE
 }
 
-void m65ce02_device::sty_ce_zpg_2() {
-  fetch();return; // fetch
+void m65ce02_device_sty_zpg_2(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op sty_ce_zpx --- 
-void m65ce02_device::sty_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::sty_ce_zpx_1;return; // READ
+// --- op sty_zpx --- 
+void m65ce02_device_sty_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_sty_zpx_1;return; // READ
 }
 
-void m65ce02_device::sty_ce_zpx_1() {
-  TMP = DAT;
-  ADDR = B|uint8_t(TMP+X);
-  DAT =  Y;
-  RNW = false;
-  NextFn = &m65ce02_device::sty_ce_zpx_2;return; // WRITE
+void m65ce02_device_sty_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.DAT =  cpu.Y;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_sty_zpx_2;return; // WRITE
 }
 
-void m65ce02_device::sty_ce_zpx_2() {
-  fetch();return; // fetch
+void m65ce02_device_sty_zpx_2(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op stz_ce_aba --- 
-void m65ce02_device::stz_ce_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::stz_ce_aba_1;return; // READ
+// --- op stz_aba --- 
+void m65ce02_device_stz_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_stz_aba_1;return; // READ
 }
 
-void m65ce02_device::stz_ce_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::stz_ce_aba_2;return; // READ
+void m65ce02_device_stz_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_stz_aba_2;return; // READ
 }
 
-void m65ce02_device::stz_ce_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  DAT =  A;
-  RNW = false;
-  NextFn = &m65ce02_device::stz_ce_aba_3;return; // WRITE
+void m65ce02_device_stz_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.A;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_stz_aba_3;return; // WRITE
 }
 
-void m65ce02_device::stz_ce_aba_3() {
-  fetch();return; // fetch
+void m65ce02_device_stz_aba_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op stz_ce_abx --- 
-void m65ce02_device::stz_ce_abx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::stz_ce_abx_1;return; // READ
+// --- op stz_abx --- 
+void m65ce02_device_stz_abx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_stz_abx_1;return; // READ
 }
 
-void m65ce02_device::stz_ce_abx_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::stz_ce_abx_2;return; // READ
+void m65ce02_device_stz_abx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_stz_abx_2;return; // READ
 }
 
-void m65ce02_device::stz_ce_abx_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP+X;
-  DAT =  A;
-  RNW = false;
-  NextFn = &m65ce02_device::stz_ce_abx_3;return; // WRITE
+void m65ce02_device_stz_abx_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP+cpu.X;
+  cpu.DAT =  cpu.A;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_stz_abx_3;return; // WRITE
 }
 
-void m65ce02_device::stz_ce_abx_3() {
-  fetch();return; // fetch
+void m65ce02_device_stz_abx_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op stz_ce_zpg --- 
-void m65ce02_device::stz_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::stz_ce_zpg_1;return; // READ
+// --- op stz_zpg --- 
+void m65ce02_device_stz_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_stz_zpg_1;return; // READ
 }
 
-void m65ce02_device::stz_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = B|TMP;
-  DAT =  Z;
-  RNW = false;
-  NextFn = &m65ce02_device::stz_ce_zpg_2;return; // WRITE
+void m65ce02_device_stz_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|cpu.TMP;
+  cpu.DAT =  cpu.Z;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_stz_zpg_2;return; // WRITE
 }
 
-void m65ce02_device::stz_ce_zpg_2() {
-  fetch();return; // fetch
+void m65ce02_device_stz_zpg_2(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op stz_ce_zpx --- 
-void m65ce02_device::stz_ce_zpx_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::stz_ce_zpx_1;return; // READ
+// --- op stz_zpx --- 
+void m65ce02_device_stz_zpx_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_stz_zpx_1;return; // READ
 }
 
-void m65ce02_device::stz_ce_zpx_1() {
-  TMP = DAT;
-  ADDR = B|uint8_t(TMP+X);
-  DAT =  Z;
-  RNW = false;
-  NextFn = &m65ce02_device::stz_ce_zpx_2;return; // WRITE
+void m65ce02_device_stz_zpx_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.B|uint8_t(cpu.TMP+cpu.X);
+  cpu.DAT =  cpu.Z;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_stz_zpx_2;return; // WRITE
 }
 
-void m65ce02_device::stz_ce_zpx_2() {
-  fetch();return; // fetch
+void m65ce02_device_stz_zpx_2(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op tab_imp --- 
-void m65ce02_device::tab_imp_0() {
-  B = A << 8;
-  fetch();return; // fetch
+void m65ce02_device_tab_imp_0(m65ce02_device &cpu) {
+  cpu.B = cpu.A << 8;
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op tax_ce_imp --- 
-void m65ce02_device::tax_ce_imp_0() {
-  X = A;
-  set_nz(X);
-  fetch();return; // fetch
+// --- op tax_imp --- 
+void m65ce02_device_tax_imp_0(m65ce02_device &cpu) {
+  cpu.X = cpu.A;
+  cpu.set_nz(cpu.X);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op tay_ce_imp --- 
-void m65ce02_device::tay_ce_imp_0() {
-  Y = A;
-  set_nz(Y);
-  fetch();return; // fetch
+// --- op tay_imp --- 
+void m65ce02_device_tay_imp_0(m65ce02_device &cpu) {
+  cpu.Y = cpu.A;
+  cpu.set_nz(cpu.Y);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op taz_imp --- 
-void m65ce02_device::taz_imp_0() {
-  Z = A;
-  set_nz(Z);
-  fetch();return; // fetch
+void m65ce02_device_taz_imp_0(m65ce02_device &cpu) {
+  cpu.Z = cpu.A;
+  cpu.set_nz(cpu.Z);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op tba_imp --- 
-void m65ce02_device::tba_imp_0() {
-  A = B >> 8;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_tba_imp_0(m65ce02_device &cpu) {
+  cpu.A = cpu.B >> 8;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op trb_ce_aba --- 
-void m65ce02_device::trb_ce_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::trb_ce_aba_1;return; // READ
+// --- op trb_aba --- 
+void m65ce02_device_trb_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_trb_aba_1;return; // READ
 }
 
-void m65ce02_device::trb_ce_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::trb_ce_aba_2;return; // READ
+void m65ce02_device_trb_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_trb_aba_2;return; // READ
 }
 
-void m65ce02_device::trb_ce_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::trb_ce_aba_3;return; // READ
+void m65ce02_device_trb_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_trb_aba_3;return; // READ
 }
 
-void m65ce02_device::trb_ce_aba_3() {
-  TMP2 = DAT;
-  if (A & TMP2) {
-    P &= ~F_Z;
+void m65ce02_device_trb_aba_3(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  if (cpu.A & cpu.TMP2) {
+    cpu.P &= ~cpu.F_Z;
   } else {
-    P |= F_Z;
+    cpu.P |= cpu.F_Z;
   }
-  TMP2 &= ~A;
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::trb_ce_aba_4;return; // WRITE
+  cpu.TMP2 &= ~cpu.A;
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_trb_aba_4;return; // WRITE
 }
 
-void m65ce02_device::trb_ce_aba_4() {
-  fetch();return; // fetch
+void m65ce02_device_trb_aba_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op trb_ce_zpg --- 
-void m65ce02_device::trb_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::trb_ce_zpg_1;return; // READ
+// --- op trb_zpg --- 
+void m65ce02_device_trb_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_trb_zpg_1;return; // READ
 }
 
-void m65ce02_device::trb_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::trb_ce_zpg_2;return; // READ
+void m65ce02_device_trb_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_trb_zpg_2;return; // READ
 }
 
-void m65ce02_device::trb_ce_zpg_2() {
-  TMP2 = DAT;
-  if (A & TMP2) {
-    P &= ~F_Z;
+void m65ce02_device_trb_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  if (cpu.A & cpu.TMP2) {
+    cpu.P &= ~cpu.F_Z;
   } else {
-    P |= F_Z;
+    cpu.P |= cpu.F_Z;
   }
-  TMP2 &= ~A;
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::trb_ce_zpg_3;return; // WRITE
+  cpu.TMP2 &= ~cpu.A;
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_trb_zpg_3;return; // WRITE
 }
 
-void m65ce02_device::trb_ce_zpg_3() {
-  fetch();return; // fetch
+void m65ce02_device_trb_zpg_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op tsb_ce_aba --- 
-void m65ce02_device::tsb_ce_aba_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::tsb_ce_aba_1;return; // READ
+// --- op tsb_aba --- 
+void m65ce02_device_tsb_aba_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_tsb_aba_1;return; // READ
 }
 
-void m65ce02_device::tsb_ce_aba_1() {
-  TMP = DAT;
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::tsb_ce_aba_2;return; // READ
+void m65ce02_device_tsb_aba_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_tsb_aba_2;return; // READ
 }
 
-void m65ce02_device::tsb_ce_aba_2() {
-  TMP = set_h(TMP, DAT);
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::tsb_ce_aba_3;return; // READ
+void m65ce02_device_tsb_aba_2(m65ce02_device &cpu) {
+  cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_tsb_aba_3;return; // READ
 }
 
-void m65ce02_device::tsb_ce_aba_3() {
-  TMP2 = DAT;
-  if (A & TMP2) {
-    P &= ~F_Z;
+void m65ce02_device_tsb_aba_3(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  if (cpu.A & cpu.TMP2) {
+    cpu.P &= ~cpu.F_Z;
   } else {
-    P |= F_Z;
+    cpu.P |= cpu.F_Z;
   }
-  TMP2 |= A;
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::tsb_ce_aba_4;return; // WRITE
+  cpu.TMP2 |= cpu.A;
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_tsb_aba_4;return; // WRITE
 }
 
-void m65ce02_device::tsb_ce_aba_4() {
-  fetch();return; // fetch
+void m65ce02_device_tsb_aba_4(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op tsb_ce_zpg --- 
-void m65ce02_device::tsb_ce_zpg_0() {
-  ADDR = PC++;
-  RNW = true;
-  NextFn = &m65ce02_device::tsb_ce_zpg_1;return; // READ
+// --- op tsb_zpg --- 
+void m65ce02_device_tsb_zpg_0(m65ce02_device &cpu) {
+  cpu.ADDR = cpu.PC++;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_tsb_zpg_1;return; // READ
 }
 
-void m65ce02_device::tsb_ce_zpg_1() {
-  TMP = DAT;
-  ADDR = TMP;
-  RNW = true;
-  NextFn = &m65ce02_device::tsb_ce_zpg_2;return; // READ
+void m65ce02_device_tsb_zpg_1(m65ce02_device &cpu) {
+  cpu.TMP = cpu.DAT;
+  cpu.ADDR = cpu.TMP;
+  cpu.RNW = true;
+  cpu.NextFn = (void *)&m65ce02_device_tsb_zpg_2;return; // READ
 }
 
-void m65ce02_device::tsb_ce_zpg_2() {
-  TMP2 = DAT;
-  if (A & TMP2) {
-    P &= ~F_Z;
+void m65ce02_device_tsb_zpg_2(m65ce02_device &cpu) {
+  cpu.TMP2 = cpu.DAT;
+  if (cpu.A & cpu.TMP2) {
+    cpu.P &= ~cpu.F_Z;
   } else {
-    P |= F_Z;
+    cpu.P |= cpu.F_Z;
   }
-  TMP2 |= A;
-  ADDR = TMP;
-  DAT =  TMP2;
-  RNW = false;
-  NextFn = &m65ce02_device::tsb_ce_zpg_3;return; // WRITE
+  cpu.TMP2 |= cpu.A;
+  cpu.ADDR = cpu.TMP;
+  cpu.DAT =  cpu.TMP2;
+  cpu.RNW = false;
+  cpu.NextFn = (void *)&m65ce02_device_tsb_zpg_3;return; // WRITE
 }
 
-void m65ce02_device::tsb_ce_zpg_3() {
-  fetch();return; // fetch
+void m65ce02_device_tsb_zpg_3(m65ce02_device &cpu) {
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op tsx_ce_imp --- 
-void m65ce02_device::tsx_ce_imp_0() {
-  X = SP;
-  set_nz(X);
-  fetch();return; // fetch
+// --- op tsx_imp --- 
+void m65ce02_device_tsx_imp_0(m65ce02_device &cpu) {
+  cpu.X = cpu.SP;
+  cpu.set_nz(cpu.X);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op tsy_imp --- 
-void m65ce02_device::tsy_imp_0() {
-  Y = SP >> 8;
-  set_nz(Y);
-  fetch();return; // fetch
+void m65ce02_device_tsy_imp_0(m65ce02_device &cpu) {
+  cpu.Y = cpu.SP >> 8;
+  cpu.set_nz(cpu.Y);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op txa_ce_imp --- 
-void m65ce02_device::txa_ce_imp_0() {
-  A = X;
-  set_nz(A);
-  fetch();return; // fetch
+// --- op txa_imp --- 
+void m65ce02_device_txa_imp_0(m65ce02_device &cpu) {
+  cpu.A = cpu.X;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-// --- op txs_ce_imp --- 
-void m65ce02_device::txs_ce_imp_0() {
-  SP = set_l(SP, X);
-  fetch_noirq();return; // fetch_noirq
+// --- op txs_imp --- 
+void m65ce02_device_txs_imp_0(m65ce02_device &cpu) {
+  cpu.SP = cpu.set_l(cpu.SP, cpu.X);
+  m65x_device_fetch_noirq(cpu);return; // fetch_noirq
 }
 
-// --- op tya_ce_imp --- 
-void m65ce02_device::tya_ce_imp_0() {
-  A = Y;
-  set_nz(A);
-  fetch();return; // fetch
+// --- op tya_imp --- 
+void m65ce02_device_tya_imp_0(m65ce02_device &cpu) {
+  cpu.A = cpu.Y;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op tys_imp --- 
-void m65ce02_device::tys_imp_0() {
-  SP = set_h(SP, Y);
-  fetch();return; // fetch
+void m65ce02_device_tys_imp_0(m65ce02_device &cpu) {
+  cpu.SP = cpu.set_h(cpu.SP, cpu.Y);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
 // --- op tza_imp --- 
-void m65ce02_device::tza_imp_0() {
-  A = Z;
-  set_nz(A);
-  fetch();return; // fetch
+void m65ce02_device_tza_imp_0(m65ce02_device &cpu) {
+  cpu.A = cpu.Z;
+  cpu.set_nz(cpu.A);
+  m65x_device_fetch(cpu);return; // fetch
 }
 
-void m65ce02_device::postfetch_int() {
-  switch(IR) {
-  case 0x00: brk_ce_imp_0(); break;
-  case 0x01: ora_ce_idx_0(); break;
-  case 0x02: cle_imp_0(); break;
-  case 0x03: see_imp_0(); break;
-  case 0x04: tsb_ce_zpg_0(); break;
-  case 0x05: ora_ce_zpg_0(); break;
-  case 0x06: asl_ce_zpg_0(); break;
-  case 0x07: rmb_ce_bzp_0(); break;
-  case 0x08: php_ce_imp_0(); break;
-  case 0x09: ora_imm_0(); break;
-  case 0x0a: asl_ce_acc_0(); break;
-  case 0x0b: tsy_imp_0(); break;
-  case 0x0c: tsb_ce_aba_0(); break;
-  case 0x0d: ora_aba_0(); break;
-  case 0x0e: asl_ce_aba_0(); break;
-  case 0x0f: bbr_ce_zpb_0(); break;
-  case 0x10: bpl_ce_rel_0(); break;
-  case 0x11: ora_ce_idy_0(); break;
-  case 0x12: ora_idz_0(); break;
-  case 0x13: bpl_rw2_0(); break;
-  case 0x14: trb_ce_zpg_0(); break;
-  case 0x15: ora_ce_zpx_0(); break;
-  case 0x16: asl_ce_zpx_0(); break;
-  case 0x17: rmb_ce_bzp_0(); break;
-  case 0x18: clc_ce_imp_0(); break;
-  case 0x19: ora_ce_aby_0(); break;
-  case 0x1a: inc_ce_acc_0(); break;
-  case 0x1b: inz_imp_0(); break;
-  case 0x1c: trb_ce_aba_0(); break;
-  case 0x1d: ora_ce_abx_0(); break;
-  case 0x1e: asl_ce_abx_0(); break;
-  case 0x1f: bbr_ce_zpb_0(); break;
-  case 0x20: jsr_ce_adr_0(); break;
-  case 0x21: and_ce_idx_0(); break;
-  case 0x22: jsr_ind_0(); break;
-  case 0x23: jsr_iax_0(); break;
-  case 0x24: bit_ce_zpg_0(); break;
-  case 0x25: and_ce_zpg_0(); break;
-  case 0x26: rol_ce_zpg_0(); break;
-  case 0x27: rmb_ce_bzp_0(); break;
-  case 0x28: plp_ce_imp_0(); break;
-  case 0x29: and_imm_0(); break;
-  case 0x2a: rol_ce_acc_0(); break;
-  case 0x2b: tys_imp_0(); break;
-  case 0x2c: bit_aba_0(); break;
-  case 0x2d: and_aba_0(); break;
-  case 0x2e: rol_ce_aba_0(); break;
-  case 0x2f: bbr_ce_zpb_0(); break;
-  case 0x30: bmi_ce_rel_0(); break;
-  case 0x31: and_ce_idy_0(); break;
-  case 0x32: and_idz_0(); break;
-  case 0x33: bmi_rw2_0(); break;
-  case 0x34: bit_ce_zpx_0(); break;
-  case 0x35: and_ce_zpx_0(); break;
-  case 0x36: rol_ce_zpx_0(); break;
-  case 0x37: rmb_ce_bzp_0(); break;
-  case 0x38: sec_ce_imp_0(); break;
-  case 0x39: and_ce_aby_0(); break;
-  case 0x3a: dec_ce_acc_0(); break;
-  case 0x3b: dez_imp_0(); break;
-  case 0x3c: bit_ce_abx_0(); break;
-  case 0x3d: and_ce_abx_0(); break;
-  case 0x3e: rol_ce_abx_0(); break;
-  case 0x3f: bbr_ce_zpb_0(); break;
-  case 0x40: rti_ce_imp_0(); break;
-  case 0x41: eor_ce_idx_0(); break;
-  case 0x42: neg_acc_0(); break;
-  case 0x43: asr_acc_0(); break;
-  case 0x44: asr_zpg_0(); break;
-  case 0x45: eor_ce_zpg_0(); break;
-  case 0x46: lsr_ce_zpg_0(); break;
-  case 0x47: rmb_ce_bzp_0(); break;
-  case 0x48: pha_ce_imp_0(); break;
-  case 0x49: eor_imm_0(); break;
-  case 0x4a: lsr_ce_acc_0(); break;
-  case 0x4b: taz_imp_0(); break;
-  case 0x4c: jmp_adr_0(); break;
-  case 0x4d: eor_aba_0(); break;
-  case 0x4e: lsr_ce_aba_0(); break;
-  case 0x4f: bbr_ce_zpb_0(); break;
-  case 0x50: bvc_ce_rel_0(); break;
-  case 0x51: eor_ce_idy_0(); break;
-  case 0x52: eor_idz_0(); break;
-  case 0x53: bvc_rw2_0(); break;
-  case 0x54: asr_zpx_0(); break;
-  case 0x55: eor_ce_zpx_0(); break;
-  case 0x56: lsr_ce_zpx_0(); break;
-  case 0x57: rmb_ce_bzp_0(); break;
-  case 0x58: cli_ce_imp_0(); break;
-  case 0x59: eor_ce_aby_0(); break;
-  case 0x5a: phy_ce_imp_0(); break;
-  case 0x5b: tab_imp_0(); break;
-  case 0x5c: aug_iw3_0(); break;
-  case 0x5d: eor_ce_abx_0(); break;
-  case 0x5e: lsr_ce_abx_0(); break;
-  case 0x5f: bbr_ce_zpb_0(); break;
-  case 0x60: rts_ce_imp_0(); break;
-  case 0x61: adc_ce_idx_0(); break;
-  case 0x62: rtn_imm_0(); break;
-  case 0x63: bsr_rw2_0(); break;
-  case 0x64: stz_ce_zpg_0(); break;
-  case 0x65: adc_ce_zpg_0(); break;
-  case 0x66: ror_ce_zpg_0(); break;
-  case 0x67: rmb_ce_bzp_0(); break;
-  case 0x68: pla_ce_imp_0(); break;
-  case 0x69: adc_ce_imm_0(); break;
-  case 0x6a: ror_ce_acc_0(); break;
-  case 0x6b: tza_imp_0(); break;
-  case 0x6c: jmp_ce_ind_0(); break;
-  case 0x6d: adc_ce_aba_0(); break;
-  case 0x6e: ror_ce_aba_0(); break;
-  case 0x6f: bbr_ce_zpb_0(); break;
-  case 0x70: bvs_ce_rel_0(); break;
-  case 0x71: adc_ce_idy_0(); break;
-  case 0x72: adc_idz_0(); break;
-  case 0x73: bvs_rw2_0(); break;
-  case 0x74: stz_ce_zpx_0(); break;
-  case 0x75: adc_ce_zpx_0(); break;
-  case 0x76: ror_ce_zpx_0(); break;
-  case 0x77: rmb_ce_bzp_0(); break;
-  case 0x78: sei_ce_imp_0(); break;
-  case 0x79: adc_ce_aby_0(); break;
-  case 0x7a: ply_ce_imp_0(); break;
-  case 0x7b: tba_imp_0(); break;
-  case 0x7c: jmp_ce_iax_0(); break;
-  case 0x7d: adc_ce_abx_0(); break;
-  case 0x7e: ror_ce_abx_0(); break;
-  case 0x7f: bbr_ce_zpb_0(); break;
-  case 0x80: bra_ce_rel_0(); break;
-  case 0x81: sta_ce_idx_0(); break;
-  case 0x82: sta_isy_0(); break;
-  case 0x83: bra_rw2_0(); break;
-  case 0x84: sty_ce_zpg_0(); break;
-  case 0x85: sta_ce_zpg_0(); break;
-  case 0x86: stx_ce_zpg_0(); break;
-  case 0x87: smb_ce_bzp_0(); break;
-  case 0x88: dey_ce_imp_0(); break;
-  case 0x89: bit_ce_imm_0(); break;
-  case 0x8a: txa_ce_imp_0(); break;
-  case 0x8b: sty_abx_0(); break;
-  case 0x8c: sty_aba_0(); break;
-  case 0x8d: sta_aba_0(); break;
-  case 0x8e: stx_aba_0(); break;
-  case 0x8f: bbs_ce_zpb_0(); break;
-  case 0x90: bcc_ce_rel_0(); break;
-  case 0x91: sta_ce_idy_0(); break;
-  case 0x92: sta_idz_0(); break;
-  case 0x93: bcc_rw2_0(); break;
-  case 0x94: sty_ce_zpx_0(); break;
-  case 0x95: sta_ce_zpx_0(); break;
-  case 0x96: stx_ce_zpy_0(); break;
-  case 0x97: smb_ce_bzp_0(); break;
-  case 0x98: tya_ce_imp_0(); break;
-  case 0x99: sta_ce_aby_0(); break;
-  case 0x9a: txs_ce_imp_0(); break;
-  case 0x9b: stx_aby_0(); break;
-  case 0x9c: stz_ce_aba_0(); break;
-  case 0x9d: sta_ce_abx_0(); break;
-  case 0x9e: stz_ce_abx_0(); break;
-  case 0x9f: bbs_ce_zpb_0(); break;
-  case 0xa0: ldy_imm_0(); break;
-  case 0xa1: lda_ce_idx_0(); break;
-  case 0xa2: ldx_imm_0(); break;
-  case 0xa3: ldz_imm_0(); break;
-  case 0xa4: ldy_ce_zpg_0(); break;
-  case 0xa5: lda_ce_zpg_0(); break;
-  case 0xa6: ldx_ce_zpg_0(); break;
-  case 0xa7: smb_ce_bzp_0(); break;
-  case 0xa8: tay_ce_imp_0(); break;
-  case 0xa9: lda_imm_0(); break;
-  case 0xaa: tax_ce_imp_0(); break;
-  case 0xab: ldz_aba_0(); break;
-  case 0xac: ldy_aba_0(); break;
-  case 0xad: lda_aba_0(); break;
-  case 0xae: ldx_aba_0(); break;
-  case 0xaf: bbs_ce_zpb_0(); break;
-  case 0xb0: bcs_ce_rel_0(); break;
-  case 0xb1: lda_ce_idy_0(); break;
-  case 0xb2: lda_idz_0(); break;
-  case 0xb3: bcs_rw2_0(); break;
-  case 0xb4: ldy_ce_zpx_0(); break;
-  case 0xb5: lda_ce_zpx_0(); break;
-  case 0xb6: ldx_ce_zpy_0(); break;
-  case 0xb7: smb_ce_bzp_0(); break;
-  case 0xb8: clv_ce_imp_0(); break;
-  case 0xb9: lda_ce_aby_0(); break;
-  case 0xba: tsx_ce_imp_0(); break;
-  case 0xbb: ldz_abx_0(); break;
-  case 0xbc: ldy_ce_abx_0(); break;
-  case 0xbd: lda_ce_abx_0(); break;
-  case 0xbe: ldx_ce_aby_0(); break;
-  case 0xbf: bbs_ce_zpb_0(); break;
-  case 0xc0: cpy_imm_0(); break;
-  case 0xc1: cmp_ce_idx_0(); break;
-  case 0xc2: cpz_imm_0(); break;
-  case 0xc3: dew_zpg_0(); break;
-  case 0xc4: cpy_ce_zpg_0(); break;
-  case 0xc5: cmp_ce_zpg_0(); break;
-  case 0xc6: dec_ce_zpg_0(); break;
-  case 0xc7: smb_ce_bzp_0(); break;
-  case 0xc8: iny_ce_imp_0(); break;
-  case 0xc9: cmp_imm_0(); break;
-  case 0xca: dex_ce_imp_0(); break;
-  case 0xcb: asw_aba_0(); break;
-  case 0xcc: cpy_aba_0(); break;
-  case 0xcd: cmp_aba_0(); break;
-  case 0xce: dec_ce_aba_0(); break;
-  case 0xcf: bbs_ce_zpb_0(); break;
-  case 0xd0: bne_ce_rel_0(); break;
-  case 0xd1: cmp_ce_idy_0(); break;
-  case 0xd2: cmp_idz_0(); break;
-  case 0xd3: bne_rw2_0(); break;
-  case 0xd4: cpz_zpg_0(); break;
-  case 0xd5: cmp_ce_zpx_0(); break;
-  case 0xd6: dec_ce_zpx_0(); break;
-  case 0xd7: smb_ce_bzp_0(); break;
-  case 0xd8: cld_ce_imp_0(); break;
-  case 0xd9: cmp_ce_aby_0(); break;
-  case 0xda: phx_ce_imp_0(); break;
-  case 0xdb: phz_imp_0(); break;
-  case 0xdc: cpz_aba_0(); break;
-  case 0xdd: cmp_ce_abx_0(); break;
-  case 0xde: dec_ce_abx_0(); break;
-  case 0xdf: bbs_ce_zpb_0(); break;
-  case 0xe0: cpx_imm_0(); break;
-  case 0xe1: sbc_ce_idx_0(); break;
-  case 0xe2: lda_isy_0(); break;
-  case 0xe3: inw_zpg_0(); break;
-  case 0xe4: cpx_ce_zpg_0(); break;
-  case 0xe5: sbc_ce_zpg_0(); break;
-  case 0xe6: inc_ce_zpg_0(); break;
-  case 0xe7: smb_ce_bzp_0(); break;
-  case 0xe8: inx_ce_imp_0(); break;
-  case 0xe9: sbc_ce_imm_0(); break;
-  case 0xea: nop_c_imp_0(); break;
-  case 0xeb: row_aba_0(); break;
-  case 0xec: cpx_aba_0(); break;
-  case 0xed: sbc_ce_aba_0(); break;
-  case 0xee: inc_ce_aba_0(); break;
-  case 0xef: bbs_ce_zpb_0(); break;
-  case 0xf0: beq_ce_rel_0(); break;
-  case 0xf1: sbc_ce_idy_0(); break;
-  case 0xf2: sbc_idz_0(); break;
-  case 0xf3: beq_rw2_0(); break;
-  case 0xf4: phw_iw2_0(); break;
-  case 0xf5: sbc_ce_zpx_0(); break;
-  case 0xf6: inc_ce_zpx_0(); break;
-  case 0xf7: smb_ce_bzp_0(); break;
-  case 0xf8: sed_ce_imp_0(); break;
-  case 0xf9: sbc_ce_aby_0(); break;
-  case 0xfa: plx_ce_imp_0(); break;
-  case 0xfb: plz_imp_0(); break;
-  case 0xfc: phw_aba_0(); break;
-  case 0xfd: sbc_ce_abx_0(); break;
-  case 0xfe: inc_ce_abx_0(); break;
-  case 0xff: bbs_ce_zpb_0(); break;
-  default:   reset_c_0(); break;
+void m65ce02_device_postfetch_int(m65ce02_device &cpu) {
+  switch(cpu.IR) {
+  case 0x00: m65ce02_device_brk_imp_0(cpu); break;
+  case 0x01: m65ce02_device_ora_idx_0(cpu); break;
+  case 0x02: m65ce02_device_cle_imp_0(cpu); break;
+  case 0x03: m65ce02_device_see_imp_0(cpu); break;
+  case 0x04: m65ce02_device_tsb_zpg_0(cpu); break;
+  case 0x05: m65ce02_device_ora_zpg_0(cpu); break;
+  case 0x06: m65ce02_device_asl_zpg_0(cpu); break;
+  case 0x07: m65ce02_device_rmb_bzp_0(cpu); break;
+  case 0x08: m65ce02_device_php_imp_0(cpu); break;
+  case 0x09: m6502_device_ora_imm_0(cpu); break;
+  case 0x0a: m65ce02_device_asl_acc_0(cpu); break;
+  case 0x0b: m65ce02_device_tsy_imp_0(cpu); break;
+  case 0x0c: m65ce02_device_tsb_aba_0(cpu); break;
+  case 0x0d: m6502_device_ora_aba_0(cpu); break;
+  case 0x0e: m65ce02_device_asl_aba_0(cpu); break;
+  case 0x0f: m65ce02_device_bbr_zpb_0(cpu); break;
+  case 0x10: m65ce02_device_bpl_rel_0(cpu); break;
+  case 0x11: m65ce02_device_ora_idy_0(cpu); break;
+  case 0x12: m65ce02_device_ora_idz_0(cpu); break;
+  case 0x13: m65ce02_device_bpl_rw2_0(cpu); break;
+  case 0x14: m65ce02_device_trb_zpg_0(cpu); break;
+  case 0x15: m65ce02_device_ora_zpx_0(cpu); break;
+  case 0x16: m65ce02_device_asl_zpx_0(cpu); break;
+  case 0x17: m65ce02_device_rmb_bzp_0(cpu); break;
+  case 0x18: m65ce02_device_clc_imp_0(cpu); break;
+  case 0x19: m65ce02_device_ora_aby_0(cpu); break;
+  case 0x1a: m65ce02_device_inc_acc_0(cpu); break;
+  case 0x1b: m65ce02_device_inz_imp_0(cpu); break;
+  case 0x1c: m65ce02_device_trb_aba_0(cpu); break;
+  case 0x1d: m65ce02_device_ora_abx_0(cpu); break;
+  case 0x1e: m65ce02_device_asl_abx_0(cpu); break;
+  case 0x1f: m65ce02_device_bbr_zpb_0(cpu); break;
+  case 0x20: m65ce02_device_jsr_adr_0(cpu); break;
+  case 0x21: m65ce02_device_and_idx_0(cpu); break;
+  case 0x22: m65ce02_device_jsr_ind_0(cpu); break;
+  case 0x23: m65ce02_device_jsr_iax_0(cpu); break;
+  case 0x24: m65ce02_device_bit_zpg_0(cpu); break;
+  case 0x25: m65ce02_device_and_zpg_0(cpu); break;
+  case 0x26: m65ce02_device_rol_zpg_0(cpu); break;
+  case 0x27: m65ce02_device_rmb_bzp_0(cpu); break;
+  case 0x28: m65ce02_device_plp_imp_0(cpu); break;
+  case 0x29: m6502_device_and_imm_0(cpu); break;
+  case 0x2a: m65ce02_device_rol_acc_0(cpu); break;
+  case 0x2b: m65ce02_device_tys_imp_0(cpu); break;
+  case 0x2c: m6502_device_bit_aba_0(cpu); break;
+  case 0x2d: m6502_device_and_aba_0(cpu); break;
+  case 0x2e: m65ce02_device_rol_aba_0(cpu); break;
+  case 0x2f: m65ce02_device_bbr_zpb_0(cpu); break;
+  case 0x30: m65ce02_device_bmi_rel_0(cpu); break;
+  case 0x31: m65ce02_device_and_idy_0(cpu); break;
+  case 0x32: m65ce02_device_and_idz_0(cpu); break;
+  case 0x33: m65ce02_device_bmi_rw2_0(cpu); break;
+  case 0x34: m65ce02_device_bit_zpx_0(cpu); break;
+  case 0x35: m65ce02_device_and_zpx_0(cpu); break;
+  case 0x36: m65ce02_device_rol_zpx_0(cpu); break;
+  case 0x37: m65ce02_device_rmb_bzp_0(cpu); break;
+  case 0x38: m65ce02_device_sec_imp_0(cpu); break;
+  case 0x39: m65ce02_device_and_aby_0(cpu); break;
+  case 0x3a: m65ce02_device_dec_acc_0(cpu); break;
+  case 0x3b: m65ce02_device_dez_imp_0(cpu); break;
+  case 0x3c: m65ce02_device_bit_abx_0(cpu); break;
+  case 0x3d: m65ce02_device_and_abx_0(cpu); break;
+  case 0x3e: m65ce02_device_rol_abx_0(cpu); break;
+  case 0x3f: m65ce02_device_bbr_zpb_0(cpu); break;
+  case 0x40: m65ce02_device_rti_imp_0(cpu); break;
+  case 0x41: m65ce02_device_eor_idx_0(cpu); break;
+  case 0x42: m65ce02_device_neg_acc_0(cpu); break;
+  case 0x43: m65ce02_device_asr_acc_0(cpu); break;
+  case 0x44: m65ce02_device_asr_zpg_0(cpu); break;
+  case 0x45: m65ce02_device_eor_zpg_0(cpu); break;
+  case 0x46: m65ce02_device_lsr_zpg_0(cpu); break;
+  case 0x47: m65ce02_device_rmb_bzp_0(cpu); break;
+  case 0x48: m65ce02_device_pha_imp_0(cpu); break;
+  case 0x49: m6502_device_eor_imm_0(cpu); break;
+  case 0x4a: m65ce02_device_lsr_acc_0(cpu); break;
+  case 0x4b: m65ce02_device_taz_imp_0(cpu); break;
+  case 0x4c: m6502_device_jmp_adr_0(cpu); break;
+  case 0x4d: m6502_device_eor_aba_0(cpu); break;
+  case 0x4e: m65ce02_device_lsr_aba_0(cpu); break;
+  case 0x4f: m65ce02_device_bbr_zpb_0(cpu); break;
+  case 0x50: m65ce02_device_bvc_rel_0(cpu); break;
+  case 0x51: m65ce02_device_eor_idy_0(cpu); break;
+  case 0x52: m65ce02_device_eor_idz_0(cpu); break;
+  case 0x53: m65ce02_device_bvc_rw2_0(cpu); break;
+  case 0x54: m65ce02_device_asr_zpx_0(cpu); break;
+  case 0x55: m65ce02_device_eor_zpx_0(cpu); break;
+  case 0x56: m65ce02_device_lsr_zpx_0(cpu); break;
+  case 0x57: m65ce02_device_rmb_bzp_0(cpu); break;
+  case 0x58: m65ce02_device_cli_imp_0(cpu); break;
+  case 0x59: m65ce02_device_eor_aby_0(cpu); break;
+  case 0x5a: m65ce02_device_phy_imp_0(cpu); break;
+  case 0x5b: m65ce02_device_tab_imp_0(cpu); break;
+  case 0x5c: m65ce02_device_aug_iw3_0(cpu); break;
+  case 0x5d: m65ce02_device_eor_abx_0(cpu); break;
+  case 0x5e: m65ce02_device_lsr_abx_0(cpu); break;
+  case 0x5f: m65ce02_device_bbr_zpb_0(cpu); break;
+  case 0x60: m65ce02_device_rts_imp_0(cpu); break;
+  case 0x61: m65ce02_device_adc_idx_0(cpu); break;
+  case 0x62: m65ce02_device_rtn_imm_0(cpu); break;
+  case 0x63: m65ce02_device_bsr_rw2_0(cpu); break;
+  case 0x64: m65ce02_device_stz_zpg_0(cpu); break;
+  case 0x65: m65ce02_device_adc_zpg_0(cpu); break;
+  case 0x66: m65ce02_device_ror_zpg_0(cpu); break;
+  case 0x67: m65ce02_device_rmb_bzp_0(cpu); break;
+  case 0x68: m65ce02_device_pla_imp_0(cpu); break;
+  case 0x69: m65ce02_device_adc_imm_0(cpu); break;
+  case 0x6a: m65ce02_device_ror_acc_0(cpu); break;
+  case 0x6b: m65ce02_device_tza_imp_0(cpu); break;
+  case 0x6c: m65ce02_device_jmp_ind_0(cpu); break;
+  case 0x6d: m65ce02_device_adc_aba_0(cpu); break;
+  case 0x6e: m65ce02_device_ror_aba_0(cpu); break;
+  case 0x6f: m65ce02_device_bbr_zpb_0(cpu); break;
+  case 0x70: m65ce02_device_bvs_rel_0(cpu); break;
+  case 0x71: m65ce02_device_adc_idy_0(cpu); break;
+  case 0x72: m65ce02_device_adc_idz_0(cpu); break;
+  case 0x73: m65ce02_device_bvs_rw2_0(cpu); break;
+  case 0x74: m65ce02_device_stz_zpx_0(cpu); break;
+  case 0x75: m65ce02_device_adc_zpx_0(cpu); break;
+  case 0x76: m65ce02_device_ror_zpx_0(cpu); break;
+  case 0x77: m65ce02_device_rmb_bzp_0(cpu); break;
+  case 0x78: m65ce02_device_sei_imp_0(cpu); break;
+  case 0x79: m65ce02_device_adc_aby_0(cpu); break;
+  case 0x7a: m65ce02_device_ply_imp_0(cpu); break;
+  case 0x7b: m65ce02_device_tba_imp_0(cpu); break;
+  case 0x7c: m65ce02_device_jmp_iax_0(cpu); break;
+  case 0x7d: m65ce02_device_adc_abx_0(cpu); break;
+  case 0x7e: m65ce02_device_ror_abx_0(cpu); break;
+  case 0x7f: m65ce02_device_bbr_zpb_0(cpu); break;
+  case 0x80: m65ce02_device_bra_rel_0(cpu); break;
+  case 0x81: m65ce02_device_sta_idx_0(cpu); break;
+  case 0x82: m65ce02_device_sta_isy_0(cpu); break;
+  case 0x83: m65ce02_device_bra_rw2_0(cpu); break;
+  case 0x84: m65ce02_device_sty_zpg_0(cpu); break;
+  case 0x85: m65ce02_device_sta_zpg_0(cpu); break;
+  case 0x86: m65ce02_device_stx_zpg_0(cpu); break;
+  case 0x87: m65ce02_device_smb_bzp_0(cpu); break;
+  case 0x88: m65ce02_device_dey_imp_0(cpu); break;
+  case 0x89: m65ce02_device_bit_imm_0(cpu); break;
+  case 0x8a: m65ce02_device_txa_imp_0(cpu); break;
+  case 0x8b: m65ce02_device_sty_abx_0(cpu); break;
+  case 0x8c: m6502_device_sty_aba_0(cpu); break;
+  case 0x8d: m6502_device_sta_aba_0(cpu); break;
+  case 0x8e: m6502_device_stx_aba_0(cpu); break;
+  case 0x8f: m65ce02_device_bbs_zpb_0(cpu); break;
+  case 0x90: m65ce02_device_bcc_rel_0(cpu); break;
+  case 0x91: m65ce02_device_sta_idy_0(cpu); break;
+  case 0x92: m65ce02_device_sta_idz_0(cpu); break;
+  case 0x93: m65ce02_device_bcc_rw2_0(cpu); break;
+  case 0x94: m65ce02_device_sty_zpx_0(cpu); break;
+  case 0x95: m65ce02_device_sta_zpx_0(cpu); break;
+  case 0x96: m65ce02_device_stx_zpy_0(cpu); break;
+  case 0x97: m65ce02_device_smb_bzp_0(cpu); break;
+  case 0x98: m65ce02_device_tya_imp_0(cpu); break;
+  case 0x99: m65ce02_device_sta_aby_0(cpu); break;
+  case 0x9a: m65ce02_device_txs_imp_0(cpu); break;
+  case 0x9b: m65ce02_device_stx_aby_0(cpu); break;
+  case 0x9c: m65ce02_device_stz_aba_0(cpu); break;
+  case 0x9d: m65ce02_device_sta_abx_0(cpu); break;
+  case 0x9e: m65ce02_device_stz_abx_0(cpu); break;
+  case 0x9f: m65ce02_device_bbs_zpb_0(cpu); break;
+  case 0xa0: m6502_device_ldy_imm_0(cpu); break;
+  case 0xa1: m65ce02_device_lda_idx_0(cpu); break;
+  case 0xa2: m6502_device_ldx_imm_0(cpu); break;
+  case 0xa3: m65ce02_device_ldz_imm_0(cpu); break;
+  case 0xa4: m65ce02_device_ldy_zpg_0(cpu); break;
+  case 0xa5: m65ce02_device_lda_zpg_0(cpu); break;
+  case 0xa6: m65ce02_device_ldx_zpg_0(cpu); break;
+  case 0xa7: m65ce02_device_smb_bzp_0(cpu); break;
+  case 0xa8: m65ce02_device_tay_imp_0(cpu); break;
+  case 0xa9: m6502_device_lda_imm_0(cpu); break;
+  case 0xaa: m65ce02_device_tax_imp_0(cpu); break;
+  case 0xab: m65ce02_device_ldz_aba_0(cpu); break;
+  case 0xac: m6502_device_ldy_aba_0(cpu); break;
+  case 0xad: m6502_device_lda_aba_0(cpu); break;
+  case 0xae: m6502_device_ldx_aba_0(cpu); break;
+  case 0xaf: m65ce02_device_bbs_zpb_0(cpu); break;
+  case 0xb0: m65ce02_device_bcs_rel_0(cpu); break;
+  case 0xb1: m65ce02_device_lda_idy_0(cpu); break;
+  case 0xb2: m65ce02_device_lda_idz_0(cpu); break;
+  case 0xb3: m65ce02_device_bcs_rw2_0(cpu); break;
+  case 0xb4: m65ce02_device_ldy_zpx_0(cpu); break;
+  case 0xb5: m65ce02_device_lda_zpx_0(cpu); break;
+  case 0xb6: m65ce02_device_ldx_zpy_0(cpu); break;
+  case 0xb7: m65ce02_device_smb_bzp_0(cpu); break;
+  case 0xb8: m65ce02_device_clv_imp_0(cpu); break;
+  case 0xb9: m65ce02_device_lda_aby_0(cpu); break;
+  case 0xba: m65ce02_device_tsx_imp_0(cpu); break;
+  case 0xbb: m65ce02_device_ldz_abx_0(cpu); break;
+  case 0xbc: m65ce02_device_ldy_abx_0(cpu); break;
+  case 0xbd: m65ce02_device_lda_abx_0(cpu); break;
+  case 0xbe: m65ce02_device_ldx_aby_0(cpu); break;
+  case 0xbf: m65ce02_device_bbs_zpb_0(cpu); break;
+  case 0xc0: m6502_device_cpy_imm_0(cpu); break;
+  case 0xc1: m65ce02_device_cmp_idx_0(cpu); break;
+  case 0xc2: m65ce02_device_cpz_imm_0(cpu); break;
+  case 0xc3: m65ce02_device_dew_zpg_0(cpu); break;
+  case 0xc4: m65ce02_device_cpy_zpg_0(cpu); break;
+  case 0xc5: m65ce02_device_cmp_zpg_0(cpu); break;
+  case 0xc6: m65ce02_device_dec_zpg_0(cpu); break;
+  case 0xc7: m65ce02_device_smb_bzp_0(cpu); break;
+  case 0xc8: m65ce02_device_iny_imp_0(cpu); break;
+  case 0xc9: m6502_device_cmp_imm_0(cpu); break;
+  case 0xca: m65ce02_device_dex_imp_0(cpu); break;
+  case 0xcb: m65ce02_device_asw_aba_0(cpu); break;
+  case 0xcc: m6502_device_cpy_aba_0(cpu); break;
+  case 0xcd: m6502_device_cmp_aba_0(cpu); break;
+  case 0xce: m65ce02_device_dec_aba_0(cpu); break;
+  case 0xcf: m65ce02_device_bbs_zpb_0(cpu); break;
+  case 0xd0: m65ce02_device_bne_rel_0(cpu); break;
+  case 0xd1: m65ce02_device_cmp_idy_0(cpu); break;
+  case 0xd2: m65ce02_device_cmp_idz_0(cpu); break;
+  case 0xd3: m65ce02_device_bne_rw2_0(cpu); break;
+  case 0xd4: m65ce02_device_cpz_zpg_0(cpu); break;
+  case 0xd5: m65ce02_device_cmp_zpx_0(cpu); break;
+  case 0xd6: m65ce02_device_dec_zpx_0(cpu); break;
+  case 0xd7: m65ce02_device_smb_bzp_0(cpu); break;
+  case 0xd8: m65ce02_device_cld_imp_0(cpu); break;
+  case 0xd9: m65ce02_device_cmp_aby_0(cpu); break;
+  case 0xda: m65ce02_device_phx_imp_0(cpu); break;
+  case 0xdb: m65ce02_device_phz_imp_0(cpu); break;
+  case 0xdc: m65ce02_device_cpz_aba_0(cpu); break;
+  case 0xdd: m65ce02_device_cmp_abx_0(cpu); break;
+  case 0xde: m65ce02_device_dec_abx_0(cpu); break;
+  case 0xdf: m65ce02_device_bbs_zpb_0(cpu); break;
+  case 0xe0: m6502_device_cpx_imm_0(cpu); break;
+  case 0xe1: m65ce02_device_sbc_idx_0(cpu); break;
+  case 0xe2: m65ce02_device_lda_isy_0(cpu); break;
+  case 0xe3: m65ce02_device_inw_zpg_0(cpu); break;
+  case 0xe4: m65ce02_device_cpx_zpg_0(cpu); break;
+  case 0xe5: m65ce02_device_sbc_zpg_0(cpu); break;
+  case 0xe6: m65ce02_device_inc_zpg_0(cpu); break;
+  case 0xe7: m65ce02_device_smb_bzp_0(cpu); break;
+  case 0xe8: m65ce02_device_inx_imp_0(cpu); break;
+  case 0xe9: m65ce02_device_sbc_imm_0(cpu); break;
+  case 0xea: m65c02_device_nop_imp_0(cpu); break;
+  case 0xeb: m65ce02_device_row_aba_0(cpu); break;
+  case 0xec: m6502_device_cpx_aba_0(cpu); break;
+  case 0xed: m65ce02_device_sbc_aba_0(cpu); break;
+  case 0xee: m65ce02_device_inc_aba_0(cpu); break;
+  case 0xef: m65ce02_device_bbs_zpb_0(cpu); break;
+  case 0xf0: m65ce02_device_beq_rel_0(cpu); break;
+  case 0xf1: m65ce02_device_sbc_idy_0(cpu); break;
+  case 0xf2: m65ce02_device_sbc_idz_0(cpu); break;
+  case 0xf3: m65ce02_device_beq_rw2_0(cpu); break;
+  case 0xf4: m65ce02_device_phw_iw2_0(cpu); break;
+  case 0xf5: m65ce02_device_sbc_zpx_0(cpu); break;
+  case 0xf6: m65ce02_device_inc_zpx_0(cpu); break;
+  case 0xf7: m65ce02_device_smb_bzp_0(cpu); break;
+  case 0xf8: m65ce02_device_sed_imp_0(cpu); break;
+  case 0xf9: m65ce02_device_sbc_aby_0(cpu); break;
+  case 0xfa: m65ce02_device_plx_imp_0(cpu); break;
+  case 0xfb: m65ce02_device_plz_imp_0(cpu); break;
+  case 0xfc: m65ce02_device_phw_aba_0(cpu); break;
+  case 0xfd: m65ce02_device_sbc_abx_0(cpu); break;
+  case 0xfe: m65ce02_device_inc_abx_0(cpu); break;
+  case 0xff: m65ce02_device_bbs_zpb_0(cpu); break;
+  default:   m65c02_device_reset_0(cpu); break;
   }
 }
 

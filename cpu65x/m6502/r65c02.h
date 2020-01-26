@@ -13,14 +13,15 @@
 
 #include "m65c02.h"
 
+class r65c02_device;
+#include "r65c02.top.hxx"
+
 class r65c02_device : public m65c02_device {
 public:
 	r65c02_device();
 
 protected:
 
-	void prefetch() override;
-	void fetch() override;
 
 	#include "r65c02.hxx"
 

@@ -11,17 +11,18 @@ my $whileindex;
 
 sub usage($) {
 	my ($msg) = @_;
-	die "USAGE: makehxx.pl <classname> [<o.lst>|-] [<d.lst>|-] <out.hxx> <out.cxx>\n\n$msg\n";
+	die "USAGE: makehxx.pl <classname> [<o.lst>|-] [<d.lst>|-] <out.hxx> <out.hxx2> <out.cxx>\n\n$msg\n";
 }
 
 
-my ($classname, $infn_olst, $infn_dlst, $outfn_hxx, $outfn_cxx) = @ARGV;
+my ($classname, $infn_olst, $infn_dlst, $outfn_hxx, $outfn_hxx2, $outfn_cxx) = @ARGV;
 
 $classname || usage "missing classname";
 
 
 open(my $fh_out_cxx, ">", $outfn_cxx) || usage "cannot open output file $outfn_cxx : $!";
 open(my $fh_out_hxx, ">", $outfn_hxx) || usage "cannot open output file $outfn_hxx : $!";
+open(my $fh_out_hxx2, ">", $outfn_hxx2) || usage "cannot open output file $outfn_hxx2 : $!";
 
 print $fh_out_cxx "// This file has been automatically produced by makehxx.pl\n";
 print $fh_out_cxx "// do not edit it.\n";
@@ -30,6 +31,10 @@ print $fh_out_cxx "// from file(s) $infn_dlst $infn_olst\n";
 print $fh_out_hxx "// This file has been automatically produced by makehxx.pl\n";
 print $fh_out_hxx "// do not edit it.\n";
 print $fh_out_hxx "// from file(s) $infn_dlst $infn_olst\n";	
+
+print $fh_out_hxx2 "// This file has been automatically produced by makehxx.pl\n";
+print $fh_out_hxx2 "// do not edit it.\n";
+print $fh_out_hxx2 "// from file(s) $infn_dlst $infn_olst\n";	
 
 print $fh_out_cxx "#include \"${classname}.h\"\n";
 
@@ -46,14 +51,33 @@ if ($infn_dlst ne '-')
 	do_d_lst();
 }
 
+sub archprefix($) {
+	my ($i) = @_;
+
+	my $class = "m6502_device";
+	if ($i =~ /^(\w+):(\w+)/) {
+		my $pre = $1;
+		$i = $2;
+		if ($pre eq "c")
+		{
+			$class = "m65c02_device";
+		} elsif ($pre eq "ce") {
+			$class = "m65ce02_device";
+		} else {
+			die "unrecognized prefix \"$pre:\"";
+		}
+	}
+	return "${class}_${i}";
+}
+
 sub do_d_lst() {
 
 	open(my $fh_in_dlst, "<", $infn_dlst) || usage "cannot open input file $infn_dlst : $!";
 
-
-	print $fh_out_hxx "void postfetch_int();";
-	print $fh_out_cxx "void ${classname}::postfetch_int() {\n";
-	print $fh_out_cxx "  switch(IR) {\n";
+	print $fh_out_hxx2 "void ${classname}_postfetch_int(${classname} &cpu);\n";
+	print $fh_out_hxx "friend void ${classname}_postfetch_int(${classname} &cpu);\n";
+	print $fh_out_cxx "void ${classname}_postfetch_int(${classname} &cpu) {\n";
+	print $fh_out_cxx "  switch(cpu.IR) {\n";
 
 	my $lin = 0;
 
@@ -73,7 +97,7 @@ sub do_d_lst() {
 
 				my $ix = $lin * 16;
 				foreach my $i (@insts) {
-					printf $fh_out_cxx "  case 0x%2.2x: %s_0(); break;\n", $ix, $i;
+					printf $fh_out_cxx "  case 0x%2.2x: %s_0(cpu); break;\n", $ix, archprefix($i);
 					$ix++;
 				}
 
@@ -81,7 +105,7 @@ sub do_d_lst() {
 				my @insts = split(/\s+/, $l);
 				my $n = scalar(@insts);
 				$n == 1 || die "There must be exactly 1 instructions on line 17 ($n)";
-				printf $fh_out_cxx "  default:   %s_0(); break;\n", @insts[0];
+				printf $fh_out_cxx "  default:   %s_0(cpu); break;\n", archprefix(@insts[0]);
 
 
 			} else {
@@ -432,6 +456,12 @@ sub showtree($$) {
 	}
 }
 
+sub expand_members($) {
+	my ($l) = @_;
+	$l =~ s/(\b[A-Z_]\w*\b(?<!(true|false|int8_t|uint8_t)\b))/cpu.\1/gi;
+	return $l;
+}
+
 sub emit($$$@%) 
 {
 	my ($k, $cur, $fnopen, $blockstack, $already) = @_;
@@ -446,16 +476,19 @@ sub emit($$$@%)
 
 	if (!$fnopen) {
 		if ($whilenotindex) {
-			print $fh_out_hxx "void ${k}_whilenot_${whilenotindex}();\n";
-			print $fh_out_cxx "void ${classname}::${k}_whilenot_${whilenotindex}() {\n";
+			print $fh_out_hxx2 "void ${classname}_${k}_whilenot_${whilenotindex}(${classname} &cpu);\n";
+			print $fh_out_hxx "friend void ${classname}_${k}_whilenot_${whilenotindex}(${classname} &cpu);\n";
+			print $fh_out_cxx "void ${classname}_${k}_whilenot_${whilenotindex}(${classname} &cpu) {\n";
 		}
 		elsif ($whileindex) {
-			print $fh_out_hxx "void ${k}_while_${whileindex}();\n";
-			print $fh_out_cxx "void ${classname}::${k}_while_${whileindex}() {\n";
-			print $fh_out_cxx "  if (!$parent->{text}) ${classname}::${k}_whilenot_${whileindex}();return;\n";
+			print $fh_out_hxx2 "void ${classname}_${k}_while_${whileindex}(${classname} &cpu);\n";
+			print $fh_out_hxx "friend void ${classname}_${k}_while_${whileindex}(${classname} &cpu);\n";
+			print $fh_out_cxx "void ${classname}_${k}_while_${whileindex}(${classname} &cpu) {\n";
+			print $fh_out_cxx "  if (!(${\ expand_members($parent->{text}) })) ${classname}_${k}_whilenot_${whileindex}(cpu);return;\n";
 		} else {
-			print $fh_out_hxx "void ${k}_${cycindex}();\n";
-			print $fh_out_cxx "void ${classname}::${k}_${cycindex}() {\n";
+			print $fh_out_hxx2 "void ${classname}_${k}_${cycindex}(${classname} &cpu);\n";
+			print $fh_out_hxx "friend void ${classname}_${k}_${cycindex}(${classname} &cpu);\n";
+			print $fh_out_cxx "void ${classname}_${k}_${cycindex}(${classname} &cpu) {\n";
 		}
 
 		$already->{$cycindex} = 1;
@@ -464,7 +497,7 @@ sub emit($$$@%)
 	while ($curinst) {
 
 		if ($curinst->{type} eq "if") {
-			print $fh_out_cxx  "  " x $indent . "if ($curinst->{text}) {\n";			
+			print $fh_out_cxx  "  " x $indent . "if (${\expand_members($curinst->{text})}) {\n";			
 			emit($k, 
 				{ 
 					curinst => $curinst->{if_start}, 
@@ -503,7 +536,7 @@ sub emit($$$@%)
 				};
 			}
 
-			print $fh_out_cxx  "  " x $indent . "${k}_while_$whileindex();return;\n";
+			print $fh_out_cxx  "  " x $indent . "${classname}_${k}_while_$whileindex(cpu);return;\n";
 			if (!$fnopen) {
 				print $fh_out_cxx "}\n\n";
 			}
@@ -511,7 +544,7 @@ sub emit($$$@%)
 
 		} elsif ($curinst->{type} eq 'wend') {
 			my $whileindex = $curinst->{whileindex};
-			print $fh_out_cxx  "  " x $indent . "${k}_while_$whileindex();return;\n";
+			print $fh_out_cxx  "  " x $indent . "${classname}_${k}_while_$whileindex(cpu);return;\n";
 			if (!$fnopen) {
 				print $fh_out_cxx "}\n\n";
 			}
@@ -520,15 +553,15 @@ sub emit($$$@%)
 			$cycindex =  $curinst->{cycindex};
 			if (!($curinst->{text} =~ /^(READ|WRITE)$/)) {
 				if ($curinst->{text} =~ /^post/) {
-					print $fh_out_cxx  "  " x $indent . "$curinst->{text}();return; // $curinst->{text}\n";	
+					print $fh_out_cxx  "  " x $indent . "m65x_device_$curinst->{text}(cpu);return; // $curinst->{text}\n";	
 				} else {
 					if ($curinst->{text} =~ /^pre/) {
-						print $fh_out_cxx  "  " x $indent . "PrefetchNextFn = &${classname}::${k}_${cycindex};\n";
+						print $fh_out_cxx  "  " x $indent . "cpu.PrefetchNextFn = (void *)&${classname}_${k}_${cycindex};\n";
 					}
-					print $fh_out_cxx  "  " x $indent . "$curinst->{text}();return; // $curinst->{text}\n";
+					print $fh_out_cxx  "  " x $indent . "m65x_device_$curinst->{text}(cpu);return; // $curinst->{text}\n";
 				}
 			} else {
-				print $fh_out_cxx  "  " x $indent . "NextFn = &${classname}::${k}_${cycindex};return; // $curinst->{text}\n";
+				print $fh_out_cxx  "  " x $indent . "cpu.NextFn = (void *)&${classname}_${k}_${cycindex};return; // $curinst->{text}\n";
 			}
 			if (!$fnopen) {
 				print $fh_out_cxx "}\n\n";
@@ -545,14 +578,14 @@ sub emit($$$@%)
 			}
 			return;
 		} else {
-			print $fh_out_cxx  "  " x $indent . "$curinst->{text}\n";
+			print $fh_out_cxx  "  " x $indent . "${\ expand_members($curinst->{text}) }\n";
 		}
 
 		$curinst = next_inst($curinst, $maxparent);
 	}
 
 	if (!$fnopen) {
-		die "Error ${classname}::${k}_${cycindex} terminated without a cycle at end";
+		die "Error ${classname}_${k}_${cycindex} terminated without a cycle at end";
 	}
 
 }

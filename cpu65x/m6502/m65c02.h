@@ -15,23 +15,20 @@
 
 #include "m6502.h"
 
+class m65c02_device;
+
+#include "m65c02.top.hxx"
+
 class m65c02_device : public m6502_device {
 public:
-	m65c02_device();
+	m65c02_device() :
+		m6502_device()
+	{
+	}
 
 protected:
 
-	void postfetch() override;
-	void prefetch() override;
-	void fetch() override;
-	void fetch_noirq() override;
-
 	#include "m65c02.hxx"
-
-private:
-	typedef void (m65c02_device::*StatFn)();
-	StatFn	  NextFn;
-	StatFn	  PrefetchNextFn;
 
 };
 

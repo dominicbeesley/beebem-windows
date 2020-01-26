@@ -43,3 +43,5 @@ cpu65x/testasm/*.noi
 *.bak
 
 
+cpu65x/m6502/.vs/m6502/v15/Browse.VC.db
+cpu65x/m6502/.vs/m6502/v15/.suo

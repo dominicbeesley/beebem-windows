@@ -379,7 +379,6 @@
   <ItemGroup>
     <ProjectReference Include="..\cpu65x\m6502\m6502.vcxproj">
       <Project>{e45d81f7-6b4c-46a3-a3c3-8ac06e81abd1}</Project>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Include="Hardware\reSID\reSID.vcxproj">
       <Project>{5dea03a2-e54c-41d7-93ee-b37a9db7441a}</Project>
