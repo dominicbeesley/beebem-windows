@@ -42,6 +42,11 @@ Boston, MA  02110-1301, USA.
 #include "Arm.h"
 #include "sprowcopro.h"
 
+#include "r65c02.h"
+#include <string>
+#include <iostream>
+#include <fstream>
+
 #ifdef WIN32
 #include <windows.h>
 #define INLINE inline
@@ -65,6 +70,7 @@ CycleCountT TotalTubeCycles = 0;
 unsigned char TubeintStatus=0; /* bit set (nums in IRQ_Nums) if interrupt being caused */
 unsigned char TubeNMIStatus=0; /* bit set (nums in NMI_Nums) if NMI being caused */
 
+r65c02_device cpu;
 
 
 // Staus bits
@@ -609,8 +615,7 @@ unsigned char TubeReadMem(unsigned int IOAddr) {
 
 
 void ResetTube65C02() {
-	/*TODO: DB: cause a processor reset
-	*/
+	cpu.reset();
 }
 
 /* Reset Tube */
@@ -645,6 +650,7 @@ void ResetTube(void)
   TubeNMIStatus=0;
 }
 
+
 /* Initialise 6502core */
 void InitTube65C02(void) {
 
@@ -652,9 +658,27 @@ void InitTube65C02(void) {
 
   R1Status=0;
   ResetTube();
+
+  std::string tubeRomName(RomPath);
+  tubeRomName += "beebfile/6502Tube.rom";
+
+  //The fun part, the tube OS is copied from ROM to tube RAM before the processor starts processing
+  //This makes the OS "ROM" writable in effect, but must be restored on each reset.
+  
+  std::ifstream TubeRom(tubeRomName, std::istream::binary);
+  
+  if (!TubeRom.fail()) {
+	  TubeRom.read((char *)(TubeRam + 0xf800), 2048);
+	  TubeRom.close();
+  }
+  
+  cpu.init();
+  cpu.reset();
 }
 
 #include "via.h"
+
+
 
 
 /*TODO: DB: remove?*/
@@ -668,7 +692,24 @@ void WrapTubeCycles(void) {
 /* Execute one 6502 instruction, move program counter on                   */
 void ExecTube65C02Cycle(void) {
 
-	/*TODO: DB: exec cpu, gather interrupt lines*/
+	cpu.execute_set_input(M6502_IRQ_LINE, TubeintStatus ? ASSERT_LINE : CLEAR_LINE);
+	static bool prevNMI = false;
+	bool nowNMI = (TubeNMIStatus != 0) ? true : false;
+
+	if (prevNMI == false && nowNMI == true)
+		cpu.execute_set_input(M6502_NMI_LINE, ASSERT_LINE);
+	prevNMI = nowNMI;
+
+	cpu.tick();
+	if (cpu.getRNW())
+	{
+		cpu.setDATA(TubeReadMem(cpu.getADDR()));
+	}
+	else {
+		TubeWriteMem(cpu.getADDR(), cpu.getDATA());
+	}
+
+	TotalTubeCycles++;
 
 } /* Exec6502Instruction */
 

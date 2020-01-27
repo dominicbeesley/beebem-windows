@@ -170,11 +170,8 @@ void ExecSys2MCycles() {
 	PollVIAs();
 	PollHardware(1);
 	
-	/*TODO: DB: Put back
-	/*
 	if (EnableTube)
 		SyncTubeProcessor();
-	*/
 
 }
 

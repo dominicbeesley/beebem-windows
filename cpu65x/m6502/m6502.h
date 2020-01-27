@@ -27,13 +27,10 @@ public:
 		m65x_device()
 	{
 	};
-	   
+
+	virtual void init() override;
 
 protected:
-
-
-
-	virtual void init();
 
 	virtual void device_reset() override;
 
