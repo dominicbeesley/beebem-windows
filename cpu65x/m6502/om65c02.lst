@@ -369,10 +369,11 @@ jmp_iax
 	fetch();
 
 jmp_ind
+#TODO: DB: check this against Master, it has been bodged to match timings as per WDC datasheet
 	TMP = read(PC++);
 	TMP = set_h(TMP, read(PC++));
+	TMP2 = read(PC);
 	PC = read(TMP);
-	read(set_l(TMP, TMP+1));
 	PC = set_h(PC, read(TMP+1));
 	fetch();
 

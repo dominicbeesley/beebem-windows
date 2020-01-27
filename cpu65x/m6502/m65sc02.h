@@ -19,10 +19,7 @@ public:
 
 protected:
 
-private:
-	typedef void (m65sc02_device::*StatFn)();
-	StatFn	  NextFn;
-	StatFn	  PrefetchNextFn;
+
 
 };
 

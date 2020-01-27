@@ -75,6 +75,8 @@ Boston, MA  02110-1301, USA.
 #include "Arm.h"
 #include "version.h"
 #include "sprowcopro.h"
+#include <iostream>
+#include <fstream>
 
 using namespace Gdiplus;
 
@@ -2489,6 +2491,18 @@ void BeebWin::HandleCommand(int MenuId)
 			ResetBeebSystem(MachineType, TubeEnabled, false);
 			BeebKeyDown(0, 0); // Shift key
 		}
+		break;
+
+	case IDM_HOGDUMP:
+		if (hog_o) {
+			//hog_o->close();
+			delete hog_o;
+			hog_o = NULL;
+		}
+		else {
+			hog_o = new std::ofstream("d:\\temp\\hogo.bin", std::ostream::binary);
+		}
+		CheckMenuItem(IDM_HOGDUMP, hog_o != NULL);
 		break;
 
 	case IDM_LOADSTATE:

@@ -1357,19 +1357,20 @@ void m65c02_device_jmp_ind_1(m65c02_device &cpu) {
 
 void m65c02_device_jmp_ind_2(m65c02_device &cpu) {
   cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
-  cpu.ADDR = cpu.TMP;
+  cpu.ADDR = cpu.PC;
   cpu.RNW = true;
   cpu.NextFn = (void *)&m65c02_device_jmp_ind_3;return; // READ
 }
 
 void m65c02_device_jmp_ind_3(m65c02_device &cpu) {
-  cpu.PC = cpu.DAT;
-  cpu.ADDR = cpu.set_l(cpu.TMP, cpu.TMP+1);
+  cpu.TMP2 = cpu.DAT;
+  cpu.ADDR = cpu.TMP;
   cpu.RNW = true;
   cpu.NextFn = (void *)&m65c02_device_jmp_ind_4;return; // READ
 }
 
 void m65c02_device_jmp_ind_4(m65c02_device &cpu) {
+  cpu.PC = cpu.DAT;
   cpu.ADDR = cpu.TMP+1;
   cpu.RNW = true;
   cpu.NextFn = (void *)&m65c02_device_jmp_ind_5;return; // READ

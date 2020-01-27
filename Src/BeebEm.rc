@@ -725,6 +725,7 @@ BEGIN
     END
     POPUP "&Options"
     BEGIN
+        MENUITEM "&Hoglet Dump"                 IDM_HOGDUMP
         MENUITEM "&Joystick",                   IDM_JOYSTICK
         MENUITEM "&Analogue Mousestick",        IDM_AMOUSESTICK
         MENUITEM "&Digital Mousestick",         IDM_DMOUSESTICK

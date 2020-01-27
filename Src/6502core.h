@@ -27,6 +27,7 @@ Boston, MA  02110-1301, USA.
 
 #include "port.h"
 #include <stdio.h>
+#include <iostream>
 
 void DumpRegs(void);
 
@@ -55,7 +56,7 @@ typedef enum PSR_Flags
 	Flag65N = 128
 } PSR6502_Flags;
 
-
+extern std::ofstream *hog_o;
 extern unsigned char SysIntStatus;
 extern unsigned char SysNMIStatus;
 extern unsigned int SysCycles;

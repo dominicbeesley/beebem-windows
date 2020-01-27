@@ -23,12 +23,11 @@ public:
 protected:
 
 
+	virtual StatFn postFetchIntFn() override { return (void *)&r65c02_device_postfetch_int; }
+
+
 	#include "r65c02.hxx"
 
-private:
-	typedef void (r65c02_device::*StatFn)();
-	StatFn	  NextFn;
-	StatFn	  PrefetchNextFn;
 
 
 };

@@ -440,6 +440,7 @@ Boston, MA  02110-1301, USA.
 #define IDM_SIDSAMPLETYPE_INTERPOLATE   40306
 #define IDM_SIDSAMPLETYPE_RESAMPLE_INTERPOLATE      40307
 #define IDM_SIDSAMPLETYPE_RESAMPLEFAST  40308
+#define IDM_HOGDUMP						40309
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -448,7 +449,7 @@ Boston, MA  02110-1301, USA.
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        117
-#define _APS_NEXT_COMMAND_VALUE         40309
+#define _APS_NEXT_COMMAND_VALUE         40310
 #define _APS_NEXT_CONTROL_VALUE         1087
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

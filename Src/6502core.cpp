@@ -87,7 +87,7 @@ int SysPrevSyncPC;
 
 m6502_device *m6502;
 
-
+ofstream *hog_o;
 
 void AdjustForIOWrite() {
 
@@ -137,7 +137,19 @@ void ExecSys2MCycles() {
 			m6502->execute_set_input(M6502_NMI_LINE, ASSERT_LINE);
 		prevNMI = nowNMI;
 
+		//hoglet decoder binary out
+		if (hog_o) {
+			uint8_t d = m6502->getDATA();
+			hog_o->write((const char *)&d, 1);
+			d =
+				(m6502->getRNW() ? 0x01 : 00)
+				+ (m6502->get_sync() ? 0x02 : 00)
+				;
+			hog_o->write((const char *)&d, 1);
+		}
+
 		m6502->tick();
+
 		uint16_t a = m6502->getADDR();
 		if (m6502->get_sync())
 			SysPrevSyncPC = a;
@@ -175,6 +187,8 @@ void InitSys() {
 		m6502 = new m6502_device();
 	m6502->start();
 	m6502->reset();
+
+	
 }
 
 void PollVIAs()

@@ -171,6 +171,7 @@
     <ClInclude Include="r65c02.top.hxx" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClCompile Include="m65c02.cpp" />
     <ClCompile Include="m65x_device.cpp" />
     <ClCompile Include="m65x_device.h" />
   </ItemGroup>
@@ -178,7 +179,6 @@
     <ClCompile Include="devcpu.cpp" />
     <ClCompile Include="m6502.cpp" />
     <ClCompile Include="m6502.cxx" />
-    <ClCompile Include="m65c02.cpp" />
     <ClCompile Include="m65c02.cxx" />
     <ClCompile Include="m65ce02.cpp" />
     <ClCompile Include="m65ce02.cxx" />
