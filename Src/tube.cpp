@@ -654,13 +654,12 @@ void ResetTube(void)
 /* Initialise 6502core */
 void InitTube65C02(void) {
 
-  /*TODO: DB: Init cpu here*/
-
   R1Status=0;
   ResetTube();
 
   std::string tubeRomName(RomPath);
   tubeRomName += "beebfile/6502Tube.rom";
+  //tubeRomName += "beebfile/Client65v2.rom";
 
   //The fun part, the tube OS is copied from ROM to tube RAM before the processor starts processing
   //This makes the OS "ROM" writable in effect, but must be restored on each reset.
@@ -670,6 +669,10 @@ void InitTube65C02(void) {
   if (!TubeRom.fail()) {
 	  TubeRom.read((char *)(TubeRam + 0xf800), 2048);
 	  TubeRom.close();
+  }
+  else {
+	  std::string err = "Failed to load tube rom image at" + tubeRomName;
+	  MessageBox(GETHWND, err.c_str(), "Cannot load tube rom", MB_OK | MB_ICONERROR);
   }
   
   cpu.init();

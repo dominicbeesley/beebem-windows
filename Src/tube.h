@@ -87,4 +87,6 @@ void UpdateR1Interrupt(void);
 void UpdateR3Interrupt(void);
 void UpdateR4Interrupt(void);
 
+void WrapTubeCycles(void);
+
 #endif

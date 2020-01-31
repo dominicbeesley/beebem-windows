@@ -214,10 +214,8 @@ void PollHardware(int nCycles)
 		AdjustTrigger(EconetTrigger);
 		AdjustTrigger(EconetFlagFillTimeoutTrigger);
 		AdjustTrigger(IP232RxTrigger);
-		/*TODO: DB: Putback?
 		if (EnableTube)
 			WrapTubeCycles();
-		*/
 	}
 
 	VideoPoll(nCycles);
