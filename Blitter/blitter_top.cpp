@@ -93,3 +93,80 @@ void blitter_top::device_reset()
 	sys.reset();
 	cpu.reset();
 }
+
+uint32_t blitter_top::log2phys(uint32_t ain) {
+	bool map0n1 = true;	//TODO: choose processor
+
+//	A_o <=
+//		x"8D3F" & A_i(7 downto 0)
+//		when A_i(23 downto 8) = x"0000" and m68k_boot_i = '1'
+	if (ain & 0xFF0000 == 0xFF0000)
+	{
+		uint16_t ain16 = (uint16_t)ain;
+		if (ain16 >= 0x8000 && ain16 < 0xC000 && get_cfg_swram_en())
+		{
+			if ((reg_ROMPG & 0x0F) < 4 || (reg_ROMPG & 0x0F) >= 8) {
+
+				if (map0n1) {
+					if (reg_ROMPG & 0x01) {
+						//SWROM from eerpom 8E 0000 - 8F FFFF
+						return 0x8E0000 + ((reg_ROMPG & 0x0E) << 13) + (ain & 0x3FFF);
+					}
+					else {
+						//SWRAM from chipram 7E 0000 - 7F FFFF
+						return 0x7E0000 + ((reg_ROMPG & 0x0E) << 13) + (ain & 0x3FFF);
+
+					}
+				}
+				else {
+					if (reg_ROMPG & 0x01) {
+						//SWROM from eerpom 8C 0000 - 8D FFFF
+						return 0x8C0000 + ((reg_ROMPG & 0x0E) << 13) + (ain & 0x3FFF);
+					}
+					else {
+						//SWRAM from chipram 7C 0000 - 7D FFFF
+						return 0x7C0000 + ((reg_ROMPG & 0x0E) << 13) + (ain & 0x3FFF);
+
+					}
+
+				}
+			}
+		}
+		else if ((ain16 >= 0xC000 && ain16 < 0xFC00) || (ain16 >= 0xFF00)) {
+			// MOS
+			
+			if (get_nioice_debug_shadow()) {
+				if ((ain16 & 0xF000) == 0xC000) {
+					//NOICE shadow ram from hidden slot #4 of map 0
+					return 0x7E8000 + ain16 & 0x0FFF;
+				}
+				else {
+					if (map0n1)
+						return 0x9FC000 + ain16 & 0x3FFF; //NOICE shadow MOS from slot #F map 0
+					else
+						return 0x9DC000 + ain16 & 0x3FFF; //NOICE shadow MOS from slot #F map 1
+				}
+			}
+			else if (get_swmos_shadow()) {
+				if (map0n1)
+					return 0x7F0000 + ain16 & 0x3FFF; //SWMOS from slot #8 map 0
+				else
+					return 0x7D0000 + ain16 & 0x3FFF; //SWMOS from slot #8 map 1
+			}
+			else if (!map0n1) {
+				// normal mos map 1 from slot 9
+				return 0x9D0000 + ain16 & 0x3FFF; //SWMOS from slot #8 map 1
+			}
+		}
+		else if (ain16 < 0x8000) {
+			if (get_blturbo() & 1 < ((ain16 & 0x7000) >> 12))
+				return ain16 & 0x7FFF;
+		}
+		else if ((ain16 & 0xFF00) == 0xFD00 && get_JIMEN()) {
+			return (get_JIMPAGE() << 8) | (ain16 & 0xFF);
+
+		}
+	}
+
+	return ain & 0xFFFFFF;
+}

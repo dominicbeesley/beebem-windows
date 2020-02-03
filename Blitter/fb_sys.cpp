@@ -43,7 +43,14 @@ void fb_sys::fb_set_D_wr(uint8_t dat)
 
 	if (state == act_wr)
 	{
-		top.setDATA(dat);
+		if ((addr & 0x00FFFFFF) == 0xFFFE30)
+		{
+			top.set_ROMPG(d_wr);
+			top.setDATA(dat | 0x08);			//NOTE: different to hardware! 
+		}
+		else {
+			top.setDATA(dat);
+		}
 		state = act_wr_gotdata;
 		mas->fb_set_ACK(ack);
 	}
@@ -55,7 +62,12 @@ void fb_sys::tick(bool sys)
 		return;
 	if (sys) {
 		if (state == act_rd) {
-			mas->fb_set_D_rd(top.getDATA());
+			if ((addr & 0xFFFFFF) == 0xFFFE30) {
+				mas->fb_set_D_rd(top.get_ROMPG());
+			}
+			else {
+				mas->fb_set_D_rd(top.getDATA());
+			}
 			mas->fb_set_ACK(ack);
 			state = idle;
 		}
@@ -80,7 +92,14 @@ void fb_sys::tock() {
 			top.RNW = !we;
 			if (we) {
 				if (d_wr_pend) {
-					top.setDATA(d_wr);
+					if ((addr & 0x00FFFFFF) == 0xFFFE30)
+					{
+						top.set_ROMPG(d_wr);
+						top.setDATA(d_wr | 0x08);			//NOTE: different to hardware! 
+					}
+					else {
+						top.setDATA(d_wr);
+					}
 					state = act_wr_gotdata;
 					mas->fb_set_ACK(ack);
 				} else {
@@ -104,5 +123,4 @@ void fb_sys::reset()
 	sys_tick_dly = false;
 	we = false;
 	addr = 0;
-	reg_rompage = 0;
 }

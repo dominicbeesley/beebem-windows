@@ -39,7 +39,8 @@ public:
 
 	blitter_top(void) :
 		m65x_device(),
-		sys(*this)
+		sys(*this),
+		cpu(*this)
 	{
 	};
 
@@ -52,11 +53,42 @@ public:
 
 	friend class fb_sys;
 
+	void set_ROMPG(uint8_t d) {
+		reg_ROMPG = d;
+	};
+	uint8_t get_ROMPG() { return reg_ROMPG; };
+	void set_JIMEN(bool b) {
+		reg_jimEn = b;
+	};
+	bool get_JIMEN() {
+		return reg_jimEn;
+	};
+	void set_JIMPAGE_L(uint8_t d) {
+		reg_jimPage = (reg_jimPage & 0xFF00) | (uint16_t)d;
+	}
+	void set_JIMPAGE_H(uint8_t d) {
+		reg_jimPage = (reg_jimPage & 0xFF) | ((uint16_t)d) << 8;
+	}
+	uint8_t get_JIMPAGE_L() { return (uint8_t)reg_jimPage; }
+	uint8_t get_JIMPAGE_H() { return (uint8_t)(reg_jimPage >> 8); }
+	uint8_t get_JIMPAGE() { return reg_jimPage; }
+
+	uint32_t log2phys(uint32_t ain);
+
+	bool get_cfg_swram_en() { return true;}
+	bool get_nioice_debug_shadow() { return false; }
+	bool get_swmos_shadow() { return false; }
+	uint8_t get_blturbo() { return 0x00; }
+
 protected:
 	virtual void device_reset() override;
 
 	fb_sys sys;
 	fb_cpu cpu;
+
+	uint8_t reg_ROMPG;
+	bool	reg_jimEn;
+	uint16_t reg_jimPage;
 
 };
 

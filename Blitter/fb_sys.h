@@ -13,8 +13,6 @@ class fb_sys : public fb_abs_slave, public fb_abs_tickable
 
 public:
 
-	uint8_t get_reg_rompage() { return reg_rompage; };
-
 	enum sys_state { idle, act_rd, act_wr, act_wr_gotdata, wait_sys_tick, wait_mas_rel } state;
 
 	fb_sys(blitter_top& _top) : top(_top) {};
@@ -51,7 +49,6 @@ private:
 	blitter_top& top;
 	fb_abs_master *mas;
 
-	uint8_t reg_rompage;
 };
 
 #endif //!_FB_SYS_H_

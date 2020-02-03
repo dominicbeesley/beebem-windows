@@ -7,11 +7,13 @@
 #include "fb_abs_master.h"
 #include "m6502.h"
 
+class blitter_top;
 
 class fb_cpu : public fb_abs_tickable, public fb_abs_master {
 public:
 
-	fb_cpu() 
+	fb_cpu(blitter_top &_top) 
+		: top(_top)
 	{
 		cpu.init();
 	}
@@ -34,7 +36,9 @@ protected:
 
 	m6502_device cpu;
 
+	uint32_t physAddr;
 
+	blitter_top &top;
 
 private:
 	fb_abs_slave *sla;
