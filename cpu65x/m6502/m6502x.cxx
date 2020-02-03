@@ -26,7 +26,7 @@ void m6502_device_adc_aba_2(m6502_device &cpu) {
 void m6502_device_adc_aba_3(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_adc(cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_abx --- 
@@ -66,7 +66,7 @@ void m6502_device_adc_abx_3(m6502_device &cpu) {
 void m6502_device_adc_abx_4(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_adc(cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_aby --- 
@@ -106,7 +106,7 @@ void m6502_device_adc_aby_3(m6502_device &cpu) {
 void m6502_device_adc_aby_4(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_adc(cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_idx --- 
@@ -146,7 +146,7 @@ void m6502_device_adc_idx_4(m6502_device &cpu) {
 
 void m6502_device_adc_idx_5(m6502_device &cpu) {
   cpu.do_adc(cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_idy --- 
@@ -190,7 +190,7 @@ void m6502_device_adc_idy_4(m6502_device &cpu) {
 
 void m6502_device_adc_idy_5(m6502_device &cpu) {
   cpu.do_adc(cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_imm --- 
@@ -203,7 +203,7 @@ void m6502_device_adc_imm_0(m6502_device &cpu) {
 void m6502_device_adc_imm_1(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_adc(cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_zpg --- 
@@ -223,7 +223,7 @@ void m6502_device_adc_zpg_1(m6502_device &cpu) {
 void m6502_device_adc_zpg_2(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_adc(cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_zpx --- 
@@ -249,7 +249,7 @@ void m6502_device_adc_zpx_2(m6502_device &cpu) {
 void m6502_device_adc_zpx_3(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_adc(cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op anc_imm --- 
@@ -267,7 +267,7 @@ void m6502_device_anc_imm_1(m6502_device &cpu) {
   } else {
     cpu.P &= ~cpu.F_C;
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op and_aba --- 
@@ -294,7 +294,7 @@ void m6502_device_and_aba_2(m6502_device &cpu) {
 void m6502_device_and_aba_3(m6502_device &cpu) {
   cpu.A &= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op and_abx --- 
@@ -334,7 +334,7 @@ void m6502_device_and_abx_3(m6502_device &cpu) {
 void m6502_device_and_abx_4(m6502_device &cpu) {
   cpu.A &= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op and_aby --- 
@@ -374,7 +374,7 @@ void m6502_device_and_aby_3(m6502_device &cpu) {
 void m6502_device_and_aby_4(m6502_device &cpu) {
   cpu.A &= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op and_idx --- 
@@ -415,7 +415,7 @@ void m6502_device_and_idx_4(m6502_device &cpu) {
 void m6502_device_and_idx_5(m6502_device &cpu) {
   cpu.A &= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op and_idy --- 
@@ -460,7 +460,7 @@ void m6502_device_and_idy_4(m6502_device &cpu) {
 void m6502_device_and_idy_5(m6502_device &cpu) {
   cpu.A &= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op and_imm --- 
@@ -473,7 +473,7 @@ void m6502_device_and_imm_0(m6502_device &cpu) {
 void m6502_device_and_imm_1(m6502_device &cpu) {
   cpu.A &= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op and_zpg --- 
@@ -493,7 +493,7 @@ void m6502_device_and_zpg_1(m6502_device &cpu) {
 void m6502_device_and_zpg_2(m6502_device &cpu) {
   cpu.A &= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op and_zpx --- 
@@ -519,7 +519,7 @@ void m6502_device_and_zpx_2(m6502_device &cpu) {
 void m6502_device_and_zpx_3(m6502_device &cpu) {
   cpu.A &= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ane_imm --- 
@@ -533,7 +533,7 @@ void m6502_device_ane_imm_1(m6502_device &cpu) {
   cpu.TMP2 = cpu.DAT;
   cpu.A &= cpu.TMP2 & cpu.X;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op arr_imm --- 
@@ -546,7 +546,7 @@ void m6502_device_arr_imm_0(m6502_device &cpu) {
 void m6502_device_arr_imm_1(m6502_device &cpu) {
   cpu.A &= cpu.DAT;
   cpu.do_arr();
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op asl_aba --- 
@@ -587,7 +587,7 @@ void m6502_device_asl_aba_4(m6502_device &cpu) {
 }
 
 void m6502_device_asl_aba_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op asl_abx --- 
@@ -635,7 +635,7 @@ void m6502_device_asl_abx_5(m6502_device &cpu) {
 }
 
 void m6502_device_asl_abx_6(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op asl_acc --- 
@@ -647,7 +647,7 @@ void m6502_device_asl_acc_0(m6502_device &cpu) {
 
 void m6502_device_asl_acc_1(m6502_device &cpu) {
   cpu.A = cpu.do_asl(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op asl_zpg --- 
@@ -681,7 +681,7 @@ void m6502_device_asl_zpg_3(m6502_device &cpu) {
 }
 
 void m6502_device_asl_zpg_4(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op asl_zpx --- 
@@ -722,7 +722,7 @@ void m6502_device_asl_zpx_4(m6502_device &cpu) {
 }
 
 void m6502_device_asl_zpx_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op asr_imm --- 
@@ -735,7 +735,7 @@ void m6502_device_asr_imm_0(m6502_device &cpu) {
 void m6502_device_asr_imm_1(m6502_device &cpu) {
   cpu.A &= cpu.DAT;
   cpu.A = cpu.do_lsr(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op bcc_rel --- 
@@ -752,7 +752,7 @@ void m6502_device_bcc_rel_1(m6502_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m6502_device_bcc_rel_2;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_bcc_rel_2(m6502_device &cpu) {
@@ -762,12 +762,12 @@ void m6502_device_bcc_rel_2(m6502_device &cpu) {
       cpu.NextFn = (void *)&m6502_device_bcc_rel_3;return; // READ
     }
     cpu.PC += int8_t(cpu.TMP);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_bcc_rel_3(m6502_device &cpu) {
       cpu.PC += int8_t(cpu.TMP);
-      m65x_device_fetch(cpu);return; // fetch
+      m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op bcs_rel --- 
@@ -784,7 +784,7 @@ void m6502_device_bcs_rel_1(m6502_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m6502_device_bcs_rel_2;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_bcs_rel_2(m6502_device &cpu) {
@@ -794,12 +794,12 @@ void m6502_device_bcs_rel_2(m6502_device &cpu) {
       cpu.NextFn = (void *)&m6502_device_bcs_rel_3;return; // READ
     }
     cpu.PC += int8_t(cpu.TMP);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_bcs_rel_3(m6502_device &cpu) {
       cpu.PC += int8_t(cpu.TMP);
-      m65x_device_fetch(cpu);return; // fetch
+      m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op beq_rel --- 
@@ -816,7 +816,7 @@ void m6502_device_beq_rel_1(m6502_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m6502_device_beq_rel_2;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_beq_rel_2(m6502_device &cpu) {
@@ -826,12 +826,12 @@ void m6502_device_beq_rel_2(m6502_device &cpu) {
       cpu.NextFn = (void *)&m6502_device_beq_rel_3;return; // READ
     }
     cpu.PC += int8_t(cpu.TMP);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_beq_rel_3(m6502_device &cpu) {
       cpu.PC += int8_t(cpu.TMP);
-      m65x_device_fetch(cpu);return; // fetch
+      m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op bit_aba --- 
@@ -857,7 +857,7 @@ void m6502_device_bit_aba_2(m6502_device &cpu) {
 
 void m6502_device_bit_aba_3(m6502_device &cpu) {
   cpu.do_bit(cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op bit_zpg --- 
@@ -876,7 +876,7 @@ void m6502_device_bit_zpg_1(m6502_device &cpu) {
 
 void m6502_device_bit_zpg_2(m6502_device &cpu) {
   cpu.do_bit(cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op bmi_rel --- 
@@ -893,7 +893,7 @@ void m6502_device_bmi_rel_1(m6502_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m6502_device_bmi_rel_2;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_bmi_rel_2(m6502_device &cpu) {
@@ -903,12 +903,12 @@ void m6502_device_bmi_rel_2(m6502_device &cpu) {
       cpu.NextFn = (void *)&m6502_device_bmi_rel_3;return; // READ
     }
     cpu.PC += int8_t(cpu.TMP);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_bmi_rel_3(m6502_device &cpu) {
       cpu.PC += int8_t(cpu.TMP);
-      m65x_device_fetch(cpu);return; // fetch
+      m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op bne_rel --- 
@@ -925,7 +925,7 @@ void m6502_device_bne_rel_1(m6502_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m6502_device_bne_rel_2;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_bne_rel_2(m6502_device &cpu) {
@@ -935,12 +935,12 @@ void m6502_device_bne_rel_2(m6502_device &cpu) {
       cpu.NextFn = (void *)&m6502_device_bne_rel_3;return; // READ
     }
     cpu.PC += int8_t(cpu.TMP);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_bne_rel_3(m6502_device &cpu) {
       cpu.PC += int8_t(cpu.TMP);
-      m65x_device_fetch(cpu);return; // fetch
+      m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op bpl_rel --- 
@@ -957,7 +957,7 @@ void m6502_device_bpl_rel_1(m6502_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m6502_device_bpl_rel_2;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_bpl_rel_2(m6502_device &cpu) {
@@ -967,12 +967,12 @@ void m6502_device_bpl_rel_2(m6502_device &cpu) {
       cpu.NextFn = (void *)&m6502_device_bpl_rel_3;return; // READ
     }
     cpu.PC += int8_t(cpu.TMP);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_bpl_rel_3(m6502_device &cpu) {
       cpu.PC += int8_t(cpu.TMP);
-      m65x_device_fetch(cpu);return; // fetch
+      m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op brk_imp --- 
@@ -1021,7 +1021,7 @@ void m6502_device_brk_imp_4(m6502_device &cpu) {
   }
   cpu.irq_taken = false;
   cpu.P |= cpu.F_I;
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_brk_imp_5(m6502_device &cpu) {
@@ -1044,7 +1044,7 @@ void m6502_device_brk_imp_6(m6502_device &cpu) {
     cpu.standard_irq_callback(cpu.NMI_LINE);
     cpu.irq_taken = false;
     cpu.P |= cpu.F_I;
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_brk_imp_8(m6502_device &cpu) {
@@ -1054,7 +1054,7 @@ void m6502_device_brk_imp_8(m6502_device &cpu) {
     }
     cpu.irq_taken = false;
     cpu.P |= cpu.F_I;
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op bvc_rel --- 
@@ -1071,7 +1071,7 @@ void m6502_device_bvc_rel_1(m6502_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m6502_device_bvc_rel_2;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_bvc_rel_2(m6502_device &cpu) {
@@ -1081,12 +1081,12 @@ void m6502_device_bvc_rel_2(m6502_device &cpu) {
       cpu.NextFn = (void *)&m6502_device_bvc_rel_3;return; // READ
     }
     cpu.PC += int8_t(cpu.TMP);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_bvc_rel_3(m6502_device &cpu) {
       cpu.PC += int8_t(cpu.TMP);
-      m65x_device_fetch(cpu);return; // fetch
+      m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op bvs_rel --- 
@@ -1103,7 +1103,7 @@ void m6502_device_bvs_rel_1(m6502_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m6502_device_bvs_rel_2;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_bvs_rel_2(m6502_device &cpu) {
@@ -1113,12 +1113,12 @@ void m6502_device_bvs_rel_2(m6502_device &cpu) {
       cpu.NextFn = (void *)&m6502_device_bvs_rel_3;return; // READ
     }
     cpu.PC += int8_t(cpu.TMP);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_bvs_rel_3(m6502_device &cpu) {
       cpu.PC += int8_t(cpu.TMP);
-      m65x_device_fetch(cpu);return; // fetch
+      m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op clc_imp --- 
@@ -1130,7 +1130,7 @@ void m6502_device_clc_imp_0(m6502_device &cpu) {
 
 void m6502_device_clc_imp_1(m6502_device &cpu) {
   cpu.P &= ~cpu.F_C;
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cld_imp --- 
@@ -1142,7 +1142,7 @@ void m6502_device_cld_imp_0(m6502_device &cpu) {
 
 void m6502_device_cld_imp_1(m6502_device &cpu) {
   cpu.P &= ~cpu.F_D;
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cli_imp --- 
@@ -1154,12 +1154,12 @@ void m6502_device_cli_imp_0(m6502_device &cpu) {
 
 void m6502_device_cli_imp_1(m6502_device &cpu) {
   cpu.PrefetchNextFn = (void *)&m6502_device_cli_imp_2;
-  m65x_device_prefetch(cpu);return; // prefetch
+  m6502_device_prefetch(cpu);return; // prefetch
 }
 
 void m6502_device_cli_imp_2(m6502_device &cpu) {
   cpu.P &= ~cpu.F_I;
-  m65x_device_postfetch(cpu);return; // postfetch
+  m6502_device_postfetch(cpu);return; // postfetch
 }
 
 // --- op clv_imp --- 
@@ -1171,7 +1171,7 @@ void m6502_device_clv_imp_0(m6502_device &cpu) {
 
 void m6502_device_clv_imp_1(m6502_device &cpu) {
   cpu.P &= ~cpu.F_V;
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cmp_aba --- 
@@ -1198,7 +1198,7 @@ void m6502_device_cmp_aba_2(m6502_device &cpu) {
 void m6502_device_cmp_aba_3(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_cmp(cpu.A, cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cmp_abx --- 
@@ -1238,7 +1238,7 @@ void m6502_device_cmp_abx_3(m6502_device &cpu) {
 void m6502_device_cmp_abx_4(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_cmp(cpu.A, cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cmp_aby --- 
@@ -1278,7 +1278,7 @@ void m6502_device_cmp_aby_3(m6502_device &cpu) {
 void m6502_device_cmp_aby_4(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_cmp(cpu.A, cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cmp_idx --- 
@@ -1318,7 +1318,7 @@ void m6502_device_cmp_idx_4(m6502_device &cpu) {
 
 void m6502_device_cmp_idx_5(m6502_device &cpu) {
   cpu.do_cmp(cpu.A, cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cmp_idy --- 
@@ -1362,7 +1362,7 @@ void m6502_device_cmp_idy_4(m6502_device &cpu) {
 
 void m6502_device_cmp_idy_5(m6502_device &cpu) {
   cpu.do_cmp(cpu.A, cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cmp_imm --- 
@@ -1375,7 +1375,7 @@ void m6502_device_cmp_imm_0(m6502_device &cpu) {
 void m6502_device_cmp_imm_1(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_cmp(cpu.A, cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cmp_zpg --- 
@@ -1395,7 +1395,7 @@ void m6502_device_cmp_zpg_1(m6502_device &cpu) {
 void m6502_device_cmp_zpg_2(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_cmp(cpu.A, cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cmp_zpx --- 
@@ -1421,7 +1421,7 @@ void m6502_device_cmp_zpx_2(m6502_device &cpu) {
 void m6502_device_cmp_zpx_3(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_cmp(cpu.A, cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cpx_aba --- 
@@ -1448,7 +1448,7 @@ void m6502_device_cpx_aba_2(m6502_device &cpu) {
 void m6502_device_cpx_aba_3(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_cmp(cpu.X, cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cpx_imm --- 
@@ -1461,7 +1461,7 @@ void m6502_device_cpx_imm_0(m6502_device &cpu) {
 void m6502_device_cpx_imm_1(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_cmp(cpu.X, cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cpx_zpg --- 
@@ -1481,7 +1481,7 @@ void m6502_device_cpx_zpg_1(m6502_device &cpu) {
 void m6502_device_cpx_zpg_2(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_cmp(cpu.X, cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cpy_aba --- 
@@ -1508,7 +1508,7 @@ void m6502_device_cpy_aba_2(m6502_device &cpu) {
 void m6502_device_cpy_aba_3(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_cmp(cpu.Y, cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cpy_imm --- 
@@ -1521,7 +1521,7 @@ void m6502_device_cpy_imm_0(m6502_device &cpu) {
 void m6502_device_cpy_imm_1(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_cmp(cpu.Y, cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cpy_zpg --- 
@@ -1541,7 +1541,7 @@ void m6502_device_cpy_zpg_1(m6502_device &cpu) {
 void m6502_device_cpy_zpg_2(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_cmp(cpu.Y, cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dcp_aba --- 
@@ -1583,7 +1583,7 @@ void m6502_device_dcp_aba_4(m6502_device &cpu) {
 
 void m6502_device_dcp_aba_5(m6502_device &cpu) {
   cpu.do_cmp(cpu.A, cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dcp_abx --- 
@@ -1632,7 +1632,7 @@ void m6502_device_dcp_abx_5(m6502_device &cpu) {
 
 void m6502_device_dcp_abx_6(m6502_device &cpu) {
   cpu.do_cmp(cpu.A, cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dcp_aby --- 
@@ -1681,7 +1681,7 @@ void m6502_device_dcp_aby_5(m6502_device &cpu) {
 
 void m6502_device_dcp_aby_6(m6502_device &cpu) {
   cpu.do_cmp(cpu.A, cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dcp_idx --- 
@@ -1737,7 +1737,7 @@ void m6502_device_dcp_idx_6(m6502_device &cpu) {
 
 void m6502_device_dcp_idx_7(m6502_device &cpu) {
   cpu.do_cmp(cpu.A, cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dcp_idy --- 
@@ -1793,7 +1793,7 @@ void m6502_device_dcp_idy_6(m6502_device &cpu) {
 
 void m6502_device_dcp_idy_7(m6502_device &cpu) {
   cpu.do_cmp(cpu.A, cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dcp_zpg --- 
@@ -1828,7 +1828,7 @@ void m6502_device_dcp_zpg_3(m6502_device &cpu) {
 
 void m6502_device_dcp_zpg_4(m6502_device &cpu) {
   cpu.do_cmp(cpu.A, cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dcp_zpx --- 
@@ -1870,7 +1870,7 @@ void m6502_device_dcp_zpx_4(m6502_device &cpu) {
 
 void m6502_device_dcp_zpx_5(m6502_device &cpu) {
   cpu.do_cmp(cpu.A, cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dec_aba --- 
@@ -1912,7 +1912,7 @@ void m6502_device_dec_aba_4(m6502_device &cpu) {
 }
 
 void m6502_device_dec_aba_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dec_abx --- 
@@ -1961,7 +1961,7 @@ void m6502_device_dec_abx_5(m6502_device &cpu) {
 }
 
 void m6502_device_dec_abx_6(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dec_zpg --- 
@@ -1996,7 +1996,7 @@ void m6502_device_dec_zpg_3(m6502_device &cpu) {
 }
 
 void m6502_device_dec_zpg_4(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dec_zpx --- 
@@ -2038,7 +2038,7 @@ void m6502_device_dec_zpx_4(m6502_device &cpu) {
 }
 
 void m6502_device_dec_zpx_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dex_imp --- 
@@ -2051,7 +2051,7 @@ void m6502_device_dex_imp_0(m6502_device &cpu) {
 void m6502_device_dex_imp_1(m6502_device &cpu) {
   cpu.X--;
   cpu.set_nz(cpu.X);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dey_imp --- 
@@ -2064,7 +2064,7 @@ void m6502_device_dey_imp_0(m6502_device &cpu) {
 void m6502_device_dey_imp_1(m6502_device &cpu) {
   cpu.Y--;
   cpu.set_nz(cpu.Y);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op eor_aba --- 
@@ -2091,7 +2091,7 @@ void m6502_device_eor_aba_2(m6502_device &cpu) {
 void m6502_device_eor_aba_3(m6502_device &cpu) {
   cpu.A ^= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op eor_abx --- 
@@ -2131,7 +2131,7 @@ void m6502_device_eor_abx_3(m6502_device &cpu) {
 void m6502_device_eor_abx_4(m6502_device &cpu) {
   cpu.A ^= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op eor_aby --- 
@@ -2171,7 +2171,7 @@ void m6502_device_eor_aby_3(m6502_device &cpu) {
 void m6502_device_eor_aby_4(m6502_device &cpu) {
   cpu.A ^= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op eor_idx --- 
@@ -2212,7 +2212,7 @@ void m6502_device_eor_idx_4(m6502_device &cpu) {
 void m6502_device_eor_idx_5(m6502_device &cpu) {
   cpu.A ^= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op eor_idy --- 
@@ -2257,7 +2257,7 @@ void m6502_device_eor_idy_4(m6502_device &cpu) {
 void m6502_device_eor_idy_5(m6502_device &cpu) {
   cpu.A ^= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op eor_imm --- 
@@ -2270,7 +2270,7 @@ void m6502_device_eor_imm_0(m6502_device &cpu) {
 void m6502_device_eor_imm_1(m6502_device &cpu) {
   cpu.A ^= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op eor_zpg --- 
@@ -2290,7 +2290,7 @@ void m6502_device_eor_zpg_1(m6502_device &cpu) {
 void m6502_device_eor_zpg_2(m6502_device &cpu) {
   cpu.A ^= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op eor_zpx --- 
@@ -2316,7 +2316,7 @@ void m6502_device_eor_zpx_2(m6502_device &cpu) {
 void m6502_device_eor_zpx_3(m6502_device &cpu) {
   cpu.A ^= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op inc_aba --- 
@@ -2358,7 +2358,7 @@ void m6502_device_inc_aba_4(m6502_device &cpu) {
 }
 
 void m6502_device_inc_aba_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op inc_abx --- 
@@ -2407,7 +2407,7 @@ void m6502_device_inc_abx_5(m6502_device &cpu) {
 }
 
 void m6502_device_inc_abx_6(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op inc_zpg --- 
@@ -2442,7 +2442,7 @@ void m6502_device_inc_zpg_3(m6502_device &cpu) {
 }
 
 void m6502_device_inc_zpg_4(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op inc_zpx --- 
@@ -2484,7 +2484,7 @@ void m6502_device_inc_zpx_4(m6502_device &cpu) {
 }
 
 void m6502_device_inc_zpx_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op inx_imp --- 
@@ -2497,7 +2497,7 @@ void m6502_device_inx_imp_0(m6502_device &cpu) {
 void m6502_device_inx_imp_1(m6502_device &cpu) {
   cpu.X++;
   cpu.set_nz(cpu.X);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op iny_imp --- 
@@ -2510,7 +2510,7 @@ void m6502_device_iny_imp_0(m6502_device &cpu) {
 void m6502_device_iny_imp_1(m6502_device &cpu) {
   cpu.Y++;
   cpu.set_nz(cpu.Y);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op isb_aba --- 
@@ -2552,7 +2552,7 @@ void m6502_device_isb_aba_4(m6502_device &cpu) {
 
 void m6502_device_isb_aba_5(m6502_device &cpu) {
   cpu.do_sbc(cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op isb_abx --- 
@@ -2601,7 +2601,7 @@ void m6502_device_isb_abx_5(m6502_device &cpu) {
 
 void m6502_device_isb_abx_6(m6502_device &cpu) {
   cpu.do_sbc(cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op isb_aby --- 
@@ -2650,7 +2650,7 @@ void m6502_device_isb_aby_5(m6502_device &cpu) {
 
 void m6502_device_isb_aby_6(m6502_device &cpu) {
   cpu.do_sbc(cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op isb_idx --- 
@@ -2706,7 +2706,7 @@ void m6502_device_isb_idx_6(m6502_device &cpu) {
 
 void m6502_device_isb_idx_7(m6502_device &cpu) {
   cpu.do_sbc(cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op isb_idy --- 
@@ -2762,7 +2762,7 @@ void m6502_device_isb_idy_6(m6502_device &cpu) {
 
 void m6502_device_isb_idy_7(m6502_device &cpu) {
   cpu.do_sbc(cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op isb_zpg --- 
@@ -2797,7 +2797,7 @@ void m6502_device_isb_zpg_3(m6502_device &cpu) {
 
 void m6502_device_isb_zpg_4(m6502_device &cpu) {
   cpu.do_sbc(cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op isb_zpx --- 
@@ -2839,7 +2839,7 @@ void m6502_device_isb_zpx_4(m6502_device &cpu) {
 
 void m6502_device_isb_zpx_5(m6502_device &cpu) {
   cpu.do_sbc(cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op jmp_adr --- 
@@ -2859,7 +2859,7 @@ void m6502_device_jmp_adr_1(m6502_device &cpu) {
 void m6502_device_jmp_adr_2(m6502_device &cpu) {
   cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
   cpu.PC = cpu.TMP;
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op jmp_ind --- 
@@ -2892,7 +2892,7 @@ void m6502_device_jmp_ind_3(m6502_device &cpu) {
 
 void m6502_device_jmp_ind_4(m6502_device &cpu) {
   cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op jsr_adr --- 
@@ -2934,7 +2934,7 @@ void m6502_device_jsr_adr_4(m6502_device &cpu) {
 void m6502_device_jsr_adr_5(m6502_device &cpu) {
   cpu.TMP = cpu.set_h(cpu.TMP, cpu.DAT);
   cpu.PC = cpu.TMP;
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op kil_non --- 
@@ -2974,7 +2974,7 @@ void m6502_device_kil_non_while_1(m6502_device &cpu) {
 }
 
 void m6502_device_kil_non_whilenot_1(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_kil_non_5(m6502_device &cpu) {
@@ -3018,7 +3018,7 @@ void m6502_device_las_aby_4(m6502_device &cpu) {
   cpu.A = cpu.TMP2 | 0x51;
   cpu.X = 0xff;
   cpu.set_nz(cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lax_aba --- 
@@ -3045,7 +3045,7 @@ void m6502_device_lax_aba_2(m6502_device &cpu) {
 void m6502_device_lax_aba_3(m6502_device &cpu) {
   cpu.A = cpu.X = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lax_aby --- 
@@ -3083,7 +3083,7 @@ void m6502_device_lax_aby_3(m6502_device &cpu) {
 void m6502_device_lax_aby_4(m6502_device &cpu) {
   cpu.A = cpu.X = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lax_idx --- 
@@ -3124,7 +3124,7 @@ void m6502_device_lax_idx_4(m6502_device &cpu) {
 void m6502_device_lax_idx_5(m6502_device &cpu) {
   cpu.A = cpu.X = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lax_idy --- 
@@ -3169,7 +3169,7 @@ void m6502_device_lax_idy_4(m6502_device &cpu) {
 void m6502_device_lax_idy_5(m6502_device &cpu) {
   cpu.A = cpu.X = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lax_zpg --- 
@@ -3189,7 +3189,7 @@ void m6502_device_lax_zpg_1(m6502_device &cpu) {
 void m6502_device_lax_zpg_2(m6502_device &cpu) {
   cpu.A = cpu.X = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lax_zpy --- 
@@ -3216,7 +3216,7 @@ void m6502_device_lax_zpy_2(m6502_device &cpu) {
 void m6502_device_lax_zpy_3(m6502_device &cpu) {
   cpu.A = cpu.X = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lda_aba --- 
@@ -3243,7 +3243,7 @@ void m6502_device_lda_aba_2(m6502_device &cpu) {
 void m6502_device_lda_aba_3(m6502_device &cpu) {
   cpu.A = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lda_abx --- 
@@ -3281,7 +3281,7 @@ void m6502_device_lda_abx_3(m6502_device &cpu) {
 void m6502_device_lda_abx_4(m6502_device &cpu) {
   cpu.A = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lda_aby --- 
@@ -3319,7 +3319,7 @@ void m6502_device_lda_aby_3(m6502_device &cpu) {
 void m6502_device_lda_aby_4(m6502_device &cpu) {
   cpu.A = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lda_idx --- 
@@ -3360,7 +3360,7 @@ void m6502_device_lda_idx_4(m6502_device &cpu) {
 void m6502_device_lda_idx_5(m6502_device &cpu) {
   cpu.A = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lda_idy --- 
@@ -3405,7 +3405,7 @@ void m6502_device_lda_idy_4(m6502_device &cpu) {
 void m6502_device_lda_idy_5(m6502_device &cpu) {
   cpu.A = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lda_imm --- 
@@ -3418,7 +3418,7 @@ void m6502_device_lda_imm_0(m6502_device &cpu) {
 void m6502_device_lda_imm_1(m6502_device &cpu) {
   cpu.A = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lda_zpg --- 
@@ -3438,7 +3438,7 @@ void m6502_device_lda_zpg_1(m6502_device &cpu) {
 void m6502_device_lda_zpg_2(m6502_device &cpu) {
   cpu.A = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lda_zpx --- 
@@ -3464,7 +3464,7 @@ void m6502_device_lda_zpx_2(m6502_device &cpu) {
 void m6502_device_lda_zpx_3(m6502_device &cpu) {
   cpu.A = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ldx_aba --- 
@@ -3491,7 +3491,7 @@ void m6502_device_ldx_aba_2(m6502_device &cpu) {
 void m6502_device_ldx_aba_3(m6502_device &cpu) {
   cpu.X = cpu.DAT;
   cpu.set_nz(cpu.X);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ldx_aby --- 
@@ -3529,7 +3529,7 @@ void m6502_device_ldx_aby_3(m6502_device &cpu) {
 void m6502_device_ldx_aby_4(m6502_device &cpu) {
   cpu.X = cpu.DAT;
   cpu.set_nz(cpu.X);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ldx_imm --- 
@@ -3542,7 +3542,7 @@ void m6502_device_ldx_imm_0(m6502_device &cpu) {
 void m6502_device_ldx_imm_1(m6502_device &cpu) {
   cpu.X = cpu.DAT;
   cpu.set_nz(cpu.X);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ldx_zpg --- 
@@ -3562,7 +3562,7 @@ void m6502_device_ldx_zpg_1(m6502_device &cpu) {
 void m6502_device_ldx_zpg_2(m6502_device &cpu) {
   cpu.X = cpu.DAT;
   cpu.set_nz(cpu.X);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ldx_zpy --- 
@@ -3588,7 +3588,7 @@ void m6502_device_ldx_zpy_2(m6502_device &cpu) {
 void m6502_device_ldx_zpy_3(m6502_device &cpu) {
   cpu.X = cpu.DAT;
   cpu.set_nz(cpu.X);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ldy_aba --- 
@@ -3615,7 +3615,7 @@ void m6502_device_ldy_aba_2(m6502_device &cpu) {
 void m6502_device_ldy_aba_3(m6502_device &cpu) {
   cpu.Y = cpu.DAT;
   cpu.set_nz(cpu.Y);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ldy_abx --- 
@@ -3655,7 +3655,7 @@ void m6502_device_ldy_abx_3(m6502_device &cpu) {
 void m6502_device_ldy_abx_4(m6502_device &cpu) {
   cpu.Y = cpu.DAT;
   cpu.set_nz(cpu.Y);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ldy_imm --- 
@@ -3668,7 +3668,7 @@ void m6502_device_ldy_imm_0(m6502_device &cpu) {
 void m6502_device_ldy_imm_1(m6502_device &cpu) {
   cpu.Y = cpu.DAT;
   cpu.set_nz(cpu.Y);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ldy_zpg --- 
@@ -3688,7 +3688,7 @@ void m6502_device_ldy_zpg_1(m6502_device &cpu) {
 void m6502_device_ldy_zpg_2(m6502_device &cpu) {
   cpu.Y = cpu.DAT;
   cpu.set_nz(cpu.Y);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ldy_zpx --- 
@@ -3714,7 +3714,7 @@ void m6502_device_ldy_zpx_2(m6502_device &cpu) {
 void m6502_device_ldy_zpx_3(m6502_device &cpu) {
   cpu.Y = cpu.DAT;
   cpu.set_nz(cpu.Y);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lsr_aba --- 
@@ -3755,7 +3755,7 @@ void m6502_device_lsr_aba_4(m6502_device &cpu) {
 }
 
 void m6502_device_lsr_aba_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lsr_abx --- 
@@ -3803,7 +3803,7 @@ void m6502_device_lsr_abx_5(m6502_device &cpu) {
 }
 
 void m6502_device_lsr_abx_6(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lsr_acc --- 
@@ -3815,7 +3815,7 @@ void m6502_device_lsr_acc_0(m6502_device &cpu) {
 
 void m6502_device_lsr_acc_1(m6502_device &cpu) {
   cpu.A = cpu.do_lsr(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lsr_zpg --- 
@@ -3849,7 +3849,7 @@ void m6502_device_lsr_zpg_3(m6502_device &cpu) {
 }
 
 void m6502_device_lsr_zpg_4(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lsr_zpx --- 
@@ -3890,7 +3890,7 @@ void m6502_device_lsr_zpx_4(m6502_device &cpu) {
 }
 
 void m6502_device_lsr_zpx_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lxa_imm --- 
@@ -3903,7 +3903,7 @@ void m6502_device_lxa_imm_0(m6502_device &cpu) {
 void m6502_device_lxa_imm_1(m6502_device &cpu) {
   cpu.A = cpu.X = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op nop_aba --- 
@@ -3928,7 +3928,7 @@ void m6502_device_nop_aba_2(m6502_device &cpu) {
 }
 
 void m6502_device_nop_aba_3(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op nop_abx --- 
@@ -3964,7 +3964,7 @@ void m6502_device_nop_abx_3(m6502_device &cpu) {
 }
 
 void m6502_device_nop_abx_4(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op nop_imm --- 
@@ -3975,7 +3975,7 @@ void m6502_device_nop_imm_0(m6502_device &cpu) {
 }
 
 void m6502_device_nop_imm_1(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op nop_imp --- 
@@ -3986,7 +3986,7 @@ void m6502_device_nop_imp_0(m6502_device &cpu) {
 }
 
 void m6502_device_nop_imp_1(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op nop_zpg --- 
@@ -4004,7 +4004,7 @@ void m6502_device_nop_zpg_1(m6502_device &cpu) {
 }
 
 void m6502_device_nop_zpg_2(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op nop_zpx --- 
@@ -4028,7 +4028,7 @@ void m6502_device_nop_zpx_2(m6502_device &cpu) {
 }
 
 void m6502_device_nop_zpx_3(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ora_aba --- 
@@ -4055,7 +4055,7 @@ void m6502_device_ora_aba_2(m6502_device &cpu) {
 void m6502_device_ora_aba_3(m6502_device &cpu) {
   cpu.A |= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ora_abx --- 
@@ -4095,7 +4095,7 @@ void m6502_device_ora_abx_3(m6502_device &cpu) {
 void m6502_device_ora_abx_4(m6502_device &cpu) {
   cpu.A |= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ora_aby --- 
@@ -4135,7 +4135,7 @@ void m6502_device_ora_aby_3(m6502_device &cpu) {
 void m6502_device_ora_aby_4(m6502_device &cpu) {
   cpu.A |= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ora_idx --- 
@@ -4176,7 +4176,7 @@ void m6502_device_ora_idx_4(m6502_device &cpu) {
 void m6502_device_ora_idx_5(m6502_device &cpu) {
   cpu.A |= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ora_idy --- 
@@ -4221,7 +4221,7 @@ void m6502_device_ora_idy_4(m6502_device &cpu) {
 void m6502_device_ora_idy_5(m6502_device &cpu) {
   cpu.A |= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ora_imm --- 
@@ -4234,7 +4234,7 @@ void m6502_device_ora_imm_0(m6502_device &cpu) {
 void m6502_device_ora_imm_1(m6502_device &cpu) {
   cpu.A |= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ora_zpg --- 
@@ -4254,7 +4254,7 @@ void m6502_device_ora_zpg_1(m6502_device &cpu) {
 void m6502_device_ora_zpg_2(m6502_device &cpu) {
   cpu.A |= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ora_zpx --- 
@@ -4280,7 +4280,7 @@ void m6502_device_ora_zpx_2(m6502_device &cpu) {
 void m6502_device_ora_zpx_3(m6502_device &cpu) {
   cpu.A |= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op pha_imp --- 
@@ -4299,7 +4299,7 @@ void m6502_device_pha_imp_1(m6502_device &cpu) {
 
 void m6502_device_pha_imp_2(m6502_device &cpu) {
   cpu.dec_SP();
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op php_imp --- 
@@ -4318,7 +4318,7 @@ void m6502_device_php_imp_1(m6502_device &cpu) {
 
 void m6502_device_php_imp_2(m6502_device &cpu) {
   cpu.dec_SP();
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op pla_imp --- 
@@ -4344,7 +4344,7 @@ void m6502_device_pla_imp_2(m6502_device &cpu) {
 void m6502_device_pla_imp_3(m6502_device &cpu) {
   cpu.A = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op plp_imp --- 
@@ -4370,12 +4370,12 @@ void m6502_device_plp_imp_2(m6502_device &cpu) {
 void m6502_device_plp_imp_3(m6502_device &cpu) {
   cpu.TMP = cpu.DAT | (cpu.F_B|cpu.F_E);
   cpu.PrefetchNextFn = (void *)&m6502_device_plp_imp_4;
-  m65x_device_prefetch(cpu);return; // prefetch
+  m6502_device_prefetch(cpu);return; // prefetch
 }
 
 void m6502_device_plp_imp_4(m6502_device &cpu) {
   cpu.P = cpu.TMP;
-  m65x_device_postfetch(cpu);return; // postfetch
+  m6502_device_postfetch(cpu);return; // postfetch
 }
 
 // --- op reset --- 
@@ -4427,7 +4427,7 @@ void m6502_device_reset_6(m6502_device &cpu) {
 
 void m6502_device_reset_7(m6502_device &cpu) {
   cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rla_aba --- 
@@ -4470,7 +4470,7 @@ void m6502_device_rla_aba_4(m6502_device &cpu) {
 void m6502_device_rla_aba_5(m6502_device &cpu) {
   cpu.A &= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rla_abx --- 
@@ -4520,7 +4520,7 @@ void m6502_device_rla_abx_5(m6502_device &cpu) {
 void m6502_device_rla_abx_6(m6502_device &cpu) {
   cpu.A &= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rla_aby --- 
@@ -4570,7 +4570,7 @@ void m6502_device_rla_aby_5(m6502_device &cpu) {
 void m6502_device_rla_aby_6(m6502_device &cpu) {
   cpu.A &= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rla_idx --- 
@@ -4627,7 +4627,7 @@ void m6502_device_rla_idx_6(m6502_device &cpu) {
 void m6502_device_rla_idx_7(m6502_device &cpu) {
   cpu.A &= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rla_idy --- 
@@ -4684,7 +4684,7 @@ void m6502_device_rla_idy_6(m6502_device &cpu) {
 void m6502_device_rla_idy_7(m6502_device &cpu) {
   cpu.A &= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rla_zpg --- 
@@ -4720,7 +4720,7 @@ void m6502_device_rla_zpg_3(m6502_device &cpu) {
 void m6502_device_rla_zpg_4(m6502_device &cpu) {
   cpu.A &= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rla_zpx --- 
@@ -4763,7 +4763,7 @@ void m6502_device_rla_zpx_4(m6502_device &cpu) {
 void m6502_device_rla_zpx_5(m6502_device &cpu) {
   cpu.A &= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rol_aba --- 
@@ -4804,7 +4804,7 @@ void m6502_device_rol_aba_4(m6502_device &cpu) {
 }
 
 void m6502_device_rol_aba_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rol_abx --- 
@@ -4852,7 +4852,7 @@ void m6502_device_rol_abx_5(m6502_device &cpu) {
 }
 
 void m6502_device_rol_abx_6(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rol_acc --- 
@@ -4864,7 +4864,7 @@ void m6502_device_rol_acc_0(m6502_device &cpu) {
 
 void m6502_device_rol_acc_1(m6502_device &cpu) {
   cpu.A = cpu.do_rol(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rol_zpg --- 
@@ -4898,7 +4898,7 @@ void m6502_device_rol_zpg_3(m6502_device &cpu) {
 }
 
 void m6502_device_rol_zpg_4(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rol_zpx --- 
@@ -4939,7 +4939,7 @@ void m6502_device_rol_zpx_4(m6502_device &cpu) {
 }
 
 void m6502_device_rol_zpx_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ror_aba --- 
@@ -4980,7 +4980,7 @@ void m6502_device_ror_aba_4(m6502_device &cpu) {
 }
 
 void m6502_device_ror_aba_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ror_abx --- 
@@ -5028,7 +5028,7 @@ void m6502_device_ror_abx_5(m6502_device &cpu) {
 }
 
 void m6502_device_ror_abx_6(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ror_acc --- 
@@ -5040,7 +5040,7 @@ void m6502_device_ror_acc_0(m6502_device &cpu) {
 
 void m6502_device_ror_acc_1(m6502_device &cpu) {
   cpu.A = cpu.do_ror(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ror_zpg --- 
@@ -5074,7 +5074,7 @@ void m6502_device_ror_zpg_3(m6502_device &cpu) {
 }
 
 void m6502_device_ror_zpg_4(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ror_zpx --- 
@@ -5115,7 +5115,7 @@ void m6502_device_ror_zpx_4(m6502_device &cpu) {
 }
 
 void m6502_device_ror_zpx_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rra_aba --- 
@@ -5157,7 +5157,7 @@ void m6502_device_rra_aba_4(m6502_device &cpu) {
 
 void m6502_device_rra_aba_5(m6502_device &cpu) {
   cpu.do_adc(cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rra_abx --- 
@@ -5206,7 +5206,7 @@ void m6502_device_rra_abx_5(m6502_device &cpu) {
 
 void m6502_device_rra_abx_6(m6502_device &cpu) {
   cpu.do_adc(cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rra_aby --- 
@@ -5255,7 +5255,7 @@ void m6502_device_rra_aby_5(m6502_device &cpu) {
 
 void m6502_device_rra_aby_6(m6502_device &cpu) {
   cpu.do_adc(cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rra_idx --- 
@@ -5311,7 +5311,7 @@ void m6502_device_rra_idx_6(m6502_device &cpu) {
 
 void m6502_device_rra_idx_7(m6502_device &cpu) {
   cpu.do_adc(cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rra_idy --- 
@@ -5367,7 +5367,7 @@ void m6502_device_rra_idy_6(m6502_device &cpu) {
 
 void m6502_device_rra_idy_7(m6502_device &cpu) {
   cpu.do_adc(cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rra_zpg --- 
@@ -5402,7 +5402,7 @@ void m6502_device_rra_zpg_3(m6502_device &cpu) {
 
 void m6502_device_rra_zpg_4(m6502_device &cpu) {
   cpu.do_adc(cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rra_zpx --- 
@@ -5444,7 +5444,7 @@ void m6502_device_rra_zpx_4(m6502_device &cpu) {
 
 void m6502_device_rra_zpx_5(m6502_device &cpu) {
   cpu.do_adc(cpu.TMP2);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rti_imp --- 
@@ -5485,7 +5485,7 @@ void m6502_device_rti_imp_4(m6502_device &cpu) {
 
 void m6502_device_rti_imp_5(m6502_device &cpu) {
   cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rts_imp --- 
@@ -5524,7 +5524,7 @@ void m6502_device_rts_imp_4(m6502_device &cpu) {
 }
 
 void m6502_device_rts_imp_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sax_aba --- 
@@ -5551,7 +5551,7 @@ void m6502_device_sax_aba_2(m6502_device &cpu) {
 }
 
 void m6502_device_sax_aba_3(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sax_idx --- 
@@ -5592,7 +5592,7 @@ void m6502_device_sax_idx_4(m6502_device &cpu) {
 }
 
 void m6502_device_sax_idx_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sax_zpg --- 
@@ -5612,7 +5612,7 @@ void m6502_device_sax_zpg_1(m6502_device &cpu) {
 }
 
 void m6502_device_sax_zpg_2(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sax_zpy --- 
@@ -5639,7 +5639,7 @@ void m6502_device_sax_zpy_2(m6502_device &cpu) {
 }
 
 void m6502_device_sax_zpy_3(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_aba --- 
@@ -5666,7 +5666,7 @@ void m6502_device_sbc_aba_2(m6502_device &cpu) {
 void m6502_device_sbc_aba_3(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_sbc(cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_abx --- 
@@ -5706,7 +5706,7 @@ void m6502_device_sbc_abx_3(m6502_device &cpu) {
 void m6502_device_sbc_abx_4(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_sbc(cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_aby --- 
@@ -5746,7 +5746,7 @@ void m6502_device_sbc_aby_3(m6502_device &cpu) {
 void m6502_device_sbc_aby_4(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_sbc(cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_idx --- 
@@ -5786,7 +5786,7 @@ void m6502_device_sbc_idx_4(m6502_device &cpu) {
 
 void m6502_device_sbc_idx_5(m6502_device &cpu) {
   cpu.do_sbc(cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_idy --- 
@@ -5830,7 +5830,7 @@ void m6502_device_sbc_idy_4(m6502_device &cpu) {
 
 void m6502_device_sbc_idy_5(m6502_device &cpu) {
   cpu.do_sbc(cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_imm --- 
@@ -5843,7 +5843,7 @@ void m6502_device_sbc_imm_0(m6502_device &cpu) {
 void m6502_device_sbc_imm_1(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_sbc(cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_zpg --- 
@@ -5863,7 +5863,7 @@ void m6502_device_sbc_zpg_1(m6502_device &cpu) {
 void m6502_device_sbc_zpg_2(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_sbc(cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_zpx --- 
@@ -5889,7 +5889,7 @@ void m6502_device_sbc_zpx_2(m6502_device &cpu) {
 void m6502_device_sbc_zpx_3(m6502_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_sbc(cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbx_imm --- 
@@ -5909,7 +5909,7 @@ void m6502_device_sbx_imm_1(m6502_device &cpu) {
   }
   cpu.X -= cpu.TMP2;
   cpu.set_nz(cpu.X);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sec_imp --- 
@@ -5921,7 +5921,7 @@ void m6502_device_sec_imp_0(m6502_device &cpu) {
 
 void m6502_device_sec_imp_1(m6502_device &cpu) {
   cpu.P |= cpu.F_C;
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sed_imp --- 
@@ -5933,7 +5933,7 @@ void m6502_device_sed_imp_0(m6502_device &cpu) {
 
 void m6502_device_sed_imp_1(m6502_device &cpu) {
   cpu.P |= cpu.F_D;
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sei_imp --- 
@@ -5945,12 +5945,12 @@ void m6502_device_sei_imp_0(m6502_device &cpu) {
 
 void m6502_device_sei_imp_1(m6502_device &cpu) {
   cpu.PrefetchNextFn = (void *)&m6502_device_sei_imp_2;
-  m65x_device_prefetch(cpu);return; // prefetch
+  m6502_device_prefetch(cpu);return; // prefetch
 }
 
 void m6502_device_sei_imp_2(m6502_device &cpu) {
   cpu.P |= cpu.F_I;
-  m65x_device_postfetch(cpu);return; // postfetch
+  m6502_device_postfetch(cpu);return; // postfetch
 }
 
 // --- op sha_aby --- 
@@ -5988,7 +5988,7 @@ void m6502_device_sha_aby_3(m6502_device &cpu) {
 }
 
 void m6502_device_sha_aby_4(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sha_idy --- 
@@ -6033,7 +6033,7 @@ void m6502_device_sha_idy_4(m6502_device &cpu) {
 }
 
 void m6502_device_sha_idy_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op shs_aby --- 
@@ -6072,7 +6072,7 @@ void m6502_device_shs_aby_3(m6502_device &cpu) {
 }
 
 void m6502_device_shs_aby_4(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op shx_aby --- 
@@ -6110,7 +6110,7 @@ void m6502_device_shx_aby_3(m6502_device &cpu) {
 }
 
 void m6502_device_shx_aby_4(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op shy_abx --- 
@@ -6148,7 +6148,7 @@ void m6502_device_shy_abx_3(m6502_device &cpu) {
 }
 
 void m6502_device_shy_abx_4(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op slo_aba --- 
@@ -6191,7 +6191,7 @@ void m6502_device_slo_aba_4(m6502_device &cpu) {
 void m6502_device_slo_aba_5(m6502_device &cpu) {
   cpu.A |= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op slo_abx --- 
@@ -6241,7 +6241,7 @@ void m6502_device_slo_abx_5(m6502_device &cpu) {
 void m6502_device_slo_abx_6(m6502_device &cpu) {
   cpu.A |= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op slo_aby --- 
@@ -6291,7 +6291,7 @@ void m6502_device_slo_aby_5(m6502_device &cpu) {
 void m6502_device_slo_aby_6(m6502_device &cpu) {
   cpu.A |= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op slo_idx --- 
@@ -6348,7 +6348,7 @@ void m6502_device_slo_idx_6(m6502_device &cpu) {
 void m6502_device_slo_idx_7(m6502_device &cpu) {
   cpu.A |= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op slo_idy --- 
@@ -6405,7 +6405,7 @@ void m6502_device_slo_idy_6(m6502_device &cpu) {
 void m6502_device_slo_idy_7(m6502_device &cpu) {
   cpu.A |= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op slo_zpg --- 
@@ -6441,7 +6441,7 @@ void m6502_device_slo_zpg_3(m6502_device &cpu) {
 void m6502_device_slo_zpg_4(m6502_device &cpu) {
   cpu.A |= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op slo_zpx --- 
@@ -6484,7 +6484,7 @@ void m6502_device_slo_zpx_4(m6502_device &cpu) {
 void m6502_device_slo_zpx_5(m6502_device &cpu) {
   cpu.A |= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sre_aba --- 
@@ -6527,7 +6527,7 @@ void m6502_device_sre_aba_4(m6502_device &cpu) {
 void m6502_device_sre_aba_5(m6502_device &cpu) {
   cpu.A ^= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sre_abx --- 
@@ -6577,7 +6577,7 @@ void m6502_device_sre_abx_5(m6502_device &cpu) {
 void m6502_device_sre_abx_6(m6502_device &cpu) {
   cpu.A ^= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sre_aby --- 
@@ -6627,7 +6627,7 @@ void m6502_device_sre_aby_5(m6502_device &cpu) {
 void m6502_device_sre_aby_6(m6502_device &cpu) {
   cpu.A ^= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sre_idx --- 
@@ -6684,7 +6684,7 @@ void m6502_device_sre_idx_6(m6502_device &cpu) {
 void m6502_device_sre_idx_7(m6502_device &cpu) {
   cpu.A ^= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sre_idy --- 
@@ -6741,7 +6741,7 @@ void m6502_device_sre_idy_6(m6502_device &cpu) {
 void m6502_device_sre_idy_7(m6502_device &cpu) {
   cpu.A ^= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sre_zpg --- 
@@ -6777,7 +6777,7 @@ void m6502_device_sre_zpg_3(m6502_device &cpu) {
 void m6502_device_sre_zpg_4(m6502_device &cpu) {
   cpu.A ^= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sre_zpx --- 
@@ -6820,7 +6820,7 @@ void m6502_device_sre_zpx_4(m6502_device &cpu) {
 void m6502_device_sre_zpx_5(m6502_device &cpu) {
   cpu.A ^= cpu.TMP2;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sta_aba --- 
@@ -6846,7 +6846,7 @@ void m6502_device_sta_aba_2(m6502_device &cpu) {
 }
 
 void m6502_device_sta_aba_3(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sta_abx --- 
@@ -6878,7 +6878,7 @@ void m6502_device_sta_abx_3(m6502_device &cpu) {
 }
 
 void m6502_device_sta_abx_4(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sta_aby --- 
@@ -6910,7 +6910,7 @@ void m6502_device_sta_aby_3(m6502_device &cpu) {
 }
 
 void m6502_device_sta_aby_4(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sta_idx --- 
@@ -6950,7 +6950,7 @@ void m6502_device_sta_idx_4(m6502_device &cpu) {
 }
 
 void m6502_device_sta_idx_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sta_idy --- 
@@ -6989,7 +6989,7 @@ void m6502_device_sta_idy_4(m6502_device &cpu) {
 }
 
 void m6502_device_sta_idy_5(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sta_zpg --- 
@@ -7008,7 +7008,7 @@ void m6502_device_sta_zpg_1(m6502_device &cpu) {
 }
 
 void m6502_device_sta_zpg_2(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sta_zpx --- 
@@ -7033,7 +7033,7 @@ void m6502_device_sta_zpx_2(m6502_device &cpu) {
 }
 
 void m6502_device_sta_zpx_3(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op stx_aba --- 
@@ -7059,7 +7059,7 @@ void m6502_device_stx_aba_2(m6502_device &cpu) {
 }
 
 void m6502_device_stx_aba_3(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op stx_zpg --- 
@@ -7078,7 +7078,7 @@ void m6502_device_stx_zpg_1(m6502_device &cpu) {
 }
 
 void m6502_device_stx_zpg_2(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op stx_zpy --- 
@@ -7103,7 +7103,7 @@ void m6502_device_stx_zpy_2(m6502_device &cpu) {
 }
 
 void m6502_device_stx_zpy_3(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sty_aba --- 
@@ -7129,7 +7129,7 @@ void m6502_device_sty_aba_2(m6502_device &cpu) {
 }
 
 void m6502_device_sty_aba_3(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sty_zpg --- 
@@ -7148,7 +7148,7 @@ void m6502_device_sty_zpg_1(m6502_device &cpu) {
 }
 
 void m6502_device_sty_zpg_2(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sty_zpx --- 
@@ -7173,7 +7173,7 @@ void m6502_device_sty_zpx_2(m6502_device &cpu) {
 }
 
 void m6502_device_sty_zpx_3(m6502_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op tax_imp --- 
@@ -7186,7 +7186,7 @@ void m6502_device_tax_imp_0(m6502_device &cpu) {
 void m6502_device_tax_imp_1(m6502_device &cpu) {
   cpu.X = cpu.A;
   cpu.set_nz(cpu.X);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op tay_imp --- 
@@ -7199,7 +7199,7 @@ void m6502_device_tay_imp_0(m6502_device &cpu) {
 void m6502_device_tay_imp_1(m6502_device &cpu) {
   cpu.Y = cpu.A;
   cpu.set_nz(cpu.Y);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op tsx_imp --- 
@@ -7212,7 +7212,7 @@ void m6502_device_tsx_imp_0(m6502_device &cpu) {
 void m6502_device_tsx_imp_1(m6502_device &cpu) {
   cpu.X = cpu.SP;
   cpu.set_nz(cpu.X);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op txa_imp --- 
@@ -7225,7 +7225,7 @@ void m6502_device_txa_imp_0(m6502_device &cpu) {
 void m6502_device_txa_imp_1(m6502_device &cpu) {
   cpu.A = cpu.X;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op txs_imp --- 
@@ -7237,7 +7237,7 @@ void m6502_device_txs_imp_0(m6502_device &cpu) {
 
 void m6502_device_txs_imp_1(m6502_device &cpu) {
   cpu.SP = cpu.set_l(cpu.SP, cpu.X);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op tya_imp --- 
@@ -7250,7 +7250,7 @@ void m6502_device_tya_imp_0(m6502_device &cpu) {
 void m6502_device_tya_imp_1(m6502_device &cpu) {
   cpu.A = cpu.Y;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m6502_device_postfetch_int(m6502_device &cpu) {

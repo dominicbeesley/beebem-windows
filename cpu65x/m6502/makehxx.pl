@@ -553,12 +553,12 @@ sub emit($$$@%)
 			$cycindex =  $curinst->{cycindex};
 			if (!($curinst->{text} =~ /^(READ|WRITE)$/)) {
 				if ($curinst->{text} =~ /^post/) {
-					print $fh_out_cxx  "  " x $indent . "m65x_device_$curinst->{text}(cpu);return; // $curinst->{text}\n";	
+					print $fh_out_cxx  "  " x $indent . "m6502_device_$curinst->{text}(cpu);return; // $curinst->{text}\n";	
 				} else {
 					if ($curinst->{text} =~ /^pre/) {
 						print $fh_out_cxx  "  " x $indent . "cpu.PrefetchNextFn = (void *)&${classname}_${k}_${cycindex};\n";
 					}
-					print $fh_out_cxx  "  " x $indent . "m65x_device_$curinst->{text}(cpu);return; // $curinst->{text}\n";
+					print $fh_out_cxx  "  " x $indent . "m6502_device_$curinst->{text}(cpu);return; // $curinst->{text}\n";
 				}
 			} else {
 				print $fh_out_cxx  "  " x $indent . "cpu.NextFn = (void *)&${classname}_${k}_${cycindex};return; // $curinst->{text}\n";

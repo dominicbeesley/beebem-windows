@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cpu65x", "cpu65x", "{A91BF5
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "m6502", "..\cpu65x\m6502\m6502.vcxproj", "{E45D81F7-6B4C-46A3-A3C3-8AC06E81ABD1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Blitter", "..\Blitter\Blitter.vcxproj", "{30DB5EC9-1E23-4BF9-9AE9-0DE6D50D64B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -91,6 +93,14 @@ Global
 		{E45D81F7-6B4C-46A3-A3C3-8AC06E81ABD1}.Release|x64.Build.0 = Release|x64
 		{E45D81F7-6B4C-46A3-A3C3-8AC06E81ABD1}.Release|x86.ActiveCfg = Release|Win32
 		{E45D81F7-6B4C-46A3-A3C3-8AC06E81ABD1}.Release|x86.Build.0 = Release|Win32
+		{30DB5EC9-1E23-4BF9-9AE9-0DE6D50D64B5}.Debug|x64.ActiveCfg = Debug|x64
+		{30DB5EC9-1E23-4BF9-9AE9-0DE6D50D64B5}.Debug|x64.Build.0 = Debug|x64
+		{30DB5EC9-1E23-4BF9-9AE9-0DE6D50D64B5}.Debug|x86.ActiveCfg = Debug|Win32
+		{30DB5EC9-1E23-4BF9-9AE9-0DE6D50D64B5}.Debug|x86.Build.0 = Debug|Win32
+		{30DB5EC9-1E23-4BF9-9AE9-0DE6D50D64B5}.Release|x64.ActiveCfg = Release|x64
+		{30DB5EC9-1E23-4BF9-9AE9-0DE6D50D64B5}.Release|x64.Build.0 = Release|x64
+		{30DB5EC9-1E23-4BF9-9AE9-0DE6D50D64B5}.Release|x86.ActiveCfg = Release|Win32
+		{30DB5EC9-1E23-4BF9-9AE9-0DE6D50D64B5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -16,5 +16,4 @@ r65c02_device::r65c02_device() :
 {
 }
 
-#include "r65c02.cxx"
 

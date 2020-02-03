@@ -59,6 +59,7 @@ Boston, MA  02110-1301, USA.
 #include "sprowcopro.h"
 #include "m6502.h"
 #include "m65c02.h"
+#include "blitter_top.h"
 
 #ifdef WIN32
 #define INLINE inline
@@ -85,7 +86,7 @@ int DisplayCycles=0;
 int SysPrevSyncPC;
 
 
-m6502_device *m6502;
+m65x_device *m6502;
 
 ofstream *hog_o;
 
@@ -178,7 +179,10 @@ void ExecSys2MCycles() {
 void InitSys() {
 	if (m6502)
 		delete m6502;
-	if (MachineType == Model::Master128)
+
+	if (blitter_enable)
+		m6502 = new blitter_top();
+	else if (MachineType == Model::Master128)
 		m6502 = new m65c02_device();
 	else
 		m6502 = new m6502_device();

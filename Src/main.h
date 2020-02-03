@@ -29,6 +29,7 @@ Boston, MA  02110-1301, USA.
 #include "beebwin.h"
 #include "model.h"
 
+extern bool blitter_enable;
 extern Model MachineType;
 extern BeebWin *mainWin;
 extern HINSTANCE hInst;

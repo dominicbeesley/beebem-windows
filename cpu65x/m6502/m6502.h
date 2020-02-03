@@ -19,23 +19,116 @@
 class m6502_device;
 #include "m6502.top.hxx"
 
+/* shared state functions */
+void m6502_device_postfetch(m6502_device &cpu);
+void m6502_device_prefetch(m6502_device &cpu);
+void m6502_device_fetch(m6502_device &cpu);
+void m6502_device_fetch_noirq(m6502_device &cpu);
+
+
 class m6502_device : public m65x_device {
 public:
 
 
 	m6502_device(void) :
 		m65x_device()
+		, PPC(0), NPC(0), PC(0), SP(0), TMP(0), TMP2(0), A(0), X(0), Y(0), P(0), IR(0),
+		NextFn(0), nmi_state(false), irq_state(false), v_state(false), irq_taken(false),
+		inhibit_interrupts(false)
 	{
 	};
 
+	uint16_t getPC() { return PC; }
+
 	virtual void init() override;
+
+	void tick() override;
+
+	friend std::ostream& operator<<(std::ostream& o, m6502_device &dev);
+
+	virtual void execute_set_input(int inputnum, int state) override;
+	virtual bool execute_input_edge_triggered(int inputnum) override;
+
 
 protected:
 
+	StatFn	  NextFn;
+	StatFn	  PrefetchNextFn;
+
+
+	friend void m6502_device_postfetch(m6502_device &cpu);
+	friend void m6502_device_prefetch(m6502_device &cpu);
+	friend void m6502_device_fetch(m6502_device &cpu);
+	friend void m6502_device_fetch_noirq(m6502_device &cpu);
+
+	enum {
+		F_N = 0x80,
+		F_V = 0x40,
+		F_E = 0x20, // 65ce02
+		F_T = 0x20, // M740: replaces A with $00,X in some opcodes when set
+		F_B = 0x10,
+		F_D = 0x08,
+		F_I = 0x04,
+		F_Z = 0x02,
+		F_C = 0x01
+	};
+
+	// device-level overrides
+	//virtual void device_start() override;
 	virtual void device_reset() override;
 
+
+	uint16_t  PPC;                    /* previous program counter */
+	uint16_t  NPC;                    /* next start-of-instruction program counter */
+	uint16_t  PC;                     /* program counter */
+	uint16_t  SP;                     /* stack pointer (always 100 - 1FF) */
+	uint16_t  TMP;                    /* temporary internal values */
+	uint8_t   TMP2;                   /* another temporary internal value, 8 bits this time */
+	uint8_t   A;                      /* Accumulator */
+	uint8_t   X;                      /* X index register */
+	uint8_t   Y;                      /* Y index register */
+	uint8_t   P;                      /* Processor status */
+	uint8_t   IR;                     /* Prefetched instruction register */
+
+
+
 	//virtual StatFn resetFn() override { return (void *)&m6502_device_reset_0; }
-	virtual StatFn postFetchIntFn() override { return (void *)&m6502_device_postfetch_int; }
+	virtual StatFn postFetchIntFn() { return (void *)&m6502_device_postfetch_int; }
+
+	bool	  skip_ints_next;			  /* Do not check for interrupts on this fetch*/
+
+
+	bool nmi_state, irq_state, v_state;
+	bool irq_taken, inhibit_interrupts;
+
+	void set_nz(uint8_t v);
+
+
+	// inline helpers
+	bool page_changing(uint16_t base, int delta) { return ((base + delta) ^ base) & 0xff00; }
+	uint16_t set_l(uint16_t base, uint8_t val) { return (base & 0xff00) | val; }
+	uint16_t set_h(uint16_t base, uint8_t val) { return (base & 0x00ff) | (val << 8); }
+
+	void dec_SP() { SP = set_l(SP, SP - 1); }
+	void inc_SP() { SP = set_l(SP, SP + 1); }
+
+	void do_adc_d(uint8_t val);
+	void do_adc_nd(uint8_t val);
+	void do_sbc_d(uint8_t val);
+	void do_sbc_nd(uint8_t val);
+	void do_arr_d();
+	void do_arr_nd();
+
+	void do_adc(uint8_t val);
+	void do_cmp(uint8_t val1, uint8_t val2);
+	void do_sbc(uint8_t val);
+	void do_bit(uint8_t val);
+	void do_arr();
+	uint8_t do_asl(uint8_t v);
+	uint8_t do_lsr(uint8_t v);
+	uint8_t do_ror(uint8_t v);
+	uint8_t do_rol(uint8_t v);
+	uint8_t do_asr(uint8_t v);
 
 
 

@@ -12,7 +12,6 @@
 #include "emu.h"
 #include "m65c02.h"
 
-#include "m65c02.cxx"
 
 
 

@@ -722,6 +722,7 @@ BEGIN
         MENUITEM "User Port Breakout Box",      ID_BREAKOUT
         MENUITEM "User Port RTC Module",        ID_UPRM
         MENUITEM "Master 128 RTC Y2K Adjust",   ID_RTCY2KADJUST
+        MENUITEM "Blitter",                     IDM_BLITTER
     END
     POPUP "&Options"
     BEGIN

@@ -2504,6 +2504,13 @@ void BeebWin::HandleCommand(int MenuId)
 		}
 		CheckMenuItem(IDM_HOGDUMP, hog_o != NULL);
 		break;
+	case IDM_BLITTER:
+		blitter_enable = !blitter_enable;
+		
+		CheckMenuItem(IDM_BLITTER, blitter_enable);
+
+		ResetBeebSystem(MachineType, TubeEnabled, false);
+		break;
 
 	case IDM_LOADSTATE:
 		RestoreState();

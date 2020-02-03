@@ -38,7 +38,7 @@ public:
 	}
 
 	virtual void execute_set_input(int inputnum, int state) = 0;
-	virtual bool execute_input_edge_triggered(int inputnum) const noexcept = 0;
+	virtual bool execute_input_edge_triggered(int inputnum) = 0;
 
 	virtual void tick() = 0;
 

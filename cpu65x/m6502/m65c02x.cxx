@@ -31,12 +31,12 @@ void m65c02_device_adc_aba_3(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_adc_aba_4;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_adc_aba_4(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_abx --- 
@@ -81,12 +81,12 @@ void m65c02_device_adc_abx_4(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_adc_abx_5;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_adc_abx_5(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_aby --- 
@@ -131,12 +131,12 @@ void m65c02_device_adc_aby_4(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_adc_aby_5;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_adc_aby_5(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_idx --- 
@@ -181,12 +181,12 @@ void m65c02_device_adc_idx_5(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_adc_idx_6;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_adc_idx_6(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_idy --- 
@@ -235,12 +235,12 @@ void m65c02_device_adc_idy_5(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_adc_idy_6;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_adc_idy_6(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_imm --- 
@@ -258,12 +258,12 @@ void m65c02_device_adc_imm_1(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_adc_imm_2;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_adc_imm_2(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_zpg --- 
@@ -288,12 +288,12 @@ void m65c02_device_adc_zpg_2(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_adc_zpg_3;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_adc_zpg_3(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_zpi --- 
@@ -331,12 +331,12 @@ void m65c02_device_adc_zpi_4(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_adc_zpi_5;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_adc_zpi_5(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op adc_zpx --- 
@@ -367,12 +367,12 @@ void m65c02_device_adc_zpx_3(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_adc_zpx_4;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_adc_zpx_4(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op and_zpi --- 
@@ -406,7 +406,7 @@ void m65c02_device_and_zpi_3(m65c02_device &cpu) {
 void m65c02_device_and_zpi_4(m65c02_device &cpu) {
   cpu.A &= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op asl_aba --- 
@@ -446,7 +446,7 @@ void m65c02_device_asl_aba_4(m65c02_device &cpu) {
 }
 
 void m65c02_device_asl_aba_5(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op asl_abx --- 
@@ -493,7 +493,7 @@ void m65c02_device_asl_abx_5(m65c02_device &cpu) {
 }
 
 void m65c02_device_asl_abx_6(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op asl_zpg --- 
@@ -526,7 +526,7 @@ void m65c02_device_asl_zpg_3(m65c02_device &cpu) {
 }
 
 void m65c02_device_asl_zpg_4(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op asl_zpx --- 
@@ -566,7 +566,7 @@ void m65c02_device_asl_zpx_4(m65c02_device &cpu) {
 }
 
 void m65c02_device_asl_zpx_5(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op bbr_zpb --- 
@@ -603,7 +603,7 @@ void m65c02_device_bbr_zpb_4(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_bbr_zpb_5;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_bbr_zpb_5(m65c02_device &cpu) {
@@ -613,12 +613,12 @@ void m65c02_device_bbr_zpb_5(m65c02_device &cpu) {
       cpu.NextFn = (void *)&m65c02_device_bbr_zpb_6;return; // READ
     }
     cpu.PC += int8_t(cpu.TMP);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_bbr_zpb_6(m65c02_device &cpu) {
       cpu.PC += int8_t(cpu.TMP);
-      m65x_device_fetch(cpu);return; // fetch
+      m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op bbs_zpb --- 
@@ -655,7 +655,7 @@ void m65c02_device_bbs_zpb_4(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_bbs_zpb_5;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_bbs_zpb_5(m65c02_device &cpu) {
@@ -665,12 +665,12 @@ void m65c02_device_bbs_zpb_5(m65c02_device &cpu) {
       cpu.NextFn = (void *)&m65c02_device_bbs_zpb_6;return; // READ
     }
     cpu.PC += int8_t(cpu.TMP);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_bbs_zpb_6(m65c02_device &cpu) {
       cpu.PC += int8_t(cpu.TMP);
-      m65x_device_fetch(cpu);return; // fetch
+      m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op bit_abx --- 
@@ -709,7 +709,7 @@ void m65c02_device_bit_abx_3(m65c02_device &cpu) {
 
 void m65c02_device_bit_abx_4(m65c02_device &cpu) {
   cpu.do_bit(cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op bit_imm --- 
@@ -726,7 +726,7 @@ void m65c02_device_bit_imm_1(m65c02_device &cpu) {
   } else {
     cpu.P |= cpu.F_Z;
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op bit_zpx --- 
@@ -752,7 +752,7 @@ void m65c02_device_bit_zpx_2(m65c02_device &cpu) {
 void m65c02_device_bit_zpx_3(m65c02_device &cpu) {
   cpu.TMP = cpu.DAT;
   cpu.do_bit(cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op bra_rel --- 
@@ -776,12 +776,12 @@ void m65c02_device_bra_rel_2(m65c02_device &cpu) {
     cpu.NextFn = (void *)&m65c02_device_bra_rel_3;return; // READ
   }
   cpu.PC += int8_t(cpu.TMP);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_bra_rel_3(m65c02_device &cpu) {
     cpu.PC += int8_t(cpu.TMP);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op brk_imp --- 
@@ -844,7 +844,7 @@ void m65c02_device_brk_imp_5(m65c02_device &cpu) {
   }
   cpu.irq_taken = false;
   cpu.P = (cpu.P | cpu.F_I) & ~cpu.F_D;
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_brk_imp_6(m65c02_device &cpu) {
@@ -867,7 +867,7 @@ void m65c02_device_brk_imp_7(m65c02_device &cpu) {
     cpu.standard_irq_callback(cpu.NMI_LINE);
     cpu.irq_taken = false;
     cpu.P = (cpu.P | cpu.F_I) & ~cpu.F_D;
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_brk_imp_9(m65c02_device &cpu) {
@@ -877,7 +877,7 @@ void m65c02_device_brk_imp_9(m65c02_device &cpu) {
     }
     cpu.irq_taken = false;
     cpu.P = (cpu.P | cpu.F_I) & ~cpu.F_D;
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op cmp_zpi --- 
@@ -910,7 +910,7 @@ void m65c02_device_cmp_zpi_3(m65c02_device &cpu) {
 
 void m65c02_device_cmp_zpi_4(m65c02_device &cpu) {
   cpu.do_cmp(cpu.A, cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dec_aba --- 
@@ -951,7 +951,7 @@ void m65c02_device_dec_aba_4(m65c02_device &cpu) {
 }
 
 void m65c02_device_dec_aba_5(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dec_abx --- 
@@ -999,7 +999,7 @@ void m65c02_device_dec_abx_5(m65c02_device &cpu) {
 }
 
 void m65c02_device_dec_abx_6(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dec_acc --- 
@@ -1012,7 +1012,7 @@ void m65c02_device_dec_acc_0(m65c02_device &cpu) {
 void m65c02_device_dec_acc_1(m65c02_device &cpu) {
   cpu.A--;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dec_zpg --- 
@@ -1046,7 +1046,7 @@ void m65c02_device_dec_zpg_3(m65c02_device &cpu) {
 }
 
 void m65c02_device_dec_zpg_4(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op dec_zpx --- 
@@ -1087,7 +1087,7 @@ void m65c02_device_dec_zpx_4(m65c02_device &cpu) {
 }
 
 void m65c02_device_dec_zpx_5(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op eor_zpi --- 
@@ -1121,7 +1121,7 @@ void m65c02_device_eor_zpi_3(m65c02_device &cpu) {
 void m65c02_device_eor_zpi_4(m65c02_device &cpu) {
   cpu.A ^= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op inc_aba --- 
@@ -1162,7 +1162,7 @@ void m65c02_device_inc_aba_4(m65c02_device &cpu) {
 }
 
 void m65c02_device_inc_aba_5(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op inc_abx --- 
@@ -1210,7 +1210,7 @@ void m65c02_device_inc_abx_5(m65c02_device &cpu) {
 }
 
 void m65c02_device_inc_abx_6(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op inc_acc --- 
@@ -1223,7 +1223,7 @@ void m65c02_device_inc_acc_0(m65c02_device &cpu) {
 void m65c02_device_inc_acc_1(m65c02_device &cpu) {
   cpu.A++;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op inc_zpg --- 
@@ -1257,7 +1257,7 @@ void m65c02_device_inc_zpg_3(m65c02_device &cpu) {
 }
 
 void m65c02_device_inc_zpg_4(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op inc_zpx --- 
@@ -1298,7 +1298,7 @@ void m65c02_device_inc_zpx_4(m65c02_device &cpu) {
 }
 
 void m65c02_device_inc_zpx_5(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op jmp_iax --- 
@@ -1338,7 +1338,7 @@ void m65c02_device_jmp_iax_4(m65c02_device &cpu) {
 
 void m65c02_device_jmp_iax_5(m65c02_device &cpu) {
   cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op jmp_ind --- 
@@ -1378,7 +1378,7 @@ void m65c02_device_jmp_ind_4(m65c02_device &cpu) {
 
 void m65c02_device_jmp_ind_5(m65c02_device &cpu) {
   cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lda_zpi --- 
@@ -1412,7 +1412,7 @@ void m65c02_device_lda_zpi_3(m65c02_device &cpu) {
 void m65c02_device_lda_zpi_4(m65c02_device &cpu) {
   cpu.A = cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lsr_aba --- 
@@ -1452,7 +1452,7 @@ void m65c02_device_lsr_aba_4(m65c02_device &cpu) {
 }
 
 void m65c02_device_lsr_aba_5(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lsr_abx --- 
@@ -1499,7 +1499,7 @@ void m65c02_device_lsr_abx_5(m65c02_device &cpu) {
 }
 
 void m65c02_device_lsr_abx_6(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lsr_zpg --- 
@@ -1532,7 +1532,7 @@ void m65c02_device_lsr_zpg_3(m65c02_device &cpu) {
 }
 
 void m65c02_device_lsr_zpg_4(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op lsr_zpx --- 
@@ -1572,7 +1572,7 @@ void m65c02_device_lsr_zpx_4(m65c02_device &cpu) {
 }
 
 void m65c02_device_lsr_zpx_5(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op nop_aba --- 
@@ -1619,7 +1619,7 @@ void m65c02_device_nop_aba_6(m65c02_device &cpu) {
 }
 
 void m65c02_device_nop_aba_7(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op nop_abx --- 
@@ -1644,12 +1644,12 @@ void m65c02_device_nop_abx_2(m65c02_device &cpu) {
 }
 
 void m65c02_device_nop_abx_3(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op nop_imp --- 
 void m65c02_device_nop_imp_0(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ora_zpi --- 
@@ -1683,7 +1683,7 @@ void m65c02_device_ora_zpi_3(m65c02_device &cpu) {
 void m65c02_device_ora_zpi_4(m65c02_device &cpu) {
   cpu.A |= cpu.DAT;
   cpu.set_nz(cpu.A);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op phx_imp --- 
@@ -1702,7 +1702,7 @@ void m65c02_device_phx_imp_1(m65c02_device &cpu) {
 
 void m65c02_device_phx_imp_2(m65c02_device &cpu) {
   cpu.dec_SP();
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op phy_imp --- 
@@ -1721,7 +1721,7 @@ void m65c02_device_phy_imp_1(m65c02_device &cpu) {
 
 void m65c02_device_phy_imp_2(m65c02_device &cpu) {
   cpu.dec_SP();
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op plx_imp --- 
@@ -1747,7 +1747,7 @@ void m65c02_device_plx_imp_2(m65c02_device &cpu) {
 void m65c02_device_plx_imp_3(m65c02_device &cpu) {
   cpu.X = cpu.DAT;
   cpu.set_nz(cpu.X);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ply_imp --- 
@@ -1773,7 +1773,7 @@ void m65c02_device_ply_imp_2(m65c02_device &cpu) {
 void m65c02_device_ply_imp_3(m65c02_device &cpu) {
   cpu.Y = cpu.DAT;
   cpu.set_nz(cpu.Y);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op reset --- 
@@ -1826,7 +1826,7 @@ void m65c02_device_reset_6(m65c02_device &cpu) {
 
 void m65c02_device_reset_7(m65c02_device &cpu) {
   cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rmb_bzp --- 
@@ -1859,7 +1859,7 @@ void m65c02_device_rmb_bzp_3(m65c02_device &cpu) {
 }
 
 void m65c02_device_rmb_bzp_4(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rol_aba --- 
@@ -1899,7 +1899,7 @@ void m65c02_device_rol_aba_4(m65c02_device &cpu) {
 }
 
 void m65c02_device_rol_aba_5(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rol_abx --- 
@@ -1946,7 +1946,7 @@ void m65c02_device_rol_abx_5(m65c02_device &cpu) {
 }
 
 void m65c02_device_rol_abx_6(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rol_zpg --- 
@@ -1979,7 +1979,7 @@ void m65c02_device_rol_zpg_3(m65c02_device &cpu) {
 }
 
 void m65c02_device_rol_zpg_4(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op rol_zpx --- 
@@ -2019,7 +2019,7 @@ void m65c02_device_rol_zpx_4(m65c02_device &cpu) {
 }
 
 void m65c02_device_rol_zpx_5(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ror_aba --- 
@@ -2059,7 +2059,7 @@ void m65c02_device_ror_aba_4(m65c02_device &cpu) {
 }
 
 void m65c02_device_ror_aba_5(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ror_abx --- 
@@ -2106,7 +2106,7 @@ void m65c02_device_ror_abx_5(m65c02_device &cpu) {
 }
 
 void m65c02_device_ror_abx_6(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ror_zpg --- 
@@ -2139,7 +2139,7 @@ void m65c02_device_ror_zpg_3(m65c02_device &cpu) {
 }
 
 void m65c02_device_ror_zpg_4(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op ror_zpx --- 
@@ -2179,7 +2179,7 @@ void m65c02_device_ror_zpx_4(m65c02_device &cpu) {
 }
 
 void m65c02_device_ror_zpx_5(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_aba --- 
@@ -2211,12 +2211,12 @@ void m65c02_device_sbc_aba_3(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_sbc_aba_4;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_sbc_aba_4(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_abx --- 
@@ -2261,12 +2261,12 @@ void m65c02_device_sbc_abx_4(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_sbc_abx_5;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_sbc_abx_5(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_aby --- 
@@ -2311,12 +2311,12 @@ void m65c02_device_sbc_aby_4(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_sbc_aby_5;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_sbc_aby_5(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_idx --- 
@@ -2361,12 +2361,12 @@ void m65c02_device_sbc_idx_5(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_sbc_idx_6;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_sbc_idx_6(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_idy --- 
@@ -2415,12 +2415,12 @@ void m65c02_device_sbc_idy_5(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_sbc_idy_6;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_sbc_idy_6(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_imm --- 
@@ -2438,12 +2438,12 @@ void m65c02_device_sbc_imm_1(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_sbc_imm_2;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_sbc_imm_2(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_zpg --- 
@@ -2468,12 +2468,12 @@ void m65c02_device_sbc_zpg_2(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_sbc_zpg_3;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_sbc_zpg_3(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_zpi --- 
@@ -2511,12 +2511,12 @@ void m65c02_device_sbc_zpi_4(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_sbc_zpi_5;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_sbc_zpi_5(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sbc_zpx --- 
@@ -2547,12 +2547,12 @@ void m65c02_device_sbc_zpx_3(m65c02_device &cpu) {
     cpu.RNW = true;
     cpu.NextFn = (void *)&m65c02_device_sbc_zpx_4;return; // READ
   }
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_sbc_zpx_4(m65c02_device &cpu) {
     cpu.set_nz(cpu.A);
-    m65x_device_fetch(cpu);return; // fetch
+    m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op smb_bzp --- 
@@ -2585,7 +2585,7 @@ void m65c02_device_smb_bzp_3(m65c02_device &cpu) {
 }
 
 void m65c02_device_smb_bzp_4(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op sta_zpi --- 
@@ -2618,7 +2618,7 @@ void m65c02_device_sta_zpi_3(m65c02_device &cpu) {
 }
 
 void m65c02_device_sta_zpi_4(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op stp_imp --- 
@@ -2634,7 +2634,7 @@ void m65c02_device_stp_imp_while_1(m65c02_device &cpu) {
 }
 
 void m65c02_device_stp_imp_whilenot_1(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_stp_imp_1(m65c02_device &cpu) {
@@ -2664,7 +2664,7 @@ void m65c02_device_stz_aba_2(m65c02_device &cpu) {
 }
 
 void m65c02_device_stz_aba_3(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op stz_abx --- 
@@ -2696,7 +2696,7 @@ void m65c02_device_stz_abx_3(m65c02_device &cpu) {
 }
 
 void m65c02_device_stz_abx_4(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op stz_zpg --- 
@@ -2715,7 +2715,7 @@ void m65c02_device_stz_zpg_1(m65c02_device &cpu) {
 }
 
 void m65c02_device_stz_zpg_2(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op stz_zpx --- 
@@ -2740,7 +2740,7 @@ void m65c02_device_stz_zpx_2(m65c02_device &cpu) {
 }
 
 void m65c02_device_stz_zpx_3(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op trb_aba --- 
@@ -2785,7 +2785,7 @@ void m65c02_device_trb_aba_4(m65c02_device &cpu) {
 }
 
 void m65c02_device_trb_aba_5(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op trb_zpg --- 
@@ -2823,7 +2823,7 @@ void m65c02_device_trb_zpg_3(m65c02_device &cpu) {
 }
 
 void m65c02_device_trb_zpg_4(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op tsb_aba --- 
@@ -2868,7 +2868,7 @@ void m65c02_device_tsb_aba_4(m65c02_device &cpu) {
 }
 
 void m65c02_device_tsb_aba_5(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op tsb_zpg --- 
@@ -2906,7 +2906,7 @@ void m65c02_device_tsb_zpg_3(m65c02_device &cpu) {
 }
 
 void m65c02_device_tsb_zpg_4(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 // --- op wai_imp --- 
@@ -2934,7 +2934,7 @@ void m65c02_device_wai_imp_while_1(m65c02_device &cpu) {
 }
 
 void m65c02_device_wai_imp_whilenot_1(m65c02_device &cpu) {
-  m65x_device_fetch(cpu);return; // fetch
+  m6502_device_fetch(cpu);return; // fetch
 }
 
 void m65c02_device_wai_imp_3(m65c02_device &cpu) {
