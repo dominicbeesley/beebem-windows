@@ -18,6 +18,7 @@
 #include "m65c02.h"
 #include "fb_cpu.h"
 #include "fb_sys.h"
+#include "fb_intcon.h"
 
 typedef enum blit_SLAVE_NO {
 	SLAVE_NO_JIMCTL,
@@ -40,7 +41,8 @@ public:
 	blitter_top(void) :
 		m65x_device(),
 		sys(*this),
-		cpu(*this)
+		cpu(*this),
+		intcon(1, 1)
 	{
 	};
 
@@ -85,6 +87,8 @@ protected:
 
 	fb_sys sys;
 	fb_cpu cpu;
+
+	fb_intcon intcon;
 
 	uint8_t reg_ROMPG;
 	bool	reg_jimEn;

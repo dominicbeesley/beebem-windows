@@ -51,7 +51,14 @@ blit_SLAVE_NO addr2slaveno(uint32_t addr, bool jimEn) {
 void blitter_top::init()
 {
 	cpu.init(sys);
-	sys.init(cpu);
+
+	intcon.getMas().at(0).init(sys);
+	sys.init(intcon.getMas().at(0));
+
+	intcon.getSla().at(0).init(cpu);
+	cpu.init(intcon.getSla().at(0));
+
+
 }
 
 void blitter_top::tick()
