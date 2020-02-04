@@ -51,6 +51,18 @@
     <ClInclude Include="blitter_const.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="fb_mem_chipram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fb_jimctrl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fb_abs_tick_slave.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fb_abs_tick_master.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -78,6 +90,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="fb_sys.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fb_mem_chipram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fb_jimctrl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

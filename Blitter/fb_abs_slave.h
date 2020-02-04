@@ -12,6 +12,7 @@ class fb_abs_slave
 {
 public:
 	virtual void init(fb_abs_master &mas) = 0;
+	virtual void reset() = 0;
 
 	virtual void fb_set_cyc(fb_cyc_action cyc) = 0;
 	virtual void fb_set_A(uint32_t addr, bool we) = 0;

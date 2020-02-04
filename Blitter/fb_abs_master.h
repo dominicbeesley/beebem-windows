@@ -27,6 +27,7 @@ class fb_abs_master
 
 public:
 	virtual void init(fb_abs_slave &sla) = 0;
+	virtual void reset() = 0;
 
 	virtual void fb_set_ACK(fb_ack ack) = 0;
 	virtual void fb_set_D_rd(uint8_t dat) = 0;

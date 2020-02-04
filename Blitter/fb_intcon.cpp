@@ -112,10 +112,30 @@ void fb_intcon_mas::reset()
 
 void fb_intcon::tick(bool sys)
 {
+	for (auto i = mas_v.begin(); i != mas_v.end(); i++)
+	{
+		fb_abs_tickable *t = dynamic_cast<fb_abs_tickable *>((*i).sla);
+		if (t) t->tick(sys);
+	}
+	for (auto i = sla_v.begin(); i != sla_v.end(); i++)
+	{
+		fb_abs_tickable *t = dynamic_cast<fb_abs_tickable *>((*i).mas);
+		if (t) t->tick(sys);
+	}
 }
 
 void fb_intcon::tock()
 {
+	for (auto i = mas_v.begin(); i != mas_v.end(); i++)
+	{
+		fb_abs_tickable *t = dynamic_cast<fb_abs_tickable *>((*i).sla);
+		if (t) t->tock();
+	}
+	for (auto i = sla_v.begin(); i != sla_v.end(); i++)
+	{
+		fb_abs_tickable *t = dynamic_cast<fb_abs_tickable *>((*i).mas);
+		if (t) t->tock();
+	}
 }
 
 void fb_intcon::reset()

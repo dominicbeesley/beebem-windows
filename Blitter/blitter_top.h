@@ -19,11 +19,13 @@
 #include "fb_cpu.h"
 #include "fb_sys.h"
 #include "fb_intcon.h"
+#include "fb_mem_chipram.h"
 
 typedef enum blit_SLAVE_NO {
 	SLAVE_NO_JIMCTL,
 	SLAVE_NO_SYS,
 	SLAVE_NO_CHIPRAM,
+	SLAVE_NO_CHIPFLASH,
 	SLAVE_NO_MEMCTL,
 	SLAVE_NO_EEPROM,
 	SLAVE_NO_DMA,
@@ -88,6 +90,7 @@ protected:
 
 	fb_sys sys;
 	fb_cpu cpu;
+	fb_mem_chipram chipram;
 
 	fb_intcon intcon;
 

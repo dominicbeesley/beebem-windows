@@ -42,6 +42,10 @@ blit_SLAVE_NO blitter_top::addr2slaveno(uint32_t addr) {
 		// FF xxxx SYS
 		return SLAVE_NO_SYS;
 	}
+	else if (addr >= 0x800000 && addr <= 0xFE0000) {
+		// flash memory
+		return SLAVE_NO_CHIPFLASH;
+	}
 	else {
 		// everything else to chipram
 		return SLAVE_NO_CHIPRAM;
@@ -52,8 +56,12 @@ void blitter_top::init()
 {
 	cpu.init(sys);
 
+	intcon.getMas().at(SLAVE_NO_CHIPRAM).init(chipram);
+	chipram.init(intcon.getMas().at(SLAVE_NO_CHIPRAM));
+
 	intcon.getMas().at(SLAVE_NO_SYS).init(sys);
 	sys.init(intcon.getMas().at(SLAVE_NO_SYS));
+
 
 	intcon.getSla().at(0).init(cpu);
 	cpu.init(intcon.getSla().at(0));
@@ -63,25 +71,15 @@ void blitter_top::init()
 
 void blitter_top::tick()
 {
-	sys.tick(true);
-	cpu.tick(true);
-	sys.tock();
-	cpu.tock();
+	intcon.tick(true);
+	intcon.tock();
+	intcon.tick(false);
+	intcon.tock();
+	intcon.tick(false);
+	intcon.tock();
+	intcon.tick(false);
+	intcon.tock();
 
-	sys.tick(false);
-	cpu.tick(false);
-	sys.tock();
-	cpu.tock();
-
-	sys.tick(false);
-	cpu.tick(false);
-	sys.tock();
-	cpu.tock();
-
-	sys.tick(false);
-	cpu.tick(false);
-	sys.tock();
-	cpu.tock();
 
 }
 
@@ -97,8 +95,7 @@ bool blitter_top::execute_input_edge_triggered(int inputnum)
 
 void blitter_top::device_reset()
 {
-	sys.reset();
-	cpu.reset();
+	intcon.reset();
 }
 
 uint32_t blitter_top::log2phys(uint32_t ain) {

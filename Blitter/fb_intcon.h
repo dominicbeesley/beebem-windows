@@ -96,6 +96,14 @@ public:
 	friend class fb_intcon_mas;
 	friend class fb_intcon_sla;
 
+	// Inherited via fb_abs_tickable
+	virtual void tick(bool sys) override;
+
+	virtual void tock() override;
+
+	virtual void reset() override;
+
+
 protected:
 	blitter_top& top;
 
@@ -105,12 +113,6 @@ private:
 	vector<fb_intcon_sla> sla_v;
 
 
-	// Inherited via fb_abs_tickable
-	virtual void tick(bool sys) override;
-
-	virtual void tock() override;
-
-	virtual void reset() override;
 
 };
 
