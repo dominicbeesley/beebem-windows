@@ -29,10 +29,10 @@ typedef enum blit_SLAVE_NO {
 	SLAVE_NO_DMA,
 	SLAVE_NO_SOUND,
 	SLAVE_NO_BLIT,
-	SLAVE_NO_AERIS
+	SLAVE_NO_AERIS,
+	SLAVE_NO__COUNT
 } blit_SLAVE_NO;
 
-extern blit_SLAVE_NO addr2slaveno(uint32_t addr, bool jimEn);
 
 
 class blitter_top : public m65x_device {
@@ -42,7 +42,7 @@ public:
 		m65x_device(),
 		sys(*this),
 		cpu(*this),
-		intcon(1, 1)
+		intcon(*this, 1, SLAVE_NO__COUNT)
 	{
 	};
 
@@ -76,6 +76,7 @@ public:
 	uint8_t get_JIMPAGE() { return reg_jimPage; }
 
 	uint32_t log2phys(uint32_t ain);
+	blit_SLAVE_NO addr2slaveno(uint32_t addr);
 
 	bool get_cfg_swram_en() { return true;}
 	bool get_nioice_debug_shadow() { return false; }

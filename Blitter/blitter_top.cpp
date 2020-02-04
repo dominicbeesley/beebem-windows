@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "blitter_top.h"
 
-blit_SLAVE_NO addr2slaveno(uint32_t addr, bool jimEn) {
+blit_SLAVE_NO blitter_top::addr2slaveno(uint32_t addr) {
 	addr = addr & 0x00FFFFFF;
 	if (addr = 0xFFFE30) {
 		// ROMPG on sys always passed to fb_SYS
@@ -33,7 +33,7 @@ blit_SLAVE_NO addr2slaveno(uint32_t addr, bool jimEn) {
 		// FF FC0x - AERIS
 		return SLAVE_NO_AERIS;
 	}
-	else if ((addr == 0xFFFCFD || addr == 0xFFFCFE) && jimEn) {
+	else if ((addr == 0xFFFCFD || addr == 0xFFFCFE) && reg_jimEn) {
 		// jim extended paging registers
 		// note FCFF is a special case and is always passed on to SYS!
 		return SLAVE_NO_JIMCTL;
@@ -52,8 +52,8 @@ void blitter_top::init()
 {
 	cpu.init(sys);
 
-	intcon.getMas().at(0).init(sys);
-	sys.init(intcon.getMas().at(0));
+	intcon.getMas().at(SLAVE_NO_SYS).init(sys);
+	sys.init(intcon.getMas().at(SLAVE_NO_SYS));
 
 	intcon.getSla().at(0).init(cpu);
 	cpu.init(intcon.getSla().at(0));
@@ -177,3 +177,4 @@ uint32_t blitter_top::log2phys(uint32_t ain) {
 
 	return ain & 0xFFFFFF;
 }
+
