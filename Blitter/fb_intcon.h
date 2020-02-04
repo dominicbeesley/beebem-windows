@@ -27,12 +27,14 @@ public:
 	virtual void fb_set_cyc(fb_cyc_action cyc) override;
 	virtual void fb_set_A(uint32_t addr, bool we) override;
 	virtual void fb_set_D_wr(uint8_t dat) override;
+	virtual void tick(bool sys) override;
+	virtual void tock() override;
+	virtual void reset();
 
 	friend class fb_intcon_mas;
 	friend class fb_intcon;
-
+	
 protected:
-	void reset();
 
 private:
 	fb_intcon& intcon;
@@ -49,6 +51,7 @@ private:
 
 	void do_discon();
 	void do_try_connect();
+
 };
 
 class fb_intcon_mas : public fb_abs_master {
@@ -62,36 +65,50 @@ public:
 	virtual void init(fb_abs_slave & _sla) override;
 	virtual void fb_set_ACK(fb_ack ack) override;
 	virtual void fb_set_D_rd(uint8_t dat) override;
+	virtual void tick(bool sys) override;
+	virtual void tock() override;
+	virtual void reset() override;
 
 	friend class fb_intcon_sla;
 	friend class fb_intcon;
 
 protected:
-	void reset();
 
 private:
 	fb_intcon& intcon;
 	fb_abs_slave* sla;
 
 	fb_intcon_sla* crossbar_sla;
-
 };
 
 class fb_intcon : public fb_abs_tickable {
 
 public:
-	fb_intcon(blitter_top& _top, int slaves, int masters) :
-		top(_top)
+	fb_intcon(blitter_top& _top, int _slaves, int _masters) :
+		top(_top), masters(_masters), slaves(_slaves)
 	{
+		sla_a = (fb_intcon_sla**)calloc(slaves, sizeof(fb_intcon_sla *));
+		mas_a = (fb_intcon_mas**)calloc(masters, sizeof(fb_intcon_mas *));
+		
 		for (int i = 0; i < slaves; i++)
-			sla_v.push_back(fb_intcon_sla(*this));
+			sla_a[i] = new fb_intcon_sla(*this);
 		for (int i = 0; i < masters; i++)
-			mas_v.push_back(fb_intcon_mas(*this));
+			mas_a[i] = new fb_intcon_mas(*this);
 
 	}
 	   
-	vector<fb_intcon_mas>& getMas() { return mas_v; };
-	vector<fb_intcon_sla>& getSla() { return sla_v; };
+	fb_intcon_mas* getMas(int index) { 
+		if (index < 0 | index >= masters)
+			throw std::out_of_range("out of range");
+		else
+			return mas_a[index]; 
+	};
+	fb_intcon_sla* getSla(int index) {
+		if (index < 0 | index >= slaves)
+			throw std::out_of_range("out of range");
+		else
+			return sla_a[index];
+	}
 
 	friend class fb_intcon_mas;
 	friend class fb_intcon_sla;
@@ -108,9 +125,9 @@ protected:
 	blitter_top& top;
 
 private:
-
-	vector<fb_intcon_mas> mas_v;
-	vector<fb_intcon_sla> sla_v;
+	int masters, slaves;
+	fb_intcon_mas** mas_a;
+	fb_intcon_sla** sla_a;
 
 
 

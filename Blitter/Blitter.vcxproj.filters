@@ -57,12 +57,6 @@
     <ClInclude Include="fb_jimctrl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="fb_abs_tick_slave.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="fb_abs_tick_master.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

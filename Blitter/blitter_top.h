@@ -20,6 +20,7 @@
 #include "fb_sys.h"
 #include "fb_intcon.h"
 #include "fb_mem_chipram.h"
+#include "fb_jimctrl.h"
 
 typedef enum blit_SLAVE_NO {
 	SLAVE_NO_JIMCTL,
@@ -44,6 +45,7 @@ public:
 		m65x_device(),
 		sys(*this),
 		cpu(*this),
+		jimctl(*this),
 		intcon(*this, 1, SLAVE_NO__COUNT)
 	{
 	};
@@ -75,7 +77,7 @@ public:
 	}
 	uint8_t get_JIMPAGE_L() { return (uint8_t)reg_jimPage; }
 	uint8_t get_JIMPAGE_H() { return (uint8_t)(reg_jimPage >> 8); }
-	uint8_t get_JIMPAGE() { return reg_jimPage; }
+	uint16_t get_JIMPAGE() { return reg_jimPage; }
 
 	uint32_t log2phys(uint32_t ain);
 	blit_SLAVE_NO addr2slaveno(uint32_t addr);
@@ -91,6 +93,7 @@ protected:
 	fb_sys sys;
 	fb_cpu cpu;
 	fb_mem_chipram chipram;
+	fb_jimctrl jimctl;
 
 	fb_intcon intcon;
 

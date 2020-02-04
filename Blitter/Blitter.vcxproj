@@ -153,8 +153,6 @@
     <ClInclude Include="fb_abs_master.h" />
     <ClInclude Include="blitter_top.h" />
     <ClInclude Include="fb_abs_slave.h" />
-    <ClInclude Include="fb_abs_tick_master.h" />
-    <ClInclude Include="fb_abs_tick_slave.h" />
     <ClInclude Include="fb_cpu.h" />
     <ClInclude Include="fb_fishbone.h" />
     <ClInclude Include="fb_abs_tickable.h" />

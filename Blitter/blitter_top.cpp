@@ -3,11 +3,11 @@
 
 blit_SLAVE_NO blitter_top::addr2slaveno(uint32_t addr) {
 	addr = addr & 0x00FFFFFF;
-	if (addr = 0xFFFE30) {
+	if (addr == 0xFFFE30) {
 		// ROMPG on sys always passed to fb_SYS
 		return SLAVE_NO_SYS;
 	}
-	else if (addr = 0xFFFE36) {
+	else if (addr == 0xFFFE36) {
 		// EEPROM i2c
 		return SLAVE_NO_EEPROM;
 	}
@@ -33,7 +33,7 @@ blit_SLAVE_NO blitter_top::addr2slaveno(uint32_t addr) {
 		// FF FC0x - AERIS
 		return SLAVE_NO_AERIS;
 	}
-	else if ((addr == 0xFFFCFD || addr == 0xFFFCFE) && reg_jimEn) {
+	else if ((addr == 0xFFFCFD || addr == 0xFFFCFE) && get_JIMEN()) {
 		// jim extended paging registers
 		// note FCFF is a special case and is always passed on to SYS!
 		return SLAVE_NO_JIMCTL;
@@ -52,20 +52,26 @@ blit_SLAVE_NO blitter_top::addr2slaveno(uint32_t addr) {
 	}
 }
 
+#include <fstream>
+
 void blitter_top::init()
 {
 	cpu.init(sys);
 
-	intcon.getMas().at(SLAVE_NO_CHIPRAM).init(chipram);
-	chipram.init(intcon.getMas().at(SLAVE_NO_CHIPRAM));
+	intcon.getMas(SLAVE_NO_JIMCTL)->init(jimctl);
+	jimctl.init(*intcon.getMas(SLAVE_NO_JIMCTL));
+	
+	intcon.getMas(SLAVE_NO_CHIPRAM)->init(chipram);
+	chipram.init(*intcon.getMas(SLAVE_NO_CHIPRAM));
 
-	intcon.getMas().at(SLAVE_NO_SYS).init(sys);
-	sys.init(intcon.getMas().at(SLAVE_NO_SYS));
+	intcon.getMas(SLAVE_NO_SYS)->init(sys);
+	sys.init(*intcon.getMas(SLAVE_NO_SYS));
 
 
-	intcon.getSla().at(0).init(cpu);
-	cpu.init(intcon.getSla().at(0));
+	intcon.getSla(0)->init(cpu);
+	cpu.init(*intcon.getSla(0));
 
+	cerr << addr2slaveno(log2phys(0xFFFCFE));
 
 }
 
@@ -79,8 +85,6 @@ void blitter_top::tick()
 	intcon.tock();
 	intcon.tick(false);
 	intcon.tock();
-
-
 }
 
 void blitter_top::execute_set_input(int inputnum, int state)
@@ -104,7 +108,7 @@ uint32_t blitter_top::log2phys(uint32_t ain) {
 //	A_o <=
 //		x"8D3F" & A_i(7 downto 0)
 //		when A_i(23 downto 8) = x"0000" and m68k_boot_i = '1'
-	if (ain & 0xFF0000 == 0xFF0000)
+	if ((ain & 0xFF0000) == 0xFF0000)
 	{
 		uint16_t ain16 = (uint16_t)ain;
 		if (ain16 >= 0x8000 && ain16 < 0xC000 && get_cfg_swram_en())
@@ -167,7 +171,7 @@ uint32_t blitter_top::log2phys(uint32_t ain) {
 				return ain16 & 0x7FFF;
 		}
 		else if ((ain16 & 0xFF00) == 0xFD00 && get_JIMEN()) {
-			return (get_JIMPAGE() << 8) | (ain16 & 0xFF);
+			return (((uint32_t)get_JIMPAGE()) << 8) | (uint32_t)(ain16 & 0xFF);
 
 		}
 	}

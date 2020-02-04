@@ -27,7 +27,7 @@ public:
 private:
 	uint8_t mem[0x200000];
 	bool we;
-	uint16_t addr;
+	uint32_t addr;
 	uint8_t D_wr;
 	fb_abs_master* mas;
 

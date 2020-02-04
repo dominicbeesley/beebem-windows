@@ -11,7 +11,7 @@ void fb_jimctrl::init(fb_abs_master & mas)
 
 void fb_jimctrl::fb_set_cyc(fb_cyc_action cyc)
 {
-	if (cyc = stop) {
+	if (cyc == stop) {
 		state = idle;
 	}
 	else {
@@ -40,17 +40,17 @@ void fb_jimctrl::tick(bool sys)
 {
 	if (state == actwr)
 	{
-		if (addr & 0x0F == 0x0E)
+		if ((addr & 0x0F) == 0x0E)
 			top.set_JIMPAGE_L(D_wr);
-		else if (addr & 0x0F == 0x0E)
+		else if ((addr & 0x0F) == 0x0D)
 			top.set_JIMPAGE_H(D_wr);
 		mas->fb_set_ACK(ack);
 	}
 	else if (state == actrd && mas)
 	{
-		if (addr & 0x0F == 0x0E)
+		if ((addr & 0x0F) == 0x0E)
 			mas->fb_set_D_rd(top.get_JIMPAGE_L());
-		else if (addr & 0x0F == 0x0F)
+		else if ((addr & 0x0F) == 0x0D)
 			mas->fb_set_D_rd(top.get_JIMPAGE_H());
 		mas->fb_set_ACK(ack);
 	}

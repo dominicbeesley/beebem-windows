@@ -22,12 +22,11 @@ The external bus should only
 
 class fb_abs_slave;
 
-class fb_abs_master 
+class fb_abs_master : public fb_abs_tickable
 {
 
 public:
 	virtual void init(fb_abs_slave &sla) = 0;
-	virtual void reset() = 0;
 
 	virtual void fb_set_ACK(fb_ack ack) = 0;
 	virtual void fb_set_D_rd(uint8_t dat) = 0;

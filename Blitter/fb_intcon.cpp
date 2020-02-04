@@ -18,7 +18,7 @@ void fb_intcon_sla::do_discon() {
 }
 
 void fb_intcon_sla::do_try_connect() {
-	if (crossbar_idx < 0 || crossbar_idx >= intcon.mas_v.size())
+	if (crossbar_idx < 0 || crossbar_idx >= intcon.masters)
 	{
 		if (mas)
 			mas->fb_set_ACK(nul);
@@ -28,7 +28,7 @@ void fb_intcon_sla::do_try_connect() {
 	else {
 		crossbar_connected = false;
 		crossbar_pend = false;
-		crossbar_mas = &(intcon.mas_v.at(crossbar_idx));
+		crossbar_mas = intcon.mas_a[crossbar_idx];
 		if (crossbar_mas->sla) {
 			if (crossbar_mas->crossbar_sla)
 				//busy
@@ -49,6 +49,16 @@ void fb_intcon_sla::do_try_connect() {
 				mas->fb_set_ACK(nul);
 		}
 	}
+}
+
+void fb_intcon_sla::tick(bool sys)
+{
+	if (mas) mas->tick(sys);
+}
+
+void fb_intcon_sla::tock()
+{
+	if (mas) mas->tock();
 }
 
 void fb_intcon_sla::fb_set_cyc(fb_cyc_action cyc)
@@ -110,42 +120,52 @@ void fb_intcon_mas::reset()
 	crossbar_sla = NULL;
 }
 
+void fb_intcon_mas::tick(bool sys)
+{
+	if (sla) sla->tick(sys);
+}
+
+void fb_intcon_mas::tock()
+{
+	if (sla) sla->tock();
+}
+
 void fb_intcon::tick(bool sys)
 {
-	for (auto i = mas_v.begin(); i != mas_v.end(); i++)
+	fb_intcon_sla **p = sla_a;
+	for (int i = 0; i < slaves; i++)
 	{
-		fb_abs_tickable *t = dynamic_cast<fb_abs_tickable *>((*i).sla);
-		if (t) t->tick(sys);
+		(*(p++))->tick(sys);
 	}
-	for (auto i = sla_v.begin(); i != sla_v.end(); i++)
+	fb_intcon_mas **p2 = mas_a;
+	for (int i = 0; i < masters; i++)
 	{
-		fb_abs_tickable *t = dynamic_cast<fb_abs_tickable *>((*i).mas);
-		if (t) t->tick(sys);
+		(*(p2++))->tick(sys);
 	}
 }
 
 void fb_intcon::tock()
 {
-	for (auto i = mas_v.begin(); i != mas_v.end(); i++)
+	fb_intcon_mas **p2 = mas_a;
+	for (int i = 0; i < masters; i++)
 	{
-		fb_abs_tickable *t = dynamic_cast<fb_abs_tickable *>((*i).sla);
-		if (t) t->tock();
+		(*(p2++))->tock();
 	}
-	for (auto i = sla_v.begin(); i != sla_v.end(); i++)
+	fb_intcon_sla **p = sla_a;
+	for (int i = 0; i < slaves; i++)
 	{
-		fb_abs_tickable *t = dynamic_cast<fb_abs_tickable *>((*i).mas);
-		if (t) t->tock();
+		(*(p++))->tock();
 	}
 }
 
 void fb_intcon::reset()
 {
-	for (auto i = mas_v.begin(); i != mas_v.end(); i++)
+	for (int i = 0; i < masters; i++)
 	{
-		(*i).reset();
+		mas_a[i]->reset();
 	}
-	for (auto i = sla_v.begin(); i != sla_v.end(); i++)
+	for (int i = 0; i < slaves; i++)
 	{
-		(*i).reset();
+		sla_a[i]->reset();
 	}
 }

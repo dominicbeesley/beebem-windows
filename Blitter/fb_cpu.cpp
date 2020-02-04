@@ -35,11 +35,11 @@ void fb_cpu::tock() {
 			state = acked;
 		}
 		else {
+			state = act;
 			sla->fb_set_A(physAddr, !cpu.getRNW());
 			sla->fb_set_cyc(start);
 			if (!rnw)
 				sla->fb_set_D_wr(cpu.getDATA());
-			state = act;
 		}
 	}
 }
