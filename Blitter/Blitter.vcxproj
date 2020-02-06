@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="blitter_const.h" />
+    <ClInclude Include="fbsla_memctl.h" />
     <ClInclude Include="fb_abs_master.h" />
     <ClInclude Include="blitter_top.h" />
     <ClInclude Include="fb_abs_slave.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="fbsla_memctl.cpp" />
     <ClCompile Include="fb_abs_master.cpp" />
     <ClCompile Include="blitter_top.cpp" />
     <ClCompile Include="fb_abs_slave.cpp" />

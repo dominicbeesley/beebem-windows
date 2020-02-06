@@ -415,7 +415,7 @@ void BeebWin::ApplyPrefs()
 		}
 	}
 
-	ResetBeebSystem(MachineType, TubeEnabled, true);
+	ResetBeebSystem(MachineType, TubeEnabled, true, true);
 
 	// Rom write flags
 	for (int slot = 0; slot < 16; ++slot)
@@ -478,7 +478,7 @@ void BeebWin::Shutdown()
 
 /****************************************************************************/
 
-void BeebWin::ResetBeebSystem(Model NewModelType, bool TubeStatus, bool LoadRoms)
+void BeebWin::ResetBeebSystem(Model NewModelType, bool TubeStatus, bool LoadRoms, bool powerReset)
 {
 	SoundReset();
 	if (SoundDefault)
@@ -494,7 +494,7 @@ void BeebWin::ResetBeebSystem(Model NewModelType, bool TubeStatus, bool LoadRoms
 	EnableTube=TubeStatus;
 	MachineType=NewModelType;
 	BeebMemInit(LoadRoms, m_ShiftBooted);
-	InitSys();
+	InitSys(powerReset);
 	if (EnableTube) InitTube65C02();
 #ifdef M512COPRO_ENABLED
 	if (Tube186Enabled) i86_main();
@@ -1430,7 +1430,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,     // window handle
 					{
 						if(row==-2)
 						{ // Must do a reset!
-							InitSys();
+							InitSys(false);
 							if (EnableTube) InitTube65C02();
 #ifdef M512COPRO_ENABLED
 							if (Tube186Enabled) i86_main();
@@ -2488,7 +2488,7 @@ void BeebWin::HandleCommand(int MenuId)
 		if (ReadDisc(0, true))
 		{
 			m_ShiftBooted = true;
-			ResetBeebSystem(MachineType, TubeEnabled, false);
+			ResetBeebSystem(MachineType, TubeEnabled, false, false);
 			BeebKeyDown(0, 0); // Shift key
 		}
 		break;
@@ -2509,7 +2509,7 @@ void BeebWin::HandleCommand(int MenuId)
 		
 		CheckMenuItem(IDM_BLITTER, blitter_enable);
 
-		ResetBeebSystem(MachineType, TubeEnabled, false);
+		ResetBeebSystem(MachineType, TubeEnabled, false, true);
 		break;
 
 	case IDM_LOADSTATE:
@@ -2846,7 +2846,7 @@ void BeebWin::HandleCommand(int MenuId)
 		if (EconetEnabled)
 		{
 			// Need hard reset for DNFS to detect econet HW
-			ResetBeebSystem(MachineType, TubeEnabled, false);
+			ResetBeebSystem(MachineType, TubeEnabled, false, false);
 			EconetStateChanged = true;
 		}
 		else
@@ -3440,7 +3440,7 @@ void BeebWin::HandleCommand(int MenuId)
 		CheckMenuItem(IDM_ARM, ArmTube);
 		CheckMenuItem(IDM_ACORNZ80, AcornZ80);
 		CheckMenuItem(IDM_ARMCOPRO, ArmCoProTube);
-		ResetBeebSystem(MachineType, TubeEnabled, false);
+		ResetBeebSystem(MachineType, TubeEnabled, false, false);
 		break;
 
 	case IDM_ARMCOPRO:
@@ -3460,7 +3460,7 @@ void BeebWin::HandleCommand(int MenuId)
 		CheckMenuItem(IDM_ARM, ArmTube);
 		CheckMenuItem(IDM_ACORNZ80, AcornZ80);
 		CheckMenuItem(IDM_ARMCOPRO, ArmCoProTube);
-		ResetBeebSystem(MachineType, TubeEnabled, false);
+		ResetBeebSystem(MachineType, TubeEnabled, false, false);
 		break;
 
 	case IDM_TUBE:
@@ -3480,7 +3480,7 @@ void BeebWin::HandleCommand(int MenuId)
 		CheckMenuItem(IDM_TORCH, TorchTube);
 		CheckMenuItem(IDM_ACORNZ80, AcornZ80);
 		CheckMenuItem(IDM_ARMCOPRO, ArmCoProTube);
-		ResetBeebSystem(MachineType, TubeEnabled, false);
+		ResetBeebSystem(MachineType, TubeEnabled, false, false);
 		break;
 
 #ifdef M512COPRO_ENABLED
@@ -3518,7 +3518,7 @@ void BeebWin::HandleCommand(int MenuId)
 		CheckMenuItem(IDM_TORCH, TorchTube);
 		CheckMenuItem(IDM_ACORNZ80, AcornZ80);
 		CheckMenuItem(IDM_ARMCOPRO, ArmCoProTube);
-		ResetBeebSystem(MachineType, TubeEnabled, false);
+		ResetBeebSystem(MachineType, TubeEnabled, false, false);
 		break;
 
 	case IDM_ACORNZ80:
@@ -3537,17 +3537,17 @@ void BeebWin::HandleCommand(int MenuId)
 		CheckMenuItem(IDM_TORCH, TorchTube);
 		CheckMenuItem(IDM_ACORNZ80, AcornZ80);
 		CheckMenuItem(IDM_ARMCOPRO, ArmCoProTube);
-		ResetBeebSystem(MachineType, TubeEnabled, false);
+		ResetBeebSystem(MachineType, TubeEnabled, false, false);
 		break;
 
 	case ID_FILE_RESET:
-		ResetBeebSystem(MachineType, TubeEnabled, false);
+		ResetBeebSystem(MachineType, TubeEnabled, false, true);
 		break;
 
 	case ID_MODELB:
 		if (MachineType != Model::B)
 		{
-			ResetBeebSystem(Model::B, EnableTube, true);
+			ResetBeebSystem(Model::B, EnableTube, true, true);
 			UpdateModelType();
 		}
 		break;
@@ -3555,7 +3555,7 @@ void BeebWin::HandleCommand(int MenuId)
 	case ID_MODELBINT:
 		if (MachineType != Model::IntegraB)
 		{
-			ResetBeebSystem(Model::IntegraB, EnableTube, true);
+			ResetBeebSystem(Model::IntegraB, EnableTube, true, true);
 			UpdateModelType();
 		}
 		break;
@@ -3563,7 +3563,7 @@ void BeebWin::HandleCommand(int MenuId)
 	case ID_MODELBP:
 		if (MachineType != Model::BPlus)
 		{
-			ResetBeebSystem(Model::BPlus, EnableTube, true);
+			ResetBeebSystem(Model::BPlus, EnableTube, true, true);
 			UpdateModelType();
 		}
 		break;
@@ -3571,7 +3571,7 @@ void BeebWin::HandleCommand(int MenuId)
 	case ID_MASTER128:
 		if (MachineType != Model::Master128)
 		{
-			ResetBeebSystem(Model::Master128, EnableTube, true);
+			ResetBeebSystem(Model::Master128, EnableTube, true, true);
 			UpdateModelType();
 		}
 		break;
@@ -4516,7 +4516,7 @@ void BeebWin::HandleCommandLineFile(int drive, const char *CmdLineFile)
 void BeebWin::DoShiftBreak()
 {
 	// Do a shift + break
-	ResetBeebSystem(MachineType, TubeEnabled, false);
+	ResetBeebSystem(MachineType, TubeEnabled, false, false);
 	BeebKeyDown(0, 0); // Shift key
 	m_ShiftBooted = true;
 }

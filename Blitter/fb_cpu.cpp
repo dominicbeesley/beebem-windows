@@ -48,6 +48,7 @@ void fb_cpu::tock() {
 void fb_cpu::init(fb_abs_slave & sla)
 {
 	this->sla = &sla;
+	state = idle;
 }
 
 void fb_cpu::fb_set_ACK(fb_ack ack)

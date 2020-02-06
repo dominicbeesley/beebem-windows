@@ -971,7 +971,7 @@ void BeebWin::LoadEmuUEF(FILE *SUEF, int Version) {
 		TranslateKeyMapping();
 	}
 
-	mainWin->ResetBeebSystem(MachineType, TubeEnabled, true);
+	mainWin->ResetBeebSystem(MachineType, TubeEnabled, true, true);
 	mainWin->UpdateModelType();
 }
 

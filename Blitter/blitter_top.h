@@ -21,6 +21,7 @@
 #include "fb_intcon.h"
 #include "fb_mem_chipram.h"
 #include "fb_jimctrl.h"
+#include "fbsla_memctl.h"
 
 typedef enum blit_SLAVE_NO {
 	SLAVE_NO_JIMCTL,
@@ -46,8 +47,11 @@ public:
 		sys(*this),
 		cpu(*this),
 		jimctl(*this),
+		memctl(*this),
 		intcon(*this, 1, SLAVE_NO__COUNT)
 	{
+		powerReset();
+		reset();
 	};
 
 	virtual void init() override;
@@ -85,7 +89,12 @@ public:
 	bool get_cfg_swram_en() { return true;}
 	bool get_nioice_debug_shadow() { return false; }
 	bool get_swmos_shadow() { return false; }
-	uint8_t get_blturbo() { return 0x00; }
+
+
+	uint8_t get_blturbo() { return reg_blturbo; }
+	void set_blturbo(uint8_t val) { reg_blturbo = val; }
+
+	void powerReset();
 
 protected:
 	virtual void device_reset() override;
@@ -94,12 +103,14 @@ protected:
 	fb_cpu cpu;
 	fb_mem_chipram chipram;
 	fb_jimctrl jimctl;
+	fbsla_memctl memctl;
 
 	fb_intcon intcon;
 
 	uint8_t reg_ROMPG;
 	bool	reg_jimEn;
 	uint16_t reg_jimPage;
+	uint8_t reg_blturbo;
 
 };
 

@@ -192,7 +192,7 @@ public:
 	HWND GethWnd() { return m_hWnd; }
 	
 	void RealizePalette(HDC) {};
-	void ResetBeebSystem(Model NewModelType, bool TubeStatus, bool LoadRoms);
+	void ResetBeebSystem(Model NewModelType, bool TubeStatus, bool LoadRoms, bool powerReset);
 
 	int StartOfFrame(void);
 	bool UpdateTiming();

@@ -73,7 +73,7 @@ extern int CyclesToInt;
 
 /*-------------------------------------------------------------------------*/
 /* Initialise 6502core                                                     */
-void InitSys(void);
+void InitSys(bool powerReset);
 
 /*-------------------------------------------------------------------------*/
 /* Execute one 6502 instruction, move program counter on                   */

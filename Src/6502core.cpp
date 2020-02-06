@@ -176,16 +176,29 @@ void ExecSys2MCycles() {
 
 }
 
-void InitSys() {
-	if (m6502)
-		delete m6502;
+bool blitter_enabled = false;
 
-	if (blitter_enable)
-		m6502 = new blitter_top();
-	else if (MachineType == Model::Master128)
-		m6502 = new m65c02_device();
-	else
-		m6502 = new m6502_device();
+void InitSys(bool powerReset) {
+	if (m6502 == NULL
+		|| (blitter_enable != blitter_enabled)
+		) {
+
+		if (m6502)
+			delete m6502;
+
+		if (blitter_enable)
+			m6502 = new blitter_top();
+		else if (MachineType == Model::Master128)
+			m6502 = new m65c02_device();
+		else
+			m6502 = new m6502_device();
+		blitter_enabled = blitter_enable;
+	}
+	else {
+		if (blitter_enable && powerReset) {
+			((blitter_top *)m6502)->powerReset();
+		}
+	}
 	m6502->start();
 	m6502->reset();
 

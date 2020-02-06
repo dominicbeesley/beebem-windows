@@ -60,7 +60,11 @@ void blitter_top::init()
 
 	intcon.getMas(SLAVE_NO_JIMCTL)->init(jimctl);
 	jimctl.init(*intcon.getMas(SLAVE_NO_JIMCTL));
-	
+
+	intcon.getMas(SLAVE_NO_MEMCTL)->init(memctl);
+	memctl.init(*intcon.getMas(SLAVE_NO_MEMCTL));
+
+
 	intcon.getMas(SLAVE_NO_CHIPRAM)->init(chipram);
 	chipram.init(*intcon.getMas(SLAVE_NO_CHIPRAM));
 
@@ -70,8 +74,6 @@ void blitter_top::init()
 
 	intcon.getSla(0)->init(cpu);
 	cpu.init(*intcon.getSla(0));
-
-	cerr << addr2slaveno(log2phys(0xFFFCFE));
 
 }
 
@@ -99,7 +101,24 @@ bool blitter_top::execute_input_edge_triggered(int inputnum)
 
 void blitter_top::device_reset()
 {
+	reg_jimEn = false;
+	reg_jimPage = 0;
+	reg_ROMPG = 0;
+	
+	cpu.reset();
+
+	sys.reset();
+	memctl.reset();
+	chipram.reset();
+	jimctl.reset();
+
 	intcon.reset();
+
+}
+
+void blitter_top::powerReset() {
+	reg_blturbo = 0;
+
 }
 
 uint32_t blitter_top::log2phys(uint32_t ain) {
@@ -167,7 +186,7 @@ uint32_t blitter_top::log2phys(uint32_t ain) {
 			}
 		}
 		else if (ain16 < 0x8000) {
-			if (get_blturbo() & 1 < ((ain16 & 0x7000) >> 12))
+			if (get_blturbo() & (1 << ((ain16 & 0x7000) >> 12)))
 				return ain16 & 0x7FFF;
 		}
 		else if ((ain16 & 0xFF00) == 0xFD00 && get_JIMEN()) {
