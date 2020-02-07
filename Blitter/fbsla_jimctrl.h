@@ -7,12 +7,12 @@
 
 class blitter_top;
 
-class fb_jimctrl :public fb_abs_slave, fb_abs_tickable
+class fbsla_jimctrl :public fb_abs_slave, fb_abs_resettable
 {
 public:
-	fb_jimctrl(blitter_top& _top) : top(_top) {};
+	fbsla_jimctrl(blitter_top& _top) : top(_top) {};
 
-	enum fb_mem_chipram_state { idle, actrd, actwaitwr, actwr } state;
+	enum fb_mem_chipram_state { idle, actwaitwr } state;
 
 	// Inherited via fb_abs_slave
 	virtual void init(fb_abs_master & mas) override;
@@ -20,9 +20,7 @@ public:
 	virtual void fb_set_A(uint32_t addr, bool we) override;
 	virtual void fb_set_D_wr(uint8_t dat) override;
 
-	// Inherited via fb_abs_tickable
-	virtual void tick(bool sys) override;
-	virtual void tock() override;
+	// Inherited via fb_abs_resettable
 	virtual void reset() override;
 
 protected:
@@ -31,8 +29,6 @@ protected:
 
 	uint32_t addr;
 	bool we;
-	uint8_t D_wr;
-	bool D_wr_pend;
 };
 
 #endif // !_FB_JIMCTRL_H_

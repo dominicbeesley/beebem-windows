@@ -19,8 +19,8 @@
 #include "fb_cpu.h"
 #include "fb_sys.h"
 #include "fb_intcon.h"
-#include "fb_mem_chipram.h"
-#include "fb_jimctrl.h"
+#include "fbsla_mem_chipram.h"
+#include "fbsla_jimctrl.h"
 #include "fbsla_memctl.h"
 
 typedef enum blit_SLAVE_NO {
@@ -101,8 +101,8 @@ protected:
 
 	fb_sys sys;
 	fb_cpu cpu;
-	fb_mem_chipram chipram;
-	fb_jimctrl jimctl;
+	fbsla_mem_chipram chipram;
+	fbsla_jimctrl jimctl;
 	fbsla_memctl memctl;
 
 	fb_intcon intcon;
@@ -111,6 +111,9 @@ protected:
 	bool	reg_jimEn;
 	uint16_t reg_jimPage;
 	uint8_t reg_blturbo;
+
+	void tick_int(bool sys);
+	void tock_int();
 
 };
 

@@ -77,16 +77,28 @@ void blitter_top::init()
 
 }
 
+void blitter_top::tick_int(bool sysCycle) {
+
+	sys.tick(sysCycle);
+	cpu.tick(sysCycle);
+
+}
+
+void blitter_top::tock_int() {
+	cpu.tock();
+	sys.tock();
+}
+
 void blitter_top::tick()
 {
-	intcon.tick(true);
-	intcon.tock();
-	intcon.tick(false);
-	intcon.tock();
-	intcon.tick(false);
-	intcon.tock();
-	intcon.tick(false);
-	intcon.tock();
+	tick_int(true);
+	tock_int();
+	tick_int(false);
+	tock_int();
+	tick_int(false);
+	tock_int();
+	tick_int(false);
+	tock_int();
 }
 
 void blitter_top::execute_set_input(int inputnum, int state)

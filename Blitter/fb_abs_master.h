@@ -22,7 +22,7 @@ The external bus should only
 
 class fb_abs_slave;
 
-class fb_abs_master : public fb_abs_tickable
+class fb_abs_master
 {
 
 public:

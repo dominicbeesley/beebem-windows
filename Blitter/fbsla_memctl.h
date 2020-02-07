@@ -7,19 +7,19 @@
 
 class blitter_top;
 
-class fbsla_memctl : public fb_abs_slave
+class fbsla_memctl : public fb_abs_slave, public fb_abs_resettable
 {
 public:
 	fbsla_memctl(blitter_top& _top);
 	~fbsla_memctl();
 
-	enum fb_mem_chipram_state { idle, actrd, actwaitwr, actwr } state;
+	enum fb_mem_chipram_state { idle, actwaitwr } state;
 
+
+	// Inherited via fb_abs_resettable
+	virtual void reset() override;
 
 	// Inherited via fb_abs_slave
-	virtual void tick(bool sys) override;
-	virtual void tock() override;
-	virtual void reset() override;
 	virtual void init(fb_abs_master & mas) override;
 	virtual void fb_set_cyc(fb_cyc_action cyc) override;
 	virtual void fb_set_A(uint32_t addr, bool we) override;

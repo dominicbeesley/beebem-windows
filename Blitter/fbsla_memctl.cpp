@@ -14,38 +14,6 @@ fbsla_memctl::~fbsla_memctl()
 {
 }
 
-void fbsla_memctl::tick(bool sys)
-{
-	if (mas) {
-		if (state == actwr)
-		{
-			switch (addr & 0x0F)
-			{
-			case 7:
-				top.set_blturbo(D_wr);
-				break;
-			}
-			mas->fb_set_ACK(ack);
-		}
-		else if (state == actrd)
-		{
-			switch (addr & 0x0F)
-			{
-			case 7:
-				mas->fb_set_D_rd(top.get_blturbo());
-				break;
-			}
-			mas->fb_set_ACK(ack);
-		}
-	}
-	else {
-		state = idle;
-	}
-}
-
-void fbsla_memctl::tock()
-{
-}
 
 void fbsla_memctl::reset()
 {
@@ -66,8 +34,16 @@ void fbsla_memctl::fb_set_cyc(fb_cyc_action cyc)
 	else {
 		if (we)
 			state = actwaitwr;
-		else
-			state = actrd;
+		else {
+			switch (addr & 0x0F)
+			{
+			case 7:
+				mas->fb_set_D_rd(top.get_blturbo());
+				break;
+			}
+			mas->fb_set_ACK(ack);
+			state = idle;
+		}
 	}
 
 }
@@ -80,7 +56,15 @@ void fbsla_memctl::fb_set_A(uint32_t addr, bool we)
 
 void fbsla_memctl::fb_set_D_wr(uint8_t dat)
 {
-	D_wr = dat;
 	if (state == actwaitwr)
-		state = actwr;
+	{
+		switch (addr & 0x0F)
+		{
+		case 7:
+			top.set_blturbo(D_wr);
+			break;
+		}
+		mas->fb_set_ACK(ack);
+		state = idle;
+	}
 }

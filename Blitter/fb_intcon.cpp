@@ -51,15 +51,6 @@ void fb_intcon_sla::do_try_connect() {
 	}
 }
 
-void fb_intcon_sla::tick(bool sys)
-{
-	if (mas) mas->tick(sys);
-}
-
-void fb_intcon_sla::tock()
-{
-	if (mas) mas->tock();
-}
 
 void fb_intcon_sla::fb_set_cyc(fb_cyc_action cyc)
 {
@@ -117,45 +108,6 @@ void fb_intcon_mas::fb_set_D_rd(uint8_t dat)
 
 void fb_intcon_mas::reset()
 {
-	crossbar_sla = NULL;
-}
-
-void fb_intcon_mas::tick(bool sys)
-{
-	if (sla) sla->tick(sys);
-}
-
-void fb_intcon_mas::tock()
-{
-	if (sla) sla->tock();
-}
-
-void fb_intcon::tick(bool sys)
-{
-	fb_intcon_sla **p = sla_a;
-	for (int i = 0; i < slaves; i++)
-	{
-		(*(p++))->tick(sys);
-	}
-	fb_intcon_mas **p2 = mas_a;
-	for (int i = 0; i < masters; i++)
-	{
-		(*(p2++))->tick(sys);
-	}
-}
-
-void fb_intcon::tock()
-{
-	fb_intcon_mas **p2 = mas_a;
-	for (int i = 0; i < masters; i++)
-	{
-		(*(p2++))->tock();
-	}
-	fb_intcon_sla **p = sla_a;
-	for (int i = 0; i < slaves; i++)
-	{
-		(*(p++))->tock();
-	}
 }
 
 void fb_intcon::reset()

@@ -8,7 +8,7 @@
 
 class fb_abs_master;
 
-class fb_abs_slave : public fb_abs_tickable
+class fb_abs_slave
 {
 public:
 	virtual void init(fb_abs_master &mas) = 0;

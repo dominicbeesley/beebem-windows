@@ -15,7 +15,7 @@ class blitter_top;
 class fb_intcon;
 class fb_intcon_mas;
 
-class fb_intcon_sla : public fb_abs_slave {
+class fb_intcon_sla : public fb_abs_slave, public fb_abs_resettable {
 public:
 	fb_intcon_sla(fb_intcon& _intcon) :
 		intcon(_intcon), mas(0)  {
@@ -27,9 +27,9 @@ public:
 	virtual void fb_set_cyc(fb_cyc_action cyc) override;
 	virtual void fb_set_A(uint32_t addr, bool we) override;
 	virtual void fb_set_D_wr(uint8_t dat) override;
-	virtual void tick(bool sys) override;
-	virtual void tock() override;
-	virtual void reset();
+
+	// Inherited via fb_abs_resettable
+	virtual void reset() override;
 
 	friend class fb_intcon_mas;
 	friend class fb_intcon;
@@ -52,9 +52,11 @@ private:
 	void do_discon();
 	void do_try_connect();
 
+
+
 };
 
-class fb_intcon_mas : public fb_abs_master {
+class fb_intcon_mas : public fb_abs_master, public fb_abs_resettable {
 public:
 	fb_intcon_mas(fb_intcon& _intcon) :
 		intcon(_intcon), sla(0) 
@@ -65,8 +67,8 @@ public:
 	virtual void init(fb_abs_slave & _sla) override;
 	virtual void fb_set_ACK(fb_ack ack) override;
 	virtual void fb_set_D_rd(uint8_t dat) override;
-	virtual void tick(bool sys) override;
-	virtual void tock() override;
+
+	// Inherited via fb_abs_resettable
 	virtual void reset() override;
 
 	friend class fb_intcon_sla;
@@ -81,7 +83,7 @@ private:
 	fb_intcon_sla* crossbar_sla;
 };
 
-class fb_intcon : public fb_abs_tickable {
+class fb_intcon : public fb_abs_resettable {
 
 public:
 	fb_intcon(blitter_top& _top, int _slaves, int _masters) :
@@ -112,11 +114,6 @@ public:
 
 	friend class fb_intcon_mas;
 	friend class fb_intcon_sla;
-
-	// Inherited via fb_abs_tickable
-	virtual void tick(bool sys) override;
-
-	virtual void tock() override;
 
 	virtual void reset() override;
 
