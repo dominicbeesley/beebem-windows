@@ -23,9 +23,7 @@ void fb_cpu::tick(bool sys)
 		state = idle;
 		sla->fb_set_cyc(stop);
 	}
-}
 
-void fb_cpu::tock() {
 	if (state == idle)
 	{
 		bool rnw = cpu.getRNW();
@@ -42,6 +40,7 @@ void fb_cpu::tock() {
 				sla->fb_set_D_wr(cpu.getDATA());
 		}
 	}
+
 }
 
 

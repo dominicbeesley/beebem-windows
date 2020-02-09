@@ -56,7 +56,8 @@ blit_SLAVE_NO blitter_top::addr2slaveno(uint32_t addr) {
 
 void blitter_top::init()
 {
-	cpu.init(sys);
+
+
 
 	intcon.getMas(SLAVE_NO_JIMCTL)->init(jimctl);
 	jimctl.init(*intcon.getMas(SLAVE_NO_JIMCTL));
@@ -64,16 +65,20 @@ void blitter_top::init()
 	intcon.getMas(SLAVE_NO_MEMCTL)->init(memctl);
 	memctl.init(*intcon.getMas(SLAVE_NO_MEMCTL));
 
-
 	intcon.getMas(SLAVE_NO_CHIPRAM)->init(chipram);
 	chipram.init(*intcon.getMas(SLAVE_NO_CHIPRAM));
 
 	intcon.getMas(SLAVE_NO_SYS)->init(sys);
 	sys.init(*intcon.getMas(SLAVE_NO_SYS));
 
+	intcon.getMas(SLAVE_NO_SOUND)->init(paula.getSlave());
+	paula.getSlave().init(*intcon.getMas(SLAVE_NO_SOUND));
 
-	intcon.getSla(0)->init(cpu);
-	cpu.init(*intcon.getSla(0));
+	intcon.getSla(MAS_NO_PAULA)->init(paula.getMaster());
+	paula.getMaster().init(*intcon.getSla(MAS_NO_PAULA));
+
+	intcon.getSla(MAS_NO_CPU)->init(cpu);
+	cpu.init(*intcon.getSla(MAS_NO_CPU));
 
 }
 
@@ -84,21 +89,12 @@ void blitter_top::tick_int(bool sysCycle) {
 
 }
 
-void blitter_top::tock_int() {
-	cpu.tock();
-	sys.tock();
-}
-
 void blitter_top::tick()
 {
 	tick_int(true);
-	tock_int();
 	tick_int(false);
-	tock_int();
 	tick_int(false);
-	tock_int();
 	tick_int(false);
-	tock_int();
 }
 
 void blitter_top::execute_set_input(int inputnum, int state)

@@ -77,50 +77,37 @@ void fb_sys::tick(bool sys)
 		}
 	}
 
-	sys_tock = sys;
-	sys_tick_dly = sys;
-}
-
-void fb_sys::tock() {
-
-	if (!mas)
-		return;
-	if (sys_tock_dly)
-	{
-		if (state == idle && cyc_pend) {
-			top.ADDR = addr;
-			top.RNW = !we;
-			if (we) {
-				if (d_wr_pend) {
-					if ((addr & 0x00FFFFFF) == 0xFFFE30)
-					{
-						top.set_ROMPG(d_wr);
-						top.setDATA(d_wr | 0x08);			//NOTE: different to hardware! 
-					}
-					else {
-						top.setDATA(d_wr);
-					}
-					state = act_wr_gotdata;
-					mas->fb_set_ACK(ack);
-				} else {
-					state = act_wr;
+	if (state == idle && cyc_pend) {
+		top.ADDR = addr;
+		top.RNW = !we;
+		if (we) {
+			if (d_wr_pend) {
+				if ((addr & 0x00FFFFFF) == 0xFFFE30)
+				{
+					top.set_ROMPG(d_wr);
+					top.setDATA(d_wr | 0x08);			//NOTE: different to hardware! 
 				}
+				else {
+					top.setDATA(d_wr);
+				}
+				state = act_wr_gotdata;
+				mas->fb_set_ACK(ack);
+			} else {
+				state = act_wr;
 			}
-			else {
-				state = act_rd;
-			}
+		}
+		else {
+			state = act_rd;
 		}
 	}
 
-
-	sys_tock_dly = sys_tock;
 }
 
 void fb_sys::reset()
 {
-	state = idle;
-	sys_tock_dly = false;
-	sys_tick_dly = false;
+@sr	state = idle;
 	we = false;
 	addr = 0;
+	cyc_pend = 0;
+	d_wr_pend = 0;
 }

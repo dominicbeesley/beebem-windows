@@ -63,6 +63,9 @@
     <ClInclude Include="fbsla_mem_chipram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="fb_paula.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -102,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="fbsla_mem_chipram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fb_paula.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

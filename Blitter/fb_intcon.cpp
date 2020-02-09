@@ -108,6 +108,7 @@ void fb_intcon_mas::fb_set_D_rd(uint8_t dat)
 
 void fb_intcon_mas::reset()
 {
+	crossbar_sla = NULL;
 }
 
 void fb_intcon::reset()

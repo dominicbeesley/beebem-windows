@@ -9,8 +9,6 @@ class fb_abs_tickable : public fb_abs_resettable
 public:
 	//called at the end of each cycle, sys indicates this is aligned with 2/1 MHz BBC cycle
 	virtual void tick(bool sys) = 0;
-	//called at the start of each cycle
-	virtual void tock() = 0;
 };
 
 

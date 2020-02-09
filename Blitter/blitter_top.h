@@ -22,6 +22,7 @@
 #include "fbsla_mem_chipram.h"
 #include "fbsla_jimctrl.h"
 #include "fbsla_memctl.h"
+#include "fb_paula.h"
 
 typedef enum blit_SLAVE_NO {
 	SLAVE_NO_JIMCTL,
@@ -37,6 +38,11 @@ typedef enum blit_SLAVE_NO {
 	SLAVE_NO__COUNT
 } blit_SLAVE_NO;
 
+typedef enum blit_MAS_NO {
+	MAS_NO_CPU,
+	MAS_NO_PAULA,
+	MAS_NO_COUNT
+};
 
 
 class blitter_top : public m65x_device {
@@ -48,7 +54,7 @@ public:
 		cpu(*this),
 		jimctl(*this),
 		memctl(*this),
-		intcon(*this, 1, SLAVE_NO__COUNT)
+		intcon(*this, MAS_NO_COUNT, SLAVE_NO__COUNT)
 	{
 		powerReset();
 		reset();
@@ -104,6 +110,7 @@ protected:
 	fbsla_mem_chipram chipram;
 	fbsla_jimctrl jimctl;
 	fbsla_memctl memctl;
+	fb_paula paula;
 
 	fb_intcon intcon;
 

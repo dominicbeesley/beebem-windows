@@ -20,7 +20,6 @@ public:
 
 	virtual void reset() override;
 	virtual void tick(bool sys) override;
-	virtual void tock() override;
 	virtual void init(fb_abs_slave & sla) override;
 	virtual void fb_set_ACK(fb_ack ack) override;
 	virtual void fb_set_D_rd(uint8_t dat) override;

@@ -61,7 +61,7 @@ void fbsla_memctl::fb_set_D_wr(uint8_t dat)
 		switch (addr & 0x0F)
 		{
 		case 7:
-			top.set_blturbo(D_wr);
+			top.set_blturbo(dat);
 			break;
 		}
 		mas->fb_set_ACK(ack);
