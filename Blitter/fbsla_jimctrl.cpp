@@ -17,7 +17,7 @@ void fbsla_jimctrl::fb_set_cyc(fb_cyc_action cyc)
 	else {
 		if (we)
 			state = actwaitwr;
-		else
+		else if (mas)
 		{
 			if ((addr & 0x0F) == 0x0E)
 				mas->fb_set_D_rd(top.get_JIMPAGE_L());

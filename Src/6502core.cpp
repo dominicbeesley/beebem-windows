@@ -187,7 +187,7 @@ void InitSys(bool powerReset) {
 			delete m6502;
 
 		if (blitter_enable)
-			m6502 = new blitter_top();
+			m6502 = new blitter_top(&SoundVolume);
 		else if (MachineType == Model::Master128)
 			m6502 = new m65c02_device();
 		else

@@ -100,13 +100,13 @@ public:
 	}
 	   
 	fb_intcon_mas* getMas(int index) { 
-		if (index < 0 | index >= masters)
+		if (index < 0 || index >= masters)
 			throw std::out_of_range("out of range");
 		else
 			return mas_a[index]; 
 	};
 	fb_intcon_sla* getSla(int index) {
-		if (index < 0 | index >= slaves)
+		if (index < 0 || index >= slaves)
 			throw std::out_of_range("out of range");
 		else
 			return sla_a[index];

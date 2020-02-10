@@ -42,19 +42,20 @@ typedef enum blit_MAS_NO {
 	MAS_NO_CPU,
 	MAS_NO_PAULA,
 	MAS_NO_COUNT
-};
+} blit_MAS_NO;
 
 
 class blitter_top : public m65x_device {
 public:
 
-	blitter_top(void) :
+	blitter_top(int *_soundVolumePtr) :
 		m65x_device(),
 		sys(*this),
 		cpu(*this),
 		jimctl(*this),
 		memctl(*this),
-		intcon(*this, MAS_NO_COUNT, SLAVE_NO__COUNT)
+		intcon(*this, MAS_NO_COUNT, SLAVE_NO__COUNT),
+		paula(_soundVolumePtr)
 	{
 		powerReset();
 		reset();

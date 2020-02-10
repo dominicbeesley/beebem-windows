@@ -105,7 +105,7 @@ void fb_sys::tick(bool sys)
 
 void fb_sys::reset()
 {
-@sr	state = idle;
+	state = idle;
 	we = false;
 	addr = 0;
 	cyc_pend = 0;

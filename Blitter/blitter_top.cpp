@@ -80,13 +80,15 @@ void blitter_top::init()
 	intcon.getSla(MAS_NO_CPU)->init(cpu);
 	cpu.init(*intcon.getSla(MAS_NO_CPU));
 
+	paula.init();
+
 }
 
 void blitter_top::tick_int(bool sysCycle) {
 
 	sys.tick(sysCycle);
 	cpu.tick(sysCycle);
-
+	paula.tick(sysCycle);
 }
 
 void blitter_top::tick()
@@ -119,6 +121,7 @@ void blitter_top::device_reset()
 	memctl.reset();
 	chipram.reset();
 	jimctl.reset();
+	paula.reset();
 
 	intcon.reset();
 

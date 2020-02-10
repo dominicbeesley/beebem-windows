@@ -105,7 +105,7 @@ protected:
 
 
 	// inline helpers
-	bool page_changing(uint16_t base, int delta) { return ((base + delta) ^ base) & 0xff00; }
+	bool page_changing(uint16_t base, int delta) { return (((base + delta) ^ base) & 0xff00) != 0; }
 	uint16_t set_l(uint16_t base, uint8_t val) { return (base & 0xff00) | val; }
 	uint16_t set_h(uint16_t base, uint8_t val) { return (base & 0x00ff) | (val << 8); }
 

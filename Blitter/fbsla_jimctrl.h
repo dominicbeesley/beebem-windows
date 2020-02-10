@@ -12,7 +12,6 @@ class fbsla_jimctrl :public fb_abs_slave, fb_abs_resettable
 public:
 	fbsla_jimctrl(blitter_top& _top) : top(_top) {};
 
-	enum fb_mem_chipram_state { idle, actwaitwr } state;
 
 	// Inherited via fb_abs_slave
 	virtual void init(fb_abs_master & mas) override;
@@ -27,6 +26,7 @@ protected:
 	blitter_top& top;
 	fb_abs_master* mas;
 
+	enum fb_mem_chipram_state { idle, actwaitwr } state;
 	uint32_t addr;
 	bool we;
 };
