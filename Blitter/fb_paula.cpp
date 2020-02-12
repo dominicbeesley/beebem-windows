@@ -38,6 +38,75 @@ void fb_paula::tick(bool sys)
 {
 
 
+	//do this once every 3.5MhZ
+	paula_clock_acc += PAULA_PCLK_A;
+	while (paula_clock_acc > PAULA_PCLK_LIM)
+	{
+		paula_clock_acc -= PAULA_PCLK_LIM;
+
+		for (int i = 0; i < NUM_CHANNELS; i++)
+		{
+			paula_CHANNELREGS *curchan = &ChannelRegs[i];
+
+			if (!curchan->act) {
+				curchan->samper_ctr = 0;
+				curchan->clken_sam_next = 0;
+			}
+			else {
+				if (!curchan->act_prev)
+				{
+					curchan->clken_sam_next = true;
+					curchan->samper_ctr = curchan->period;
+				}
+				else if (curchan->samper_ctr == 0)
+				{
+					curchan->clken_sam_next = true;
+					curchan->samper_ctr = curchan->period;
+					curchan->data = curchan->data_next;
+				}
+				else
+					curchan->samper_ctr--;
+			}
+
+			curchan->act_prev = curchan->act;
+		}
+
+	}
+
+
+	//this is a very rough approximation of what really happens in terms of prioritisation
+	//but should be close enough - normally data accesses that clash will be queued up
+	//by intcon and could take many 8M cycles but here we just always deliver the data!
+	for (int i = 0; i < NUM_CHANNELS; i++)
+	{
+		paula_CHANNELREGS *curchan = &ChannelRegs[i];
+
+		if (curchan->clken_sam_next)
+		{
+			int addr = (((int)curchan->addr_bank) << 16) + (int)curchan->addr + (int)curchan->sam_ctr;
+			if (mas.getByte(addr, i))
+				curchan->clken_sam_next = false;
+
+			if (curchan->sam_ctr == curchan->len)
+			{
+				if (curchan->repeat)
+				{
+					curchan->sam_ctr = curchan->repoff;
+				}
+				else
+				{
+					curchan->act = false;
+					curchan->sam_ctr = 0;
+				}
+			}
+			else
+			{
+				curchan->sam_ctr++;
+			}
+
+			break;
+		}
+	}
 
 	/************************ stream out sound data from channels ***************************/
 	sample_clock_acc++;
@@ -102,6 +171,11 @@ void fb_paula::init() {
 	}
 
 	reset();
+}
+
+void fb_paula::gotByte(uint8_t channel, int8_t dat)
+{
+	ChannelRegs[channel].data_next = dat;
 }
 
 void fb_paula::write_regs(uint8_t addr, uint8_t dat)
@@ -264,16 +338,47 @@ void fb_paula_sla::reset()
 
 void fb_paula_mas::init(fb_abs_slave & sla)
 {
+	this->sla = &sla;
+	reset();
 }
 
 void fb_paula_mas::fb_set_ACK(fb_ack ack)
 {
+	state = idle;
+	if (sla)
+		sla->fb_set_cyc(stop);
 }
 
 void fb_paula_mas::fb_set_D_rd(uint8_t dat)
 {
+	if (state == act) {
+		paula.gotByte(cur_chan, dat);
+		if (sla)
+			sla->fb_set_cyc(stop);
+		state = idle;
+	}
 }
 
 void fb_paula_mas::reset()
 {
+	state = idle;
+}
+
+bool fb_paula_mas::getByte(uint32_t addr, uint8_t channel)
+{
+	if (state == idle) {
+		if (sla) {
+			cur_addr = addr;
+			cur_chan = channel;
+			state = act;
+			sla->fb_set_A(addr, 0);
+			sla->fb_set_cyc(start);
+		}
+		else {
+			paula.gotByte(channel, 0);
+		}
+		return true;
+	}
+
+	return false;
 }

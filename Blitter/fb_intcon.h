@@ -75,7 +75,7 @@ public:
 	friend class fb_intcon;
 
 protected:
-
+	void do_discon();
 private:
 	fb_intcon& intcon;
 	fb_abs_slave* sla;
@@ -120,6 +120,8 @@ public:
 
 protected:
 	blitter_top& top;
+
+	void do_pending(fb_intcon_mas *released_mas);
 
 private:
 	int masters, slaves;

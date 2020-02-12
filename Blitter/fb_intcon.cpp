@@ -12,7 +12,8 @@ void fb_intcon_sla::do_discon() {
 		crossbar_connected = false;
 		if (crossbar_mas->sla)
 			crossbar_mas->sla->fb_set_cyc(stop);
-		crossbar_mas->crossbar_sla = NULL;
+		crossbar_mas->do_discon();
+		crossbar_mas = NULL;
 	}
 	crossbar_connected = false;
 }
@@ -111,6 +112,14 @@ void fb_intcon_mas::reset()
 	crossbar_sla = NULL;
 }
 
+void fb_intcon_mas::do_discon()
+{
+	crossbar_sla = NULL;
+
+	intcon.do_pending(this);
+
+}
+
 void fb_intcon::reset()
 {
 	for (int i = 0; i < masters; i++)
@@ -121,4 +130,23 @@ void fb_intcon::reset()
 	{
 		sla_a[i]->reset();
 	}
+}
+
+void fb_intcon::do_pending(fb_intcon_mas *released_mas)
+{
+	/* check for pending */
+	for (int i = 0; i < slaves; i++) {
+		if (sla_a[i]->crossbar_pend && sla_a[i]->crossbar_mas == released_mas)
+		{
+			sla_a[i]->crossbar_pend = false;
+			sla_a[i]->crossbar_connected = true;
+			sla_a[i]->crossbar_mas->crossbar_sla = sla_a[i];
+			sla_a[i]->crossbar_mas->sla->fb_set_A(sla_a[i]->crossbar_addr, sla_a[i]->crossbar_we);
+			sla_a[i]->crossbar_mas->sla->fb_set_cyc(start);
+			if (sla_a[i]->crossbar_d_wr_pend)
+				sla_a[i]->crossbar_mas->sla->fb_set_D_wr(sla_a[i]->crossbar_d_wr);
+		}
+	}
+
+
 }

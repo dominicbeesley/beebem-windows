@@ -97,10 +97,21 @@ public:
 	// Inherited via fb_abs_resettable
 	virtual void reset() override;
 
+	friend fb_paula;
+
+protected:
+
+	enum fb_paula_mas_state {idle, act} state;
+
+	bool getByte(uint32_t addr, uint8_t channel);
+
 private:
 	fb_paula& paula;
-	fb_abs_master* sla;
+	fb_abs_slave* sla;
 	// connected slave
+
+	uint32_t cur_addr;
+	uint8_t cur_chan;
 };
 
 class fb_paula : public fb_abs_tickable
@@ -120,6 +131,8 @@ public:
 	friend fb_paula_mas;
 	friend fb_paula_sla;
 
+protected:
+	void gotByte(uint8_t channel, int8_t dat);
 
 private:
 	fb_paula_sla sla;
