@@ -28,6 +28,8 @@ void fb_paula::reset()
 
 		ChannelRegs[i].repoff = 0;
 
+		ChannelRegs[i].clken_sam_next = false;
+
 	}
 	sla.reset();
 	mas.reset();
