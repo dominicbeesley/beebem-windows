@@ -27,7 +27,8 @@ public:
 	enum {
 		IRQ_LINE = INPUT_LINE_IRQ0,
 		NMI_LINE = INPUT_LINE_NMI,
-		V_LINE = INPUT_LINE_IRQ0 + 16
+		HALT_LINE = INPUT_LINE_HALT,
+		V_LINE = INPUT_LINE_V
 	};
 
 	bool get_sync() const { return sync; }

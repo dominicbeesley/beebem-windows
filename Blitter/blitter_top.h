@@ -46,7 +46,9 @@ typedef enum blit_MAS_NO {
 	MAS_NO_COUNT
 } blit_MAS_NO;
 
+//level no's used for irq / nmis
 typedef enum {
+	compno_SYS,
 	compno_DMA,
 	compno_COUNT
 } compno_t;
@@ -114,13 +116,16 @@ public:
 
 	void powerReset();
 
+	void setIRQ(int levelno, bool assert);
+	void setNMI(int levelno, bool assert);
+	void setHALT(int levelno, bool assert);
+
 protected:
 	virtual void device_reset() override;
 
-	struct {
-		bool irq;
-		bool halt;
-	} comp_interrupts[compno_COUNT];
+	uint32_t bits_halt; //the opposite of RDY
+	uint32_t bits_irq; 
+	uint32_t bits_nmi;
 
 	fb_sys sys;
 	fb_cpu cpu;

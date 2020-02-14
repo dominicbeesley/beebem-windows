@@ -110,7 +110,18 @@ void blitter_top::tick()
 
 void blitter_top::execute_set_input(int inputnum, int state)
 {
-	// we only allow irq here - TODO: rdy, SO?
+	
+	switch (inputnum) {
+	case IRQ_LINE:
+		setIRQ(compno_SYS, state == ASSERT_LINE);
+		break;
+	case HALT_LINE:
+		setHALT(compno_SYS, state == ASSERT_LINE);
+		break;
+	case NMI_LINE:
+		setNMI(compno_SYS, state == ASSERT_LINE);
+		break;
+	}
 
 	cpu.execute_set_input(inputnum, state);
 }
@@ -120,6 +131,10 @@ void blitter_top::device_reset()
 	reg_jimEn = false;
 	reg_jimPage = 0;
 	reg_ROMPG = 0;
+
+	bits_halt = 0;
+	bits_irq = 0;
+	bits_nmi = 0;
 	
 	cpu.reset();
 
@@ -137,6 +152,36 @@ void blitter_top::device_reset()
 void blitter_top::powerReset() {
 	reg_blturbo = 0;
 
+}
+
+void blitter_top::setIRQ(int levelno, bool assert)
+{
+	if (assert)
+		bits_irq |= 1 << levelno;
+	else
+		bits_irq &= ~(1 << levelno);
+
+	cpu.execute_set_input(IRQ_LINE, (bits_irq != 0) ? ASSERT_LINE : CLEAR_LINE);
+}
+
+void blitter_top::setNMI(int levelno, bool assert)
+{
+	if (assert)
+		bits_nmi |= 1 << levelno;
+	else
+		bits_nmi &= ~(1 << levelno);
+
+	cpu.execute_set_input(NMI_LINE, (bits_nmi != 0) ? ASSERT_LINE : CLEAR_LINE);
+}
+
+void blitter_top::setHALT(int levelno, bool assert)
+{
+	if (assert)
+		bits_halt |= 1 << levelno;
+	else
+		bits_halt &= ~(1 << levelno);
+
+	cpu.execute_set_input(HALT_LINE, (bits_halt != 0) ? ASSERT_LINE : CLEAR_LINE);
 }
 
 uint32_t blitter_top::log2phys(uint32_t ain) {

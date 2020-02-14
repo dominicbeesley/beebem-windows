@@ -1,18 +1,2 @@
-﻿  wave8580__ST.cc
-  wave8580_P_T.cc
-  wave8580_PS_.cc
-  wave8580_PST.cc
-  wave6581__ST.cc
-  wave6581_P_T.cc
-  wave6581_PS_.cc
-  wave6581_PST.cc
-  wave.cc
-  voice.cc
-  version.cc
-  sid.cc
-  pot.cc
-  filter.cc
-  extfilt.cc
-  envelope.cc
-  Generating Code...
+﻿  sid.cc
   reSID.vcxproj -> D:\Users\Dominic\Documents\GitHub\beebem-windows\Src\Debug\reSID.lib
