@@ -38,8 +38,6 @@ public:
 	
 
 
-
-
 	m65x_device(void) : cpu_device(),
 		//sync_w(*this),
 		DAT(0),

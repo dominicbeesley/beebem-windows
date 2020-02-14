@@ -127,7 +127,7 @@ unsigned char Read1770Register(unsigned char Register) {
 	if ((FDCommand<6) && (FDCommand!=0)) Status^=2; // Fool anything reading the
 	// Index pulse signal by alternating it on each read.
 	if (Register==0) {
-		SysNMIStatus &= ~(1<<SysNmi_floppy);
+		setNMI(SysNmi_floppy,false);
 		return(Status);
 	}
 
@@ -143,7 +143,7 @@ unsigned char Read1770Register(unsigned char Register) {
 	else if (Register == 3) {
 		if (FDCommand>5) 
 		{
-			ResetStatus(1); SysNMIStatus &= ~(1<<SysNmi_floppy); 
+			ResetStatus(1); setNMI(SysNmi_floppy,false); 
 		}
 		return(Data);
 	}
@@ -180,7 +180,7 @@ void Write1770Register(unsigned char Register, unsigned char Value) {
 	//fprintf(fdclog,"Write of %02X to Register %d\n",Value, Register);
 	// Write 1770 Register - NOT the FDC Control register @ &FE24
 	if (Register==0) {
-		SysNMIStatus &= ~(1<<SysNmi_floppy); // reset INTRQ
+		setNMI(SysNmi_floppy,false); // reset INTRQ
 		// Control Register - can only write if current drive is open
 		// Changed, now command returns errors if no disc inserted
 		ComBits=Value & 0xf0;
@@ -258,7 +258,7 @@ void Write1770Register(unsigned char Register, unsigned char Value) {
 			NFDCommand=0; // just in case
 			Data=0; // If this isn't done, the stupid Opus DDOS tries to use the last 
 			// byte of the last sector read in as a Track number for a seek command.
-			if ((Value & 0xf)) SysNMIStatus|=1<<SysNmi_floppy;
+			if ((Value & 0xf)) setNMI(SysNmi_floppy,true);
 		}
 		if (ComBits==0xc0) {
 			// Read Address - Type 3 Command
@@ -304,7 +304,7 @@ void Write1770Register(unsigned char Register, unsigned char Value) {
 	}
 	else if (Register == 3) {
 		Data=Value;
-		if (FDCommand>5) { ResetStatus(1); SysNMIStatus &= ~(1<<SysNmi_floppy); }
+		if (FDCommand>5) { ResetStatus(1); setNMI(SysNmi_floppy,false); }
 	}
 }
 
@@ -326,7 +326,7 @@ void Poll1770(int NCycles) {
       // Single sided disk, disc not ready
       ResetStatus(0);
       SetStatus(4);
-      SysNMIStatus|=1<<SysNmi_floppy; FDCommand=12;
+      setNMI(SysNmi_floppy,true); FDCommand=12;
       return;
     }
 
@@ -367,7 +367,7 @@ void Poll1770(int NCycles) {
 			StopSoundSample(SAMPLE_HEAD_SEEK);
 			LoadingCycles=SPIN_DOWN_TIME;
 			FDCommand=12;
-			SysNMIStatus|=1<<SysNmi_floppy; 
+			setNMI(SysNmi_floppy,true); 
 			if (InvertTR00) { if (Track!=0) ResetStatus(2); else SetStatus(2); }
 			else { if (Track==0) ResetStatus(2); else SetStatus(2); }
 			ResetStatus(5); ResetStatus(0);
@@ -378,7 +378,7 @@ void Poll1770(int NCycles) {
 		// Disc not ready, return seek error;
 		ResetStatus(0);
 		SetStatus(4);
-		SysNMIStatus|=1<<SysNmi_floppy; FDCommand=12;
+		setNMI(SysNmi_floppy,true); FDCommand=12;
 		return;
 	}
 	if (FDCommand==6) { // Read
@@ -393,9 +393,9 @@ void Poll1770(int NCycles) {
 			// If reading multiple sectors, and ByteCount== :-
 			// 256..2: read + DRQ (255x)
 			//      1: read + DRQ + rotate disc + go back to 256
-			if (ByteCount > 0 && !feof(CurrentDisc)) { Data = fgetc(CurrentDisc); SetStatus(1); SysNMIStatus |= 1 << SysNmi_floppy; } // DRQ
+			if (ByteCount > 0 && !feof(CurrentDisc)) { Data = fgetc(CurrentDisc); SetStatus(1); setNMI(SysNmi_floppy,true); } // DRQ
 			if (ByteCount == 0 || (ByteCount == 1 && MultiSect)) RotSect++; if (RotSect > MaxSects[CurrentDrive]) RotSect = 0;
-			if (ByteCount == 0 && !MultiSect) { ResetStatus(0); SysNMIStatus |= 1 << SysNmi_floppy; fseek(CurrentDisc, HeadPos[CurrentDrive], SEEK_SET); FDCommand = 10; ResetStatus(1); } // End of sector
+			if (ByteCount == 0 && !MultiSect) { ResetStatus(0); setNMI(SysNmi_floppy,true); fseek(CurrentDisc, HeadPos[CurrentDrive], SEEK_SET); FDCommand = 10; ResetStatus(1); } // End of sector
 			if (ByteCount == 1 && MultiSect) {
 				ByteCount = SecSize[CurrentDrive] + 1; Sector++;
 				if (Sector == MaxSects[CurrentDrive]) { MultiSect = false; /* Sector = 0; */ }
@@ -424,9 +424,9 @@ void Poll1770(int NCycles) {
 			// 256..2: write + next DRQ (255x)
 			//      1: write + next DRQ + rotate disc + go back to 256
 			fputc(Data,CurrentDisc);
-			if (ByteCount > 1 || MultiSect) { SetStatus(1); SysNMIStatus |= 1 << SysNmi_floppy; } // DRQ
+			if (ByteCount > 1 || MultiSect) { SetStatus(1); setNMI(SysNmi_floppy,true); } // DRQ
 			if (ByteCount <= 1) RotSect++; if (RotSect > MaxSects[CurrentDrive]) RotSect = 0;
-			if (ByteCount <= 1 && !MultiSect) { ResetStatus(0); SysNMIStatus |= 1 << SysNmi_floppy; fseek(CurrentDisc, HeadPos[CurrentDrive], SEEK_SET); FDCommand = 10; ResetStatus(1); }
+			if (ByteCount <= 1 && !MultiSect) { ResetStatus(0); setNMI(SysNmi_floppy,true); fseek(CurrentDisc, HeadPos[CurrentDrive], SEEK_SET); FDCommand = 10; ResetStatus(1); }
 			if (ByteCount <= 1 && MultiSect) {
 				ByteCount = SecSize[CurrentDrive] + 1; Sector++;
 				if (Sector == MaxSects[CurrentDrive]) { MultiSect = false; /* Sector = 0; */ }
@@ -438,7 +438,7 @@ void Poll1770(int NCycles) {
 	if (FDCommand == 7 && !DWriteable[CurrentDrive]) {
  //		ResetStatus(0);
 		SetStatus(6);
-		SysNMIStatus|=1<<SysNmi_floppy; 
+		setNMI(SysNmi_floppy,true); 
         FDCommand=0;
 	}
 	if ((FDCommand>=8) && (*CDiscOpen==1) && (FDCommand<=10)) { // Read/Write Prepare
@@ -451,10 +451,10 @@ void Poll1770(int NCycles) {
 	if ((FDCommand>=8) && (*CDiscOpen==0) && (FDCommand<=9)) {
 		ResetStatus(0);
 		SetStatus(4);
-		SysNMIStatus|=1<<SysNmi_floppy; FDCommand=0;
+		setNMI(SysNmi_floppy,true); FDCommand=0;
 	}
 	if ((FDCommand==8) && (*CDiscOpen==1)) FDCommand=6;
-	if ((FDCommand==9) && (*CDiscOpen==1)) { FDCommand=7; SetStatus(1); SysNMIStatus|=1<<SysNmi_floppy; }
+	if ((FDCommand==9) && (*CDiscOpen==1)) { FDCommand=7; SetStatus(1); setNMI(SysNmi_floppy,true); }
   }
   
 // Not implemented Read Track yet, perhaps don't really need it
@@ -488,7 +488,7 @@ void Poll1770(int NCycles) {
 			ResetStatus(4); ResetStatus(5); ResetStatus(3); ResetStatus(2); 
 
             SetStatus(1);
-            SysNMIStatus|=1<<SysNmi_floppy; // DRQ
+            setNMI(SysNmi_floppy,true); // DRQ
 
             switch (FormatState)
             {
@@ -556,7 +556,7 @@ void Poll1770(int NCycles) {
     				if (Sector>MaxSects[CurrentDrive]) 
                     {
                         ResetStatus(0);
-                        SysNMIStatus|=1<<SysNmi_floppy;
+                        setNMI(SysNmi_floppy,true);
                         fseek(CurrentDisc,HeadPos[CurrentDrive],SEEK_SET);
                         FDCommand=10; 
                         ResetStatus(1);
@@ -578,7 +578,7 @@ void Poll1770(int NCycles) {
 	if (FDCommand == 23 && !DWriteable[CurrentDrive]) {
 		// WriteLog(tlog, "Disc Write Protected\n");
 		SetStatus(6);
-		SysNMIStatus|=1<<SysNmi_floppy; 
+		setNMI(SysNmi_floppy,true); 
 		FDCommand = 0;
 	}
 
@@ -596,11 +596,11 @@ void Poll1770(int NCycles) {
 		// WriteLog("ResetStatus(0) Here 8\n");
 		ResetStatus(0);
 		SetStatus(4);
-		SysNMIStatus|=1<<SysNmi_floppy; FDCommand=0;
+		setNMI(SysNmi_floppy,true); FDCommand=0;
 	}
 
 	if ((FDCommand==20) && (*CDiscOpen==1)) FDCommand=22;
-	if ((FDCommand==21) && (*CDiscOpen==1)) { FDCommand=23; FormatState = 0; SetStatus(1); SysNMIStatus|=1<<SysNmi_floppy; }
+	if ((FDCommand==21) && (*CDiscOpen==1)) { FDCommand=23; FormatState = 0; SetStatus(1); setNMI(SysNmi_floppy,true); }
   
   if (FDCommand==10) {
 	ResetStatus(0);
@@ -614,7 +614,7 @@ void Poll1770(int NCycles) {
 		if ((Track==0) && (InvertTR00)) SetStatus(2); else ResetStatus(2);
 		if ((Track==0) && (!InvertTR00)) ResetStatus(2); else SetStatus(2);
 	}
-	SysNMIStatus|=1<<SysNmi_floppy; FDCommand=12; LoadingCycles=SPIN_DOWN_TIME; // Spin-down delay
+	setNMI(SysNmi_floppy,true); FDCommand=12; LoadingCycles=SPIN_DOWN_TIME; // Spin-down delay
 	return;
   }
   if (FDCommand==11) {
@@ -674,7 +674,7 @@ void Poll1770(int NCycles) {
         
       SetStatus(1); 
 	  ByteCount--;
-	  SysNMIStatus|=1<<SysNmi_floppy;
+	  setNMI(SysNmi_floppy,true);
       LoadingCycles=BYTE_TIME; // Slow down the read a bit :)
     }
 	return;

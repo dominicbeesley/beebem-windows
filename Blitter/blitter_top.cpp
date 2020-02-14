@@ -74,8 +74,16 @@ void blitter_top::init()
 	intcon.getMas(SLAVE_NO_SOUND)->init(paula.getSlave());
 	paula.getSlave().init(*intcon.getMas(SLAVE_NO_SOUND));
 
+	intcon.getMas(SLAVE_NO_DMA)->init(dma.getSlave());
+	dma.getSlave().init(*intcon.getMas(SLAVE_NO_DMA));
+
+
 	intcon.getSla(MAS_NO_PAULA)->init(paula.getMaster());
 	paula.getMaster().init(*intcon.getSla(MAS_NO_PAULA));
+
+	intcon.getSla(MAS_NO_DMA)->init(dma.getMaster());
+	dma.getMaster().init(*intcon.getSla(MAS_NO_DMA));
+
 
 	intcon.getSla(MAS_NO_CPU)->init(cpu);
 	cpu.init(*intcon.getSla(MAS_NO_CPU));
@@ -89,6 +97,7 @@ void blitter_top::tick_int(bool sysCycle) {
 	sys.tick(sysCycle);
 	cpu.tick(sysCycle);
 	paula.tick(sysCycle);
+	dma.tick(sysCycle);
 }
 
 void blitter_top::tick()
@@ -101,12 +110,9 @@ void blitter_top::tick()
 
 void blitter_top::execute_set_input(int inputnum, int state)
 {
-	cpu.execute_set_input(inputnum, state);
-}
+	// we only allow irq here - TODO: rdy, SO?
 
-bool blitter_top::execute_input_edge_triggered(int inputnum)
-{
-	return cpu.execute_input_edge_triggered(inputnum);
+	cpu.execute_set_input(inputnum, state);
 }
 
 void blitter_top::device_reset()
@@ -122,6 +128,7 @@ void blitter_top::device_reset()
 	chipram.reset();
 	jimctl.reset();
 	paula.reset();
+	dma.reset();
 
 	intcon.reset();
 

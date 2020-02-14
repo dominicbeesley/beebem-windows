@@ -96,8 +96,7 @@ static void UpdateIFRTopBit(void) {
     SysVIAState.ifr|=0x80;
   else
     SysVIAState.ifr&=0x7f;
-  SysIntStatus&=~(1<<SysIrq_SysVia);
-  SysIntStatus|=((SysVIAState.ifr & 128)?(1<<SysIrq_SysVia):0);
+  setIRQ(SysIrq_SysVia, (SysVIAState.ifr & 128) != 0);
 }
 
 void PulseSysViaCB1(void) {

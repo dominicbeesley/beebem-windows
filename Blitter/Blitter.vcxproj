@@ -158,6 +158,7 @@
     <ClInclude Include="fb_abs_resettable.h" />
     <ClInclude Include="fb_abs_slave.h" />
     <ClInclude Include="fb_cpu.h" />
+    <ClInclude Include="fb_dmac_dma.h" />
     <ClInclude Include="fb_fishbone.h" />
     <ClInclude Include="fb_abs_tickable.h" />
     <ClInclude Include="fb_intcon.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="fb_abs_slave.cpp" />
     <ClCompile Include="fb_abs_tickable.cpp" />
     <ClCompile Include="fb_cpu.cpp" />
+    <ClCompile Include="fb_dmac_dma.cpp" />
     <ClCompile Include="fb_intcon.cpp" />
     <ClCompile Include="fbsla_jimctrl.cpp" />
     <ClCompile Include="fbsla_mem_chipram.cpp" />

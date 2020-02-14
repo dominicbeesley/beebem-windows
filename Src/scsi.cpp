@@ -163,13 +163,13 @@ void SCSIWrite(int Address, int Value)
             if (Value == 0xff)
             {
                 scsi.irq = true;
-                SysIntStatus |= (1 << SysIrq_Hdc);
+                setIRQ(SysIrq_Hdc, true);
 				scsi.status = 0x00;
 			}
             else
             {
                 scsi.irq = true;
-                SysIntStatus &= ~(1 << SysIrq_Hdc);
+                setIRQ(SysIrq_Hdc,false);
             }
 
 			break;

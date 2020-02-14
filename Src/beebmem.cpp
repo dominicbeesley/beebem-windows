@@ -491,7 +491,7 @@ int BeebReadMem(int Address) {
 		if (!EconetNMIenabled) {  // was off
 			EconetNMIenabled = INTON;  // turn on
 			if (ADLC.status1 & 128) {			// irq pending?
-				SysNMIStatus |= 1 << SysNmi_econet;
+				setNMI(SysNmi_econet, true);
 				if (DebugEnabled) DebugDisplayTrace(DebugType::Econet, true, "Econet: delayed NMI asserted");
 			}
 		}
@@ -626,7 +626,7 @@ void DebugMemoryState()
 			break;
 		case Model::Master128:
 			DebugDisplayInfoF("ACCCON: IRR:%s TST:%s IFJ:%s ITU:%s Y:%s X:%s E:%s D:%s",
-				(SysIntStatus & 0x80) != 0 ? "on" : "off",
+				(bits_SysIntStatus & (1 << SysIrq_Accon)) != 0 ? "on" : "off",
 				(ACCCON & 0x40) != 0 ? "on" : "off",
 				(ACCCON & 0x20) != 0 ? "on" : "off",
 				(ACCCON & 0x10) != 0 ? "on" : "off",
@@ -662,7 +662,7 @@ static void FiddleACCCON(unsigned char newValue) {
 //	newValue&=143;
 //	if ((newValue & 128)==128) DoInterrupt();
 	ACCCON=newValue & 127; // mask out the IRR bit so that interrupts dont occur repeatedly
-	if (newValue & 128) SysIntStatus|=128; else SysIntStatus&=127;
+	setIRQ(SysIrq_Accon, (newValue & 128) != 0);
 	bool oldshd = Sh_Display;
 	Sh_Display = (ACCCON & 1) != 0;
 	if (Sh_Display != oldshd) RedoMPTR();

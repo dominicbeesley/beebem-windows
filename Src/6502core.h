@@ -38,6 +38,7 @@ typedef enum IRQ_Nums {
 	SysIrq_Tube,
 	SysIrq_Teletext,
 	SysIrq_Hdc,
+	SysIrq_Accon
 } SysIrq_Nums;
 
 typedef enum NMI_Nums {
@@ -57,8 +58,12 @@ typedef enum PSR_Flags
 } PSR6502_Flags;
 
 extern std::ofstream *hog_o;
-extern unsigned char SysIntStatus;
-extern unsigned char SysNMIStatus;
+extern unsigned char bits_SysIntStatus;
+extern unsigned char bits_SysNMIStatus;
+
+void setNMI(uint8_t levelno, bool assert); 
+void setIRQ(uint8_t levelno, bool assert); 
+
 extern unsigned int SysCycles;
 extern int SysPrevSyncPC;
 extern CycleCountT TotalCycles;

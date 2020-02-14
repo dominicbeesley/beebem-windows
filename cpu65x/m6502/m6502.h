@@ -47,8 +47,6 @@ public:
 	friend std::ostream& operator<<(std::ostream& o, m6502_device &dev);
 
 	virtual void execute_set_input(int inputnum, int state) override;
-	virtual bool execute_input_edge_triggered(int inputnum) override;
-
 
 protected:
 

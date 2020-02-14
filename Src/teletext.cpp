@@ -250,10 +250,7 @@ void TeletextWrite(int Address, int Value)
             // if (Value * 0x10) enable AFC and mystery links
 
             TeletextInts = (Value & 0x08) == 0x08;
-            if (TeletextInts && (TeletextStatus & 0x80))
-                SysIntStatus |= (1 << SysIrq_Teletext); // Interrupt if INT and interrupts enabled
-            else
-                SysIntStatus &= ~(1 << SysIrq_Teletext); // Clear interrupt
+			setIRQ(SysIrq_Teletext, TeletextInts && ((TeletextStatus & 0x80) != 0));
 
             TeletextEnable = (Value & 0x04) == 0x04;
 
@@ -274,7 +271,7 @@ void TeletextWrite(int Address, int Value)
 
         case 0x03:
             TeletextStatus &= ~0xD0; // Clear INT, DOR, and FSYN latches
-            SysIntStatus &= ~(1 << SysIrq_Teletext); // Clear interrupt
+            setIRQ(SysIrq_Teletext,false); // Clear interrupt
             break;
     }
 }
@@ -304,7 +301,7 @@ int TeletextRead(int Address)
 
     case 0x03:
         TeletextStatus &= ~0xD0;       // Clear INT, DOR, and FSYN latches
-        SysIntStatus &= ~(1 << SysIrq_Teletext);
+        setIRQ(SysIrq_Teletext,false);
         break;
     }
 
@@ -408,5 +405,5 @@ void TeletextPoll(void)
     colPtr = 0x00;
 
     if (TeletextInts)
-        SysIntStatus |= 1 << SysIrq_Teletext;
+        setIRQ(SysIrq_Teletext,true);
 }

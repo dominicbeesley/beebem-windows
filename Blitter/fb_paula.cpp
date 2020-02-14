@@ -355,9 +355,6 @@ void fb_paula_mas::fb_set_D_rd(uint8_t dat)
 {
 	if (state == act) {
 		paula.gotByte(cur_chan, dat);
-		if (sla)
-			sla->fb_set_cyc(stop);
-		state = idle;
 	}
 }
 

@@ -23,6 +23,7 @@
 #include "fbsla_jimctrl.h"
 #include "fbsla_memctl.h"
 #include "fb_paula.h"
+#include "fb_dmac_dma.h"
 
 typedef enum blit_SLAVE_NO {
 	SLAVE_NO_JIMCTL,
@@ -41,9 +42,14 @@ typedef enum blit_SLAVE_NO {
 typedef enum blit_MAS_NO {
 	MAS_NO_CPU,
 	MAS_NO_PAULA,
+	MAS_NO_DMA,
 	MAS_NO_COUNT
 } blit_MAS_NO;
 
+typedef enum {
+	compno_DMA,
+	compno_COUNT
+} compno_t;
 
 class blitter_top : public m65x_device {
 public:
@@ -55,7 +61,8 @@ public:
 		jimctl(*this),
 		memctl(*this),
 		intcon(*this, MAS_NO_COUNT, SLAVE_NO__COUNT),
-		paula(_soundVolumePtr)
+		paula(_soundVolumePtr),
+		dma(*this)
 	{
 		powerReset();
 		reset();
@@ -65,9 +72,13 @@ public:
 
 	void tick() override;
 
+	//6502 interrupt etc these are strictly for use by SYS
 	virtual void execute_set_input(int inputnum, int state) override;
-	virtual bool execute_input_edge_triggered(int inputnum) override;
 
+	//set halt / irq / nmi from components other than sys
+	//note nmi is edge triggered
+	void set_interrupts(compno_t comp_no, bool halt, bool irq, bool nmi);
+	
 	friend class fb_sys;
 
 	void set_ROMPG(uint8_t d) {
@@ -106,12 +117,18 @@ public:
 protected:
 	virtual void device_reset() override;
 
+	struct {
+		bool irq;
+		bool halt;
+	} comp_interrupts[compno_COUNT];
+
 	fb_sys sys;
 	fb_cpu cpu;
 	fbsla_mem_chipram chipram;
 	fbsla_jimctrl jimctl;
 	fbsla_memctl memctl;
 	fb_paula paula;
+	fb_dmac_dma dma;
 
 	fb_intcon intcon;
 

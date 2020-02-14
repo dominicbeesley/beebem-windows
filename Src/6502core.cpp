@@ -70,8 +70,8 @@ Boston, MA  02110-1301, USA.
 using namespace std;
 
 int CyclesToInt = 0;
-unsigned char SysIntStatus;
-unsigned char SysNMIStatus;
+unsigned char bits_SysIntStatus;
+unsigned char bits_SysNMIStatus;
 bool BHardware;
 
 void PollVIAs();
@@ -108,6 +108,28 @@ void ExecSys2MCycles(int n) {
 		ExecSys2MCycles();
 }
 
+void setNMI(uint8_t levelno, bool assert) 
+{ 
+	if (assert) bits_SysNMIStatus |= 1 << levelno; else bits_SysNMIStatus &= ~(1 << levelno); 
+
+	static bool prevNMI = false;
+	bool nowNMI = (bits_SysNMIStatus != 0) ? true : false;
+
+	if (prevNMI == false && nowNMI == true)
+		m6502->execute_set_input(M6502_NMI_LINE, ASSERT_LINE);
+	prevNMI = nowNMI;
+
+
+}
+void setIRQ(uint8_t levelno, bool assert)
+{ 
+	if (assert) bits_SysIntStatus |= 1 << levelno; else bits_SysIntStatus &= ~(1 << levelno); 
+	if (m6502)
+		m6502->execute_set_input(M6502_IRQ_LINE, (bits_SysIntStatus != 0) ? ASSERT_LINE : CLEAR_LINE);
+}
+
+
+
 void ExecSys2MCycles() {
 
 	/* TODO: DB: put back debugger stuff*/
@@ -130,13 +152,6 @@ void ExecSys2MCycles() {
 #endif
 
 	if (m6502 != NULL) {
-		static bool prevNMI = false;
-		bool nowNMI = (SysNMIStatus != 0) ? true : false;
-
-		m6502->execute_set_input(M6502_IRQ_LINE, (SysIntStatus) ? ASSERT_LINE : CLEAR_LINE);
-		if (prevNMI == false && nowNMI == true)
-			m6502->execute_set_input(M6502_NMI_LINE, ASSERT_LINE);
-		prevNMI = nowNMI;
 
 		//hoglet decoder binary out
 		if (hog_o) {
@@ -250,7 +265,7 @@ void PollHardware(int nCycles)
 
 	if (EconetEnabled && EconetPoll()) {
 		if (EconetNMIenabled) {
-			SysNMIStatus |= 1 << SysNmi_econet;
+			setNMI(SysNmi_econet, true);
 			if (DebugEnabled)
 				DebugDisplayTrace(DebugType::Econet, true, "Econet: NMI asserted");
 		}

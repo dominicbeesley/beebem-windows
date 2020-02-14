@@ -1,17 +1,2 @@
-﻿  envelope.cc
-  extfilt.cc
-  filter.cc
-  pot.cc
-  sid.cc
-  version.cc
-  voice.cc
-  wave.cc
-  wave6581_PST.cc
-  wave6581_PS_.cc
-  wave6581_P_T.cc
-  wave6581__ST.cc
-  wave8580_PST.cc
-  wave8580_PS_.cc
-  wave8580_P_T.cc
-  wave8580__ST.cc
+﻿  sid.cc
   reSID.vcxproj -> D:\Users\Dominic\Documents\GitHub\beebem-windows\Src\Release\reSID.lib

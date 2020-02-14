@@ -25,11 +25,11 @@ public:
 	virtual void fb_set_D_rd(uint8_t dat) override;
 
 
-	//6502 interrupt etc
 	void execute_set_input(int inputnum, int state) { cpu.execute_set_input(inputnum, state); };
-	bool execute_input_edge_triggered(int inputnum) { return cpu.execute_input_edge_triggered(inputnum); };
 
 protected:
+
+
 
 	enum cpu_state { idle, act, acked } state;
 

@@ -357,13 +357,6 @@ void m6502_device::execute_set_input(int inputnum, int state)
 	}
 }
 
-bool m6502_device::execute_input_edge_triggered(int inputnum)
-{
-	return inputnum == NMI_LINE;
-}
-
-
-
 void m6502_device::set_nz(uint8_t v)
 {
 	P &= ~(F_Z | F_N);

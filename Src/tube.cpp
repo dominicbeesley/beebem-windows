@@ -141,10 +141,7 @@ void UpdateR3Interrupt(void) {
 }
 
 void UpdateHostR4Interrupt(void) {
-	if ((R1Status & TubeQ) && (R4HStatus & TubeDataAv))
-		SysIntStatus|=(1<<SysIrq_Tube);
-	else
-		SysIntStatus&=~(1<<SysIrq_Tube);
+	setIRQ(SysIrq_Tube, ((R1Status & TubeQ) != 0) && ((R4HStatus & TubeDataAv) != 0));
 }
 
 
