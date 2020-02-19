@@ -21,17 +21,20 @@ void fb_dmac_dma::reset()
 		p->ctl2_stepsize = stepsize_byte;
 		p->src_addr = 0;
 		p->dest_addr = 0;
-		p->data = 0;
+		p->src_bank = 0;
+		p->dest_bank = 0;
+		p->dat_h = 0;
+		p->dat_l = 0;
 		p->count = 0;
 		p->pause_val = 0;
 		p->count_finish = false;
 		p->count_clken = false;
 		p->pause_ct_dn = 0;
 		p->pause_ct_dn_finished = false;
-		p->mas_cyc = false;
 
 		p++;
 	}
+	update_cpu();
 	sla.reset();
 	mas.reset();
 
@@ -42,40 +45,210 @@ void fb_dmac_dma::tick(bool sys)
 
 
 	dma_channelreg_t *curchan = channel_regs;
-
-
-
+	   
 	//this is a very rough approximation of what really happens in terms of prioritisation
 	//but should be close enough - normally data accesses that clash will be queued up
 	//by intcon and could take many 8M cycles but here we just always deliver the data!
 	for (int i = 0; i < DMA_CHANNELS; i++)
 	{
+		dma_state_type next_state = curchan->state;
 
-/*		if (curchan->clken_sam_next)
+		if (next_state == sIdle)
+			continue;
+
+		if (curchan->data_started 
+			&& ( 
+				curchan->state == sMemAccDEST2 ||
+				(
+					curchan->state == sMemAccDEST && (!curchan->ctl_extend || curchan->ctl2_stepsize == stepsize_byte)
+				)
+			)) {
+
+			//this looks a bit odd but setting up the count to 0 actually executes a single operation and can be used to "single-step" the dma under processor control
+			//by repeatedly setting act
+			if (curchan->count != 0)
+				curchan->count--;
+			if (curchan->count == 0)
+				curchan->count_finish = true;
+		}
+
+
+		// work out next intended state
+		switch (curchan->state)
 		{
-			int addr = (((int)curchan->addr_bank) << 16) + (int)curchan->addr + (int)curchan->sam_ctr;
-			if (mas.getByte(addr, i))
-				curchan->clken_sam_next = false;
+		case sIdle:
+			next_state = sStart;
+			break;
+		case sStart:
+			next_state = sMemAccSRC;
+			break;
+		case sMemAccSRC:
+			if (curchan->data_ready) {
+				if (curchan->ctl_extend && curchan->ctl2_stepsize != stepsize_byte)
+					next_state = sMemAccSRC2;
+				else {
 
-			if (curchan->sam_ctr == curchan->len)
-			{
-				if (curchan->repeat)
-				{
-					curchan->sam_ctr = curchan->repoff;
+					int ss = (!curchan->ctl_extend || curchan->ctl2_stepsize == stepsize_byte) ? 1 : 2;
+					if (curchan->ctl_step_src == step_up)
+						curchan->src_addr += ss;
+					else if (curchan->ctl_step_src == step_down)
+						curchan->src_addr -= ss;
+
+					if (curchan->ctl_extend && curchan->ctl2_pause)
+						next_state = sMemAccPAUSE;
+					else
+						next_state = sMemAccDEST;
 				}
+			}
+			break;
+		case sMemAccSRC2:
+			if (curchan->data_ready) {
+
+				int ss = (!curchan->ctl_extend || curchan->ctl2_stepsize == stepsize_byte) ? 1 : 2;
+				if (curchan->ctl_step_src == step_up)
+					curchan->src_addr += ss;
+				else if (curchan->ctl_step_src == step_down)
+					curchan->src_addr -= ss;
+
+				if (curchan->ctl_extend && curchan->ctl2_pause)
+					next_state = sMemAccPAUSE;
+				else
+					next_state = sMemAccDEST;
+			}
+			break;
+		case sMemAccPAUSE:
+			if (curchan->pause_ct_dn_finished)
+				next_state = sMemAccDEST;
+			break;
+		case sMemAccDEST:
+			if (curchan->data_ready) {
+				if (curchan->ctl_extend && curchan->ctl2_stepsize != stepsize_byte)
+					next_state = sMemAccDEST2;
 				else
 				{
-					curchan->act = false;
-					curchan->sam_ctr = 0;
+					int ss = (!curchan->ctl_extend || curchan->ctl2_stepsize == stepsize_byte) ? 1 : 2;
+					if (curchan->ctl_step_dest == step_up)
+						curchan->dest_addr += ss;
+					else if (curchan->ctl_step_dest == step_down)
+						curchan->dest_addr -= ss;
+
+					if (curchan->count_finish)
+						next_state = sFinish;
+					else
+						next_state = sMemAccSRC;
 				}
 			}
-			else
-			{
-				curchan->sam_ctr++;
-			}
-
 			break;
-		}*/
+		case sMemAccDEST2:
+			if (curchan->data_ready) {
+
+				int ss = (!curchan->ctl_extend || curchan->ctl2_stepsize == stepsize_byte) ? 1 : 2;
+				if (curchan->ctl_step_dest == step_up)
+					curchan->dest_addr += ss;
+				else if (curchan->ctl_step_dest == step_down)
+					curchan->dest_addr -= ss;
+
+
+				if (curchan->count_finish)
+					next_state = sFinish;
+				else
+					next_state = sMemAccSRC;
+			}
+		case sFinish:
+			next_state = sIdle;
+			curchan->ctl_act = false;
+			curchan->ctl2_if = true;
+			update_cpu();
+		}
+		
+
+		if (curchan->state != next_state)
+		{
+			curchan->data_started = false;
+			curchan->data_ready = false;
+		}
+
+
+		curchan->state = next_state;
+
+
+		//attempt the read/write and set flags for reception of data
+		switch (next_state)
+		{
+		case sMemAccSRC:
+			if (curchan->ctl_step_src != step_nop) {
+				if (!curchan->data_started) {
+					uint32_t addr = (((uint32_t)curchan->src_bank) << 16) + curchan->src_addr;
+					if (curchan->ctl_extend && curchan->ctl2_stepsize == stepsize_wordswapsrc)
+						addr += 1;
+					curchan->data_started = mas.get_byte(addr, i);
+				}
+			}
+			else {
+				curchan->data_started = true;
+				curchan->data_ready = true;
+			}
+			break;
+		case sMemAccSRC2:
+			if (curchan->ctl_step_src != step_nop) {
+				if (!curchan->data_started) {
+					uint32_t addr = (((uint32_t)curchan->src_bank) << 16) + curchan->src_addr;
+					if (curchan->ctl_extend && curchan->ctl2_stepsize != stepsize_wordswapsrc)
+						addr += 1;
+					curchan->data_started = mas.get_byte(addr, i);
+				}
+			}
+			else {
+				curchan->data_started = true;
+				curchan->data_ready = true;
+			}
+			break;
+		case sMemAccDEST:
+			if (curchan->ctl_step_dest != step_nop) {
+				if (!curchan->data_started) {
+
+					uint32_t addr = (((uint32_t)curchan->dest_bank) << 16) + curchan->dest_addr;
+					uint8_t d;
+					if (curchan->ctl_extend && curchan->ctl2_stepsize == stepsize_wordswapdest)
+						d = curchan->dat_l;
+					else
+						d = curchan->dat_h;
+					if (curchan->ctl_extend && curchan->ctl2_stepsize == stepsize_wordswapdest)
+						addr += 1;
+					curchan->data_ready = curchan->data_started = mas.set_byte(addr, d);
+				}
+			}
+			break;
+		case sMemAccDEST2:
+			if (curchan->ctl_step_dest != step_nop) {
+				if (!curchan->data_started) {
+					uint32_t addr = (((uint32_t)curchan->dest_bank) << 16) + curchan->dest_addr;
+					uint8_t d;
+					if (!curchan->ctl_extend || curchan->ctl2_stepsize != stepsize_wordswapdest)
+						d = curchan->dat_l;
+					else
+						d = curchan->dat_h;
+					if (curchan->ctl_extend && curchan->ctl2_stepsize != stepsize_wordswapdest)
+						addr += 1;
+					curchan->data_ready = curchan->data_started = mas.set_byte(addr, d);
+				}
+			}
+			break;
+		case sMemAccPAUSE:
+			if (curchan->state != sMemAccPAUSE)
+			{
+				// just starting
+				curchan->pause_ct_dn = curchan->pause_val;
+				curchan->pause_ct_dn_finished = (curchan->pause_val > 0) ? false : true; // flag finished if 0 value
+			}
+			else {
+				if (!(curchan->pause_ct_dn--)) {
+					curchan->pause_ct_dn_finished = true;
+				}
+
+			}
+		}
+
 		curchan++;
 	}
 }
@@ -87,9 +260,18 @@ void fb_dmac_dma::init() {
 
 void fb_dmac_dma::byte_got(uint8_t channel, int8_t dat)
 {
-	channel_regs[channel].data = dat;
+	dma_channelreg_t& curchan = channel_regs[channel];
 
-	///!!!! state machine advance...
+	if (curchan.state == sMemAccSRC)
+	{
+		if (curchan.ctl_extend && curchan.ctl2_stepsize == stepsize_wordswapsrc)
+			curchan.dat_l = dat;
+		else
+			curchan.dat_h = dat;
+	}
+
+	curchan.data_ready = true;
+
 }
 
 void fb_dmac_dma::write_regs(uint8_t addr, uint8_t dat)
@@ -115,34 +297,47 @@ void fb_dmac_dma::write_regs(uint8_t addr, uint8_t dat)
 			curchan->ctl_step_dest = to_step(dat >> 2);
 			curchan->ctl2_if = false;
 			update_cpu();
+			break;
 		case A_SRC_ADDR_BANK:
-			curchan->src_addr = (((uint32_t)dat) << 16) | (curchan->src_addr & 0x0000FFFF);
+			curchan->src_bank = dat;
+			break;
 		case A_SRC_ADDR:
-			curchan->src_addr = (((uint32_t)dat) << 8) | (curchan->src_addr & 0x00FF00FF);
+			curchan->src_addr = (((uint16_t)dat) << 8) | (curchan->src_addr & 0x00FF);
+			break;
 		case A_SRC_ADDR+1:
-			curchan->src_addr = (((uint32_t)dat)) | (curchan->src_addr & 0x00FFFF00);
+			curchan->src_addr = (((uint16_t)dat)) | (curchan->src_addr & 0xFF00);
+			break;
 		case A_DEST_ADDR_BANK:
-			curchan->dest_addr = (((uint32_t)dat) << 16) | (curchan->dest_addr & 0x0000FFFF);
+			curchan->dest_bank = dat;
+			break;
 		case A_DEST_ADDR:
-			curchan->dest_addr = (((uint32_t)dat) << 8) | (curchan->dest_addr & 0x00FF00FF);
+			curchan->dest_addr = (((uint16_t)dat) << 8) | (curchan->dest_addr & 0x00FF);
+			break;
 		case A_DEST_ADDR + 1:
-			curchan->dest_addr = (((uint32_t)dat)) | (curchan->dest_addr & 0x00FFFF00);
+			curchan->dest_addr = (((uint16_t)dat)) | (curchan->dest_addr & 0xFF00);
+			break;
 		case A_COUNT:
 			curchan->count = (((uint16_t)dat) << 8) | (curchan->count & 0x00FF);
 			curchan->count_finish = false;
+			break;
 		case A_COUNT+1:
 			curchan->count = (((uint16_t)dat)) | (curchan->count & 0xFF00);
 			curchan->count_finish = false;
+			break;
 		case A_DATA:
-			curchan->data = (((uint16_t)dat) << 8) | ((uint16_t)dat);
+			curchan->dat_l = dat;
+			curchan->dat_h = dat;
+			break;
 		case A_CTL2:
 			curchan->ctl2_if = false;
 			curchan->ctl2_ie = (dat & 0x02) != 0;
 			curchan->ctl2_pause = dat & 0x01;
 			curchan->ctl2_stepsize = to_stepsize(dat >> 2);
 			update_cpu();
+			break;
 		case A_PAUSE_VAL:
 			curchan->pause_val = dat;
+			break;
 		}
 
 	}
@@ -166,23 +361,23 @@ uint8_t fb_dmac_dma::read_regs(uint8_t addr) {
 				| step_to_int(curchan->ctl_step_dest) << 2
 				| step_to_int(curchan->ctl_step_src);
 		case A_SRC_ADDR_BANK:
-			return curchan->src_addr >> 16;
+			return curchan->src_bank;
 		case A_SRC_ADDR:
 			return curchan->src_addr >> 8;
 		case A_SRC_ADDR+1:
-			return curchan->src_addr;
+			return (uint8_t)curchan->src_addr;
 		case A_DEST_ADDR_BANK:
-			return curchan->dest_addr >> 16;
+			return curchan->dest_bank;
 		case A_DEST_ADDR:
 			return curchan->dest_addr >> 8;
 		case A_DEST_ADDR + 1:
-			return curchan->dest_addr;
+			return (uint8_t)curchan->dest_addr;
 		case A_COUNT:
 			return curchan->count >> 8;
 		case A_COUNT+1:
 			return (uint8_t)curchan->count;
 		case A_DATA:
-			return curchan->data >> 8;
+			return curchan->dat_h;
 		case A_CTL2:
 			return 
 				(curchan->ctl2_if ? 0x80 : 0)
@@ -194,7 +389,6 @@ uint8_t fb_dmac_dma::read_regs(uint8_t addr) {
 			return curchan->pause_val;
 		default:
 			return 255;
-			break;
 		}
 	}
 
@@ -207,9 +401,16 @@ void fb_dmac_dma::update_cpu() {
 	bool halt = false, irq = false;
 	for (int i = 0; i < DMA_CHANNELS; i++)
 	{
+		if (p->ctl_act && (p->state == sIdle))
+			p->state = sStart;
 		halt |= p->ctl_act && p->ctl_halt;
 		irq |= p->ctl2_ie && p->ctl2_if;
+		p++;
 	}
+	top.setHALT(compno_DMA, halt);
+	top.setIRQ(compno_DMA, irq);
+
+
 }
 
 void fb_dma_sla::init(fb_abs_master & mas)
@@ -291,7 +492,7 @@ bool fb_dma_mas::get_byte(uint32_t addr, uint8_t channel)
 			sla->fb_set_cyc(start);
 		}
 		else {
-			dma.byte_got(channel, 0);
+			dma.byte_got(channel, 0);  // no slave connected return 0
 		}
 		return true;
 	}

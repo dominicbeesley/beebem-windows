@@ -68,6 +68,9 @@ void blitter_top::init()
 	intcon.getMas(SLAVE_NO_CHIPRAM)->init(chipram);
 	chipram.init(*intcon.getMas(SLAVE_NO_CHIPRAM));
 
+	intcon.getMas(SLAVE_NO_CHIPFLASH)->init(flash);
+	flash.init(*intcon.getMas(SLAVE_NO_CHIPFLASH));
+	
 	intcon.getMas(SLAVE_NO_SYS)->init(sys);
 	sys.init(*intcon.getMas(SLAVE_NO_SYS));
 
@@ -98,14 +101,16 @@ void blitter_top::tick_int(bool sysCycle) {
 	cpu.tick(sysCycle);
 	paula.tick(sysCycle);
 	dma.tick(sysCycle);
+	flash.tick(sysCycle);
 }
 
-void blitter_top::tick()
+bool blitter_top::tick()
 {
 	tick_int(true);
 	tick_int(false);
 	tick_int(false);
 	tick_int(false);
+	return true;
 }
 
 void blitter_top::execute_set_input(int inputnum, int state)
@@ -141,6 +146,7 @@ void blitter_top::device_reset()
 	sys.reset();
 	memctl.reset();
 	chipram.reset();
+	flash.reset();
 	jimctl.reset();
 	paula.reset();
 	dma.reset();

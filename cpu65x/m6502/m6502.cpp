@@ -57,8 +57,16 @@ void m6502_device::init()
 }
 
 
-void m6502_device::tick() {
-	(*(void(*)(m65x_device &cpu))NextFn)(*this);
+bool m6502_device::tick() {
+	//TODO: halt needs to _not_ halt on writes for NMOS
+	if (!halt_state)
+	{
+		(*(void(*)(m65x_device &cpu))NextFn)(*this);
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 std::ostream& operator<<(std::ostream& o, m6502_device &dev)
@@ -353,6 +361,9 @@ void m6502_device::execute_set_input(int inputnum, int state)
 		if (!v_state && state == ASSERT_LINE)
 			P |= F_V;
 		v_state = state == ASSERT_LINE;
+		break;
+	case HALT_LINE:
+		halt_state = state == ASSERT_LINE;
 		break;
 	}
 }

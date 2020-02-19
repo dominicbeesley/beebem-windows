@@ -16,12 +16,17 @@ void fb_cpu::tick(bool sys)
 		}
 		else {
 			if (physAddr == 0xFFFCFF) {
-				top.set_JIMEN(cpu.getDATA() == JIM_DEVNO);				
+				top.set_JIMEN(cpu.getDATA() == JIM_DEVNO);
 			}
 		}
-		cpu.tick();
-		state = idle;
-		sla->fb_set_cyc(stop);
+		state = dotick;
+	} 
+
+	if (state == dotick) {
+		if (cpu.tick()) {
+			state = idle;
+			sla->fb_set_cyc(stop);
+		}
 	}
 
 	if (state == idle)

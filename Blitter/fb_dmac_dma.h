@@ -104,10 +104,13 @@ public:
 		bool		ctl2_ie;
 		stepsize_type	ctl2_stepsize;
 
-		uint32_t	src_addr;
-		uint32_t	dest_addr;
+		uint8_t		src_bank;
+		uint16_t	src_addr;
+		uint8_t		dest_bank;
+		uint16_t	dest_addr;
 
-		uint16_t	data;
+		uint8_t		dat_l;
+		uint8_t		dat_h;
 		uint16_t	count;
 
 		uint8_t		pause_val;
@@ -119,7 +122,9 @@ public:
 		uint8_t		pause_ct_dn;
 		bool		pause_ct_dn_finished;
 
-		bool		mas_cyc;
+		bool		data_started; //indicates a read/write has been initiated
+		bool		data_ready;	//set when data received in src states
+		dma_state_type state;
 
 
 	} dma_channelreg_t;

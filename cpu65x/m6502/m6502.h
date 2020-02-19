@@ -42,7 +42,7 @@ public:
 
 	virtual void init() override;
 
-	void tick() override;
+	bool tick() override;
 
 	friend std::ostream& operator<<(std::ostream& o, m6502_device &dev);
 
@@ -96,7 +96,7 @@ protected:
 	bool	  skip_ints_next;			  /* Do not check for interrupts on this fetch*/
 
 
-	bool nmi_state, irq_state, v_state;
+	bool nmi_state, irq_state, v_state, halt_state;
 	bool irq_taken, inhibit_interrupts;
 
 	void set_nz(uint8_t v);

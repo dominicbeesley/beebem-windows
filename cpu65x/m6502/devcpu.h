@@ -39,7 +39,7 @@ public:
 
 	virtual void execute_set_input(int inputnum, int state) = 0;
 
-	virtual void tick() = 0;
+	virtual bool tick() = 0;
 
 protected:
 	// construction/destruction

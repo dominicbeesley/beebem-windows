@@ -20,6 +20,7 @@
 #include "fb_sys.h"
 #include "fb_intcon.h"
 #include "fbsla_mem_chipram.h"
+#include "fbsla_mem_flash.h"
 #include "fbsla_jimctrl.h"
 #include "fbsla_memctl.h"
 #include "fb_paula.h"
@@ -72,7 +73,7 @@ public:
 
 	virtual void init() override;
 
-	void tick() override;
+	bool tick() override;
 
 	//6502 interrupt etc these are strictly for use by SYS
 	virtual void execute_set_input(int inputnum, int state) override;
@@ -130,6 +131,7 @@ protected:
 	fb_sys sys;
 	fb_cpu cpu;
 	fbsla_mem_chipram chipram;
+	fbsla_mem_flash flash;
 	fbsla_jimctrl jimctl;
 	fbsla_memctl memctl;
 	fb_paula paula;

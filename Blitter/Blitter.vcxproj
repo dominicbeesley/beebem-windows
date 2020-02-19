@@ -164,6 +164,7 @@
     <ClInclude Include="fb_intcon.h" />
     <ClInclude Include="fbsla_jimctrl.h" />
     <ClInclude Include="fbsla_mem_chipram.h" />
+    <ClInclude Include="fbsla_mem_flash.h" />
     <ClInclude Include="fb_paula.h" />
     <ClInclude Include="fb_slave_default.h" />
     <ClInclude Include="fb_sys.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="fb_intcon.cpp" />
     <ClCompile Include="fbsla_jimctrl.cpp" />
     <ClCompile Include="fbsla_mem_chipram.cpp" />
+    <ClCompile Include="fbsla_mem_flash.cpp" />
     <ClCompile Include="fb_paula.cpp" />
     <ClCompile Include="fb_slave_default.cpp" />
     <ClCompile Include="fb_sys.cpp" />
