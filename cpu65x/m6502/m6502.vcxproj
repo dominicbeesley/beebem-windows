@@ -94,6 +94,7 @@
       <ConformanceMode>true</ConformanceMode>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

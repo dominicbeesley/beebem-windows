@@ -132,6 +132,8 @@ void Hog1MPaulaReset()
 	delete pSoundStreamerPaula;
 	pSoundStreamerPaula = NULL;
 
+	jimDev = 0;
+	jimPage = 0;
 	ChannelSel = 0;
 	Volume = 0x3F;
 	for (int i = 0; i < NUM_CHANNELS; i++) {
@@ -171,7 +173,7 @@ void Hog1MPaulaWrite(UINT16 address, UINT8 value)
 		if (address == 0xfcfe)
 			jimPage = (jimPage & 0xFF00) | value;			
 		else if (address == 0xfcfd)
-			jimPage = (jimPage & 0x00FF) | (value << 8);
+			jimPage = (jimPage & 0x00FF) | ((UINT16)value << 8);
 		else if ((address & 0xff00) == 0xfd00) {
 			//jim
 			if ((jimPage == JIM_PAGE) && ((address & 0x00f0) == REG_BASE))
@@ -411,15 +413,12 @@ void Hog1MPaulaUpdate(UINT cycles)
 			}
 		}
 
-		static float a = 0;
-
 		sample_clock_acc++;
 		while (sample_clock_acc >= H1M_CYCLES_PER_STREAM_SAMPLE)
 		{
 			
 			int sample = 0;
 
-			sample = 0;
 
 			for (int i = 0; i < NUM_CHANNELS; i++)
 			{

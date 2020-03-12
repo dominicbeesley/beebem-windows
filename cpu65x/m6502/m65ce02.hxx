@@ -719,4 +719,4 @@ friend void m65ce02_device_txs_imp_0(m65ce02_device &cpu);
 friend void m65ce02_device_tya_imp_0(m65ce02_device &cpu);
 friend void m65ce02_device_tys_imp_0(m65ce02_device &cpu);
 friend void m65ce02_device_tza_imp_0(m65ce02_device &cpu);
-friend void m65ce02_device_postfetch_int(m65ce02_device &cpu);
+void postfetch_int() override;

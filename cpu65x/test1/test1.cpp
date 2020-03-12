@@ -7,6 +7,8 @@
 #include "m6502.h"
 #include <chrono>
 
+#include <stdlib.h>
+
 using namespace std;
 using namespace std::chrono;
 
@@ -27,26 +29,32 @@ inline void write(m6502_device& cpu) {
 const long int MAXCYCLES = 1000000000L;
 
 
-int main()
+int main(int argc, char *argv[])
 {
 
+	system("dir");
+
+	if (argc < 2)
 	{
-		ifstream ismos;
-		ismos.open(
-			"d:\\work\\vs2017\\scratch\\mame-cpu-libs\\mame-cpu-lib-6502-test\\testasm\\test-rom0.mos",
-			ifstream::in | ifstream::binary
-		);
-
-		if (ismos.fail())
-		{
-			cerr << "Unable to open mos image\n";
-			return 1;
-		}
-
-		ismos.read(((char *)store) + 0xC000, 0x4000);
-
-		ismos.close();
+		cerr << "Too few arguments";
+		return 2;
 	}
+
+	ifstream ismos;
+	ismos.open(
+		argv[1],
+		ifstream::in | ifstream::binary
+	);
+
+	if (ismos.fail())
+	{
+		cerr << "Unable to open mos image \"" << argv[1] << "\"\n";
+		return 1;
+	}
+
+	ismos.read(((char *)store) + 0xC000, 0x4000);
+
+	ismos.close();
 	
 	m6502_device cpu;
 

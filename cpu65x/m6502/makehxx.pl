@@ -74,10 +74,10 @@ sub do_d_lst() {
 
 	open(my $fh_in_dlst, "<", $infn_dlst) || usage "cannot open input file $infn_dlst : $!";
 
-	print $fh_out_hxx2 "void ${classname}_postfetch_int(${classname} &cpu);\n";
-	print $fh_out_hxx "friend void ${classname}_postfetch_int(${classname} &cpu);\n";
-	print $fh_out_cxx "void ${classname}_postfetch_int(${classname} &cpu) {\n";
-	print $fh_out_cxx "  switch(cpu.IR) {\n";
+	#print $fh_out_hxx2 "void ${classname}_postfetch_int(${classname} &cpu);\n";
+	print $fh_out_hxx "void postfetch_int() override;\n";
+	print $fh_out_cxx "void ${classname}::postfetch_int() {\n";
+	print $fh_out_cxx "  switch(IR) {\n";
 
 	my $lin = 0;
 
@@ -97,7 +97,7 @@ sub do_d_lst() {
 
 				my $ix = $lin * 16;
 				foreach my $i (@insts) {
-					printf $fh_out_cxx "  case 0x%2.2x: %s_0(cpu); break;\n", $ix, archprefix($i);
+					printf $fh_out_cxx "  case 0x%2.2x: %s_0(*this); break;\n", $ix, archprefix($i);
 					$ix++;
 				}
 
@@ -105,7 +105,7 @@ sub do_d_lst() {
 				my @insts = split(/\s+/, $l);
 				my $n = scalar(@insts);
 				$n == 1 || die "There must be exactly 1 instructions on line 17 ($n)";
-				printf $fh_out_cxx "  default:   %s_0(cpu); break;\n", archprefix(@insts[0]);
+				printf $fh_out_cxx "  default:   %s_0(*this); break;\n", archprefix(@insts[0]);
 
 
 			} else {

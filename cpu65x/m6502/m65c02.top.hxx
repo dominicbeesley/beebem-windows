@@ -421,4 +421,3 @@ void m65c02_device_wai_imp_2(m65c02_device &cpu);
 void m65c02_device_wai_imp_while_1(m65c02_device &cpu);
 void m65c02_device_wai_imp_whilenot_1(m65c02_device &cpu);
 void m65c02_device_wai_imp_3(m65c02_device &cpu);
-void m65c02_device_postfetch_int(m65c02_device &cpu);

@@ -28,9 +28,6 @@ public:
 
 protected:
 
-	virtual StatFn postFetchIntFn() override { return (void *)&m65c02_device_postfetch_int; }
-
-
 	#include "m65c02.hxx"
 
 };

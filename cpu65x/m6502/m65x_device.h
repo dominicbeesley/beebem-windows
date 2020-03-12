@@ -67,6 +67,9 @@ protected:
 	uint8_t		DAT;
 	bool		RNW;
 	bool		sync;
+
+	virtual void postfetch_int() = 0;
+
 };
 
 enum {

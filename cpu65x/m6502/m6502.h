@@ -32,7 +32,7 @@ public:
 
 	m6502_device(void) :
 		m65x_device()
-		, PPC(0), NPC(0), PC(0), SP(0), TMP(0), TMP2(0), A(0), X(0), Y(0), P(0), IR(0),
+		, PC(0), SP(0), TMP(0), TMP2(0), A(0), X(0), Y(0), P(0), IR(0),
 		NextFn(0), nmi_state(false), irq_state(false), v_state(false), irq_taken(false),
 		inhibit_interrupts(false)
 	{
@@ -76,8 +76,6 @@ protected:
 	virtual void device_reset() override;
 
 
-	uint16_t  PPC;                    /* previous program counter */
-	uint16_t  NPC;                    /* next start-of-instruction program counter */
 	uint16_t  PC;                     /* program counter */
 	uint16_t  SP;                     /* stack pointer (always 100 - 1FF) */
 	uint16_t  TMP;                    /* temporary internal values */
@@ -88,10 +86,6 @@ protected:
 	uint8_t   P;                      /* Processor status */
 	uint8_t   IR;                     /* Prefetched instruction register */
 
-
-
-	//virtual StatFn resetFn() override { return (void *)&m6502_device_reset_0; }
-	virtual StatFn postFetchIntFn() { return (void *)&m6502_device_postfetch_int; }
 
 	bool	  skip_ints_next;			  /* Do not check for interrupts on this fetch*/
 

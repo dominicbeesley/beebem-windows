@@ -1038,4 +1038,4 @@ friend void m6502_device_txs_imp_0(m6502_device &cpu);
 friend void m6502_device_txs_imp_1(m6502_device &cpu);
 friend void m6502_device_tya_imp_0(m6502_device &cpu);
 friend void m6502_device_tya_imp_1(m6502_device &cpu);
-friend void m6502_device_postfetch_int(m6502_device &cpu);
+void postfetch_int() override;

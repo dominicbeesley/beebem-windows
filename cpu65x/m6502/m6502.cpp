@@ -34,7 +34,6 @@ void m6502_device::device_reset()
 void m6502_device::init()
 {
 	PC = 0x0000;
-	NPC = 0x0000;
 	A = 0x00;
 	X = 0x80;
 	Y = 0x00;
@@ -395,14 +394,13 @@ void m6502_device_postfetch(m6502_device &cpu)
 		cpu.PC++;
 	cpu.skip_ints_next = false;
 
-	(*(void(*)(m65x_device &cpu))cpu.postFetchIntFn())(cpu);
+	cpu.postfetch_int();
 }
 
 void m6502_device_prefetch(m6502_device &cpu)
 {
 	cpu.sync = true;
 	//sync_w(ASSERT_LINE);
-	cpu.NPC = cpu.PC;
 	cpu.ADDR = cpu.PC;
 	cpu.RNW = true;
 	cpu.NextFn = cpu.PrefetchNextFn;
