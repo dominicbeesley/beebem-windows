@@ -1041,7 +1041,6 @@ void m6502_device_brk_imp_7(m6502_device &cpu) {
 void m6502_device_brk_imp_6(m6502_device &cpu) {
     cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
     cpu.nmi_state = false;
-    cpu.standard_irq_callback(cpu.NMI_LINE);
     cpu.irq_taken = false;
     cpu.P |= cpu.F_I;
     m6502_device_fetch(cpu);return; // fetch
@@ -1049,9 +1048,6 @@ void m6502_device_brk_imp_6(m6502_device &cpu) {
 
 void m6502_device_brk_imp_8(m6502_device &cpu) {
     cpu.PC = cpu.set_h(cpu.PC, cpu.DAT);
-    if (cpu.irq_taken) {
-      cpu.standard_irq_callback(cpu.IRQ_LINE);
-    }
     cpu.irq_taken = false;
     cpu.P |= cpu.F_I;
     m6502_device_fetch(cpu);return; // fetch

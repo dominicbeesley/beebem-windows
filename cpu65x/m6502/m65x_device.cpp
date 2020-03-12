@@ -2,12 +2,12 @@
 #include "m65x_device.h"
 
 
-void m65x_device::device_start()
+void m65x_device::start()
 {
 	init();
 }
 
-void m65x_device::device_reset()
+void m65x_device::reset()
 {
 
 	sync = false;

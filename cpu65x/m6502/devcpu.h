@@ -27,29 +27,16 @@ class cpu_device //:  //public device_t,
 //					public device_disasm_interface
 {
 public:
-	virtual ~cpu_device();
 
-	void start() {
-		device_start();
-	}
-
-	void reset() {
-		device_reset();
-	}
+	virtual void start() = 0;
+	virtual void reset() = 0;
 
 	virtual void execute_set_input(int inputnum, int state) = 0;
 
 	virtual bool tick() = 0;
 
 protected:
-	// construction/destruction
-	cpu_device();
 
-	virtual void device_start() =0;
-	virtual void device_reset() =0;
-
-	void standard_irq_callback(int i) {};
-	void logerror(const char *err) {};
 
 };
 

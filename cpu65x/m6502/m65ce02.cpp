@@ -26,9 +26,9 @@ void m65ce02_device::init()
 	TMP3 = 0x0000;
 }
 
-void m65ce02_device::device_reset()
+void m65ce02_device::reset()
 {
-	m65c02_device::device_reset();
+	m65c02_device::reset();
 	Z = 0x00;
 	B = 0x0000;
 }

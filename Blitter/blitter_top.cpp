@@ -131,7 +131,7 @@ void blitter_top::execute_set_input(int inputnum, int state)
 	cpu.execute_set_input(inputnum, state);
 }
 
-void blitter_top::device_reset()
+void blitter_top::reset()
 {
 	reg_jimEn = false;
 	reg_jimPage = 0;

@@ -55,12 +55,12 @@ public:
 		DAT = 0;
 	};
 
+	virtual void start() override;
+	virtual void reset() override;
 
 
 protected:
 
-	virtual void device_start() override;
-	virtual void device_reset() override;
 
 
 	uint16_t	ADDR;
@@ -68,7 +68,8 @@ protected:
 	bool		RNW;
 	bool		sync;
 
-	virtual void postfetch_int() = 0;
+	//should really be abstract but then blitter which doesn't have the concept would have to override
+	virtual void postfetch_int() {}
 
 };
 

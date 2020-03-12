@@ -28,7 +28,7 @@ protected:
 	uint16_t  B;                      /* Zero page base address (always xx00) */
 
 	virtual void init() override;
-	virtual void device_reset() override;
+	virtual void reset() override;
 
 	inline void dec_SP_ce() { if(P & F_E) SP = set_l(SP, SP-1); else SP--; }
 	inline void inc_SP_ce() { if(P & F_E) SP = set_l(SP, SP+1); else SP++; }

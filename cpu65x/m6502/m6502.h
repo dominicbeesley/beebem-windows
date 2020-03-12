@@ -48,6 +48,8 @@ public:
 
 	virtual void execute_set_input(int inputnum, int state) override;
 
+	virtual void reset() override;
+
 protected:
 
 	StatFn	  NextFn;
@@ -71,9 +73,6 @@ protected:
 		F_C = 0x01
 	};
 
-	// device-level overrides
-	//virtual void device_start() override;
-	virtual void device_reset() override;
 
 
 	uint16_t  PC;                     /* program counter */
@@ -121,7 +120,6 @@ protected:
 	uint8_t do_ror(uint8_t v);
 	uint8_t do_rol(uint8_t v);
 	uint8_t do_asr(uint8_t v);
-
 
 
 #include "m6502.hxx"

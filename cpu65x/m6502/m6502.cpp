@@ -14,7 +14,7 @@
 
 
 
-void m6502_device::device_reset()
+void m6502_device::reset()
 {
 
 	nmi_state = false;
@@ -25,7 +25,7 @@ void m6502_device::device_reset()
 	skip_ints_next = false;
 
 	NextFn = &m6502_device_reset_0;
-	m65x_device::device_reset();
+	m65x_device::reset();
 
 }
 

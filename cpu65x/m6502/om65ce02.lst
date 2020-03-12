@@ -451,7 +451,6 @@ cld_imp
 cle_imp
 	read(PC);
 	P &= ~F_E;
-	logerror("CLE\n");
 	fetch();
 
 cli_imp

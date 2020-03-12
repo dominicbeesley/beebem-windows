@@ -1358,7 +1358,6 @@ void m65ce02_device_cle_imp_0(m65ce02_device &cpu) {
 
 void m65ce02_device_cle_imp_1(m65ce02_device &cpu) {
   cpu.P &= ~cpu.F_E;
-  cpu.logerror("cpu.CLE\cpu.n");
   m6502_device_fetch(cpu);return; // fetch
 }
 

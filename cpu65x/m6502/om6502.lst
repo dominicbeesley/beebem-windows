@@ -274,13 +274,9 @@ brk_imp
 		PC = read(0xfffa);
 		PC = set_h(PC, read(0xfffb));
 		nmi_state = false;
-		standard_irq_callback(NMI_LINE);
 	} else {
 		PC = read(0xfffe);
 		PC = set_h(PC, read(0xffff));
-		if(irq_taken) {
-			standard_irq_callback(IRQ_LINE);
-		}
 	}
 	irq_taken = false;
 	P |= F_I; // Do *not* move after the fetch

@@ -177,7 +177,6 @@
     <ClCompile Include="m65c02.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="devcpu.cpp" />
     <ClCompile Include="m6502x.cxx" />
     <ClCompile Include="m65c02x.cxx" />
     <ClCompile Include="m65ce02.cpp" />

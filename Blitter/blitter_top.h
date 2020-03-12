@@ -71,9 +71,10 @@ public:
 		reset();
 	};
 
-	virtual void init() override;
-
+	void init() override;
 	bool tick() override;
+	void reset() override;
+
 
 	//6502 interrupt etc these are strictly for use by SYS
 	virtual void execute_set_input(int inputnum, int state) override;
@@ -122,7 +123,6 @@ public:
 	void setHALT(int levelno, bool assert);
 
 protected:
-	virtual void device_reset() override;
 
 	uint32_t bits_halt; //the opposite of RDY
 	uint32_t bits_irq; 

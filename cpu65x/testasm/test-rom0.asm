@@ -20,6 +20,8 @@ mos_handle_res:
 		lda	$20FF,X
 		lda	$20E0,X
 
+		bit	10
+
 
 		ldx	#$FF
 		txs
