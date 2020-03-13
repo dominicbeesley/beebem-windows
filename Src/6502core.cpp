@@ -14,8 +14,8 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public 
-License along with this program; if not, write to the Free 
+You should have received a copy of the GNU General Public
+License along with this program; if not, write to the Free
 Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 Boston, MA  02110-1301, USA.
 ****************************************************************/
@@ -80,9 +80,9 @@ void PollHardware(int nCycles);
 extern CArm *arm;
 extern CSprowCoPro *sprow;
 
-CycleCountT TotalCycles=0;
+CycleCountT TotalCycles = 0;
 
-int DisplayCycles=0;
+int DisplayCycles = 0;
 int SysPrevSyncPC;
 
 
@@ -108,9 +108,9 @@ void ExecSys2MCycles(int n) {
 		ExecSys2MCycles();
 }
 
-void setNMI(uint8_t levelno, bool assert) 
-{ 
-	if (assert) bits_SysNMIStatus |= 1 << levelno; else bits_SysNMIStatus &= ~(1 << levelno); 
+void setNMI(uint8_t levelno, bool assert)
+{
+	if (assert) bits_SysNMIStatus |= 1 << levelno; else bits_SysNMIStatus &= ~(1 << levelno);
 
 	static bool prevNMI = false;
 	bool nowNMI = (bits_SysNMIStatus != 0) ? true : false;
@@ -122,8 +122,8 @@ void setNMI(uint8_t levelno, bool assert)
 
 }
 void setIRQ(uint8_t levelno, bool assert)
-{ 
-	if (assert) bits_SysIntStatus |= 1 << levelno; else bits_SysIntStatus &= ~(1 << levelno); 
+{
+	if (assert) bits_SysIntStatus |= 1 << levelno; else bits_SysIntStatus &= ~(1 << levelno);
 	if (m6502)
 		m6502->execute_set_input(M6502_IRQ_LINE, (bits_SysIntStatus != 0) ? ASSERT_LINE : CLEAR_LINE);
 }
@@ -181,11 +181,11 @@ void ExecSys2MCycles() {
 		mainWin->SpeakChar(Accumulator);
 	*/
 
-	TotalCycles ++;
+	TotalCycles++;
 
 	PollVIAs();
 	PollHardware(1);
-	
+
 	if (EnableTube)
 		SyncTubeProcessor();
 
@@ -202,7 +202,10 @@ void InitSys(bool powerReset) {
 			delete m6502;
 
 		if (blitter_enable)
+		{
 			m6502 = new blitter_top(&SoundVolume);
+			((blitter_top *)m6502)->powerReset();
+		}
 		else if (MachineType == Model::Master128)
 			m6502 = new m65c02_device();
 		else
@@ -217,13 +220,13 @@ void InitSys(bool powerReset) {
 	m6502->start();
 	m6502->reset();
 
-	
+
 }
 
 void PollVIAs()
 {
 	if (CyclesToInt != NO_TIMER_INT_DUE)
-		CyclesToInt --;
+		CyclesToInt--;
 
 	SysVIA_poll();
 	UserVIA_poll();
@@ -260,7 +263,7 @@ void PollHardware(int nCycles)
 	Hog1MPaulaPoll(nCycles);
 	SIDPoll(nCycles);
 	Sound_Trigger(nCycles);
-	if (DisplayCycles > 0) DisplayCycles-=nCycles; // Countdown time till end of display of info.
+	if (DisplayCycles > 0) DisplayCycles -= nCycles; // Countdown time till end of display of info.
 	if (MachineType == Model::Master128 || !NativeFDC) Poll1770(1); // Do 1770 Background stuff
 
 	if (EconetEnabled && EconetPoll()) {
@@ -290,5 +293,5 @@ void Load6502UEF(FILE *SUEF) {
 /*-------------------------------------------------------------------------*/
 /* Dump state                                                              */
 void core_dumpstate(void) {
-  cerr << "core:\n";
+	cerr << "core:\n";
 }
