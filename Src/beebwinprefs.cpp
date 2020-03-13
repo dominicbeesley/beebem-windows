@@ -242,6 +242,8 @@ void BeebWin::LoadPreferences()
 		Music5000Enabled = false;
 	if (!m_Preferences.GetBoolValue("Hog1MPaulaEnabled", Hog1MPaulaEnabled))
 		Hog1MPaulaEnabled = false;
+	if (!m_Preferences.GetBoolValue("BlitterEnabled", blitter_enable))
+		blitter_enable = false;
 	if (!m_Preferences.GetBoolValue("SIDEnabled", SIDEnabled))
 		SIDEnabled = false;
 	DWORD tmp;
@@ -610,6 +612,7 @@ void BeebWin::SavePreferences(bool saveAll)
 		m_Preferences.SetBoolValue("TextToSpeechEnabled", m_TextToSpeechEnabled);
 		m_Preferences.SetBoolValue("Music5000Enabled", Music5000Enabled);
 		m_Preferences.SetBoolValue("Hog1MPaulaEnabled", Hog1MPaulaEnabled);
+		m_Preferences.SetBoolValue("BlitterEnabled", blitter_enable);
 		m_Preferences.SetBoolValue("SIDEnabled", SIDEnabled);
 		m_Preferences.SetDWORDValue("SIDChipMode", (DWORD)SIDChipModel);
 		m_Preferences.SetDWORDValue("SIDSampleType", (DWORD)SIDSampleType);
