@@ -166,7 +166,6 @@
     <ClInclude Include="m65ce02.top.hxx" />
     <ClInclude Include="m65sc02.h" />
     <ClInclude Include="m65x_device.h" />
-    <ClInclude Include="mametypes.h" />
     <ClInclude Include="r65c02.h" />
     <ClInclude Include="r65c02.hxx" />
     <ClInclude Include="r65c02.top.hxx" />

@@ -6,6 +6,9 @@
 
 	BASE MOS Technology 65xx
 
+	This is also a base class for other things that sit in the 6502 cpu 
+	socket i.e. the blitter board
+
 ***************************************************************************/
 
 #ifndef MAME_CPU_M65X_DEVICE_H
@@ -13,6 +16,22 @@
 
 #include <stdint.h>
 #include "devcpu.h"
+
+// I/O line definitions
+enum
+{
+	// input lines
+	INPUT_LINE_IRQ0,
+	INPUT_LINE_NMI,
+	INPUT_LINE_V,
+
+	// special input lines that are implemented in the core
+	INPUT_LINE_RESET,
+	INPUT_LINE_HALT,
+	MAX_INPUT_LINES
+};
+
+
 
 class m65x_device;
 

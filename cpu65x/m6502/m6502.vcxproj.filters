@@ -60,9 +60,6 @@
     <ClInclude Include="m6502.top.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mametypes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="r65c02.top.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>

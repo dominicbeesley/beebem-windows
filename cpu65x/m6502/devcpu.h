@@ -12,11 +12,19 @@
 
 #pragma once
 
-#include "mametypes.h"
 
 //**************************************************************************
 //  TYPE DEFINITIONS
 //**************************************************************************
+
+
+// I/O line states
+enum line_state
+{
+	CLEAR_LINE = 0,             // clear (a fired or held) line
+	ASSERT_LINE                 // assert an interrupt immediately
+};
+
 
 // ======================> cpu_device
 
