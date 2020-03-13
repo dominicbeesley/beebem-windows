@@ -3,7 +3,8 @@
 
 #pragma once
 
-#include "emu.h"
+#include <stdint.h>
+
 
 typedef enum fb_cyc_speed {
 	MHZ_1	= 0x00,

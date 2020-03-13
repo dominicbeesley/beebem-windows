@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "fbsla_mem_flash.h"
+#include <string.h>
 
 void fbsla_mem_flash::init(fb_abs_master & mas)
 {

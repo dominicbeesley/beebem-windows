@@ -11,9 +11,8 @@
 #ifndef MAME_CPU_M65X_DEVICE_H
 #define MAME_CPU_M65X_DEVICE_H
 
-//DB:
-#include "emu.h"
-#include <iostream>
+#include <stdint.h>
+#include "devcpu.h"
 
 class m65x_device;
 

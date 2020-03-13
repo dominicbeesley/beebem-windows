@@ -1,10 +1,5 @@
 
 
-typedef uint32_t u32;
-typedef uint16_t u16;
-
-typedef uint32_t offs_t;
-
 
 // I/O line states
 enum line_state

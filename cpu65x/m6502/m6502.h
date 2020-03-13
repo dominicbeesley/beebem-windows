@@ -12,7 +12,6 @@
 #define MAME_CPU_M6502_M6502_H
 
 
-#include "emu.h"
 #include "m65x_device.h"
 #include <iostream>
 

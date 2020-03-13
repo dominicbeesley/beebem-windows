@@ -12,7 +12,6 @@
 
 #pragma once
 
-#include "emu.h"
 #include "devcpu.h"
 #include "m65x_device.h"
 #include "m65c02.h"

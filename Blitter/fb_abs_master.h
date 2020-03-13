@@ -16,7 +16,6 @@ The external bus should only
 
 #pragma once
 
-#include "emu.h"
 #include "fb_fishbone.h"
 #include "fb_abs_tickable.h"
 

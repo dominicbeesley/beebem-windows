@@ -2,7 +2,6 @@
 #define _FB_JIMCTRL_H_
 
 #pragma once
-#include "emu.h"
 #include "fb_abs_slave.h"
 
 class blitter_top;

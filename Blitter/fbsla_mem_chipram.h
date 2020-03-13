@@ -1,7 +1,6 @@
 #ifndef _FB_MEM_CHIPRAM_H_
 #define _FB_MEM_CHIPRAM_H_
 
-#include "emu.h"
 #include "fb_abs_slave.h"
 #include "fb_abs_master.h"
 

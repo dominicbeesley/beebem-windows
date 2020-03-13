@@ -1,7 +1,6 @@
 #ifndef _FB_MEM_FLASH_H_
 #define _FB_MEM_FLASH_H_
 
-#include "emu.h"
 #include "fb_abs_slave.h"
 #include "fb_abs_master.h"
 
